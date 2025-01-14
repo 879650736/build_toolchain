@@ -1,0 +1,3 @@
+make[1]: Entering directory '/root/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1'
+make[1]: *** No rule to make target 'all-gcc'.  Stop.
+make[1]: Leaving directory '/root/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1'
