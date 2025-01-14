@@ -8,32 +8,17 @@ GCC_VERSION ?= 13.2.0
 BINUTILS_VERSION ?= 2.37
 LINUX_VERSION ?= 6.1.10
 GLIBC_VERSION ?= 2.39
-GMP_VERSION ?= 6.3.0
-MPFR_VERSION ?= 4.1.0
-MPC_VERSION ?= 1.2.1
 BINUTILS_DIR := $(SOURCE_DIR)/binutils-$(BINUTILS_VERSION)
 GCC_DIR := $(SOURCE_DIR)/gcc-$(GCC_VERSION)
 GLIBC_DIR := $(SOURCE_DIR)/glibc-$(GLIBC_VERSION)
 LINUX_DIR := $(SOURCE_DIR)/linux-$(LINUX_VERSION)
-GMP_DIR := $(SOURCE_DIR)/gmp-$(GMP_VERSION)
-MPFR_DIR := $(SOURCE_DIR)/mpfr-$(MPFR_VERSION)
-MPC_DIR := $(SOURCE_DIR)/mpc-$(MPC_VERSION)
 BINUTILS_BUILD_DIR := $(BINUTILS_DIR)/binutils_build
 GCC_BUILD_DIR := $(GCC_DIR)/gcc_build-pass1
 GLIBC_BUILD_DIR := $(GLIBC_DIR)/glibc_build
-GMP_BUILD_DIR := $(GMP_DIR)/gmp_build
-MPFR_BUILD_DIR := $(MPFR_DIR)/mpfr_build
-MPC_BUILD_DIR := $(MPC_DIR)/mpc_build
-GMP_INSTALL_DIR := $(TOOLS_DIR)/gmp-$(GMP_VERSION)
-MPFR_INSTALL_DIR := $(TOOLS_DIR)/mpfr-$(MPFR_VERSION)
-MPC_INSTALL_DIR := $(TOOLS_DIR)/mpc-$(MPC_VERSION)
 GCC_URL := https://ftp.gnu.org/gnu/gcc/gcc-$(GCC_VERSION)/gcc-$(GCC_VERSION).tar.gz
 BINUTILS_URL := https://ftp.gnu.org/gnu/binutils/binutils-$(BINUTILS_VERSION).tar.gz
 LINUX_URL := https://ftp.sjtu.edu.cn/sites/ftp.kernel.org/pub/linux/kernel/v6.x/linux-$(LINUX_VERSION).tar.xz
 GLIBC_URL := https://ftp.gnu.org/pub/gnu/glibc/glibc-$(GLIBC_VERSION).tar.gz
-GMP_URL := https://gmplib.org/download/gmp/gmp-$(GMP_VERSION).tar.xz
-MPFR_URL := http://www.mpfr.org/mpfr-$(MPFR_VERSION)/mpfr-$(MPFR_VERSION).tar.xz
-MPC_URL := https://ftp.gnu.org/gnu/mpc/mpc-$(MPC_VERSION).tar.gz
 USER_DIR := /usr
 LOG_DIR := /home/logs
 JOBS ?= 4
@@ -41,10 +26,9 @@ export PATH
 export PATH := $(TOOLS_DIR)/bin:$(PATH)
 
 # 定义目标
-all: init_env code init linux binutils gmp install-prerequisites pass1-gcc glibc libgcc all-glibc libstdc++ install_env
+all: init_env code init linux binutils pass1-gcc glibc libgcc all-glibc libstdc++ install_env
 
-test: init_env copy init linux binutils gmp install-prerequisites
-
+test: init_env copy init linux binutils pass1-gcc
 init_env:
 	mkdir -p $(LOG_DIR)
 	echo "检查 ${TOOLCHAIN_HOME} 是否存在..."
@@ -69,15 +53,6 @@ code:
 	@if [ ! -f $(SOURCE_DIR)/glibc-$(GLIBC_VERSION).tar.gz ]; then \
 		wget $(GLIBC_URL) -P $(SOURCE_DIR) || { echo "下载 glibc 失败！"; exit 1; }; \
 	fi
-	@if [ ! -f $(SOURCE_DIR)/gmp-$(GMP_VERSION).tar.xz ]; then \
-		wget $(GMP_URL) -P $(SOURCE_DIR)|| { echo "下载 gmp 失败！"; exit 1; }; \
-	fi
-	@if [ ! -f $(SOURCE_DIR)/mpfr-$(MPFR_VERSION).tar.xz ]; then \
-		wget $(MPFR_URL)  -P $(SOURCE_DIR) || { echo "下载 mpfr 失败！"; exit 1; }; \
-	fi
-	@if [ ! -f $(SOURCE_DIR)/mpc-$(MPC_VERSION).tar.gz ]; then \
-		wget $(MPC_URL) -P $(SOURCE_DIR) || { echo "下载 mpc 失败！"; exit 1; }; \
-	fi
 	@echo "源码下载完成，接下来请执行: make init"
 
 
@@ -98,18 +73,6 @@ init:
 	@if [ ! -d $(LINUX_DIR) ]; then \
 		echo "解压 linux..."; \
 		tar -xvJf $(SOURCE_DIR)/linux-$(LINUX_VERSION).tar.xz -C $(SOURCE_DIR) || { echo "解压 linux 失败！"; exit 1; }; \
-	fi
-	@if [ ! -d $(GMP_DIR) ]; then \
-		echo "解压 gmp..."; \
-		tar -xvJf $(SOURCE_DIR)/gmp-$(GMP_VERSION).tar.xz -C $(SOURCE_DIR) || { echo "解压 gmp 失败！"; exit 1; }; \
-	fi
-	@if [ ! -d $(MPFR_DIR) ]; then \
-		echo "解压 mpfr..."; \
-		tar -xvJf $(SOURCE_DIR)/mpfr-$(MPFR_VERSION).tar.xz -C $(SOURCE_DIR) || { echo "解压 mpfr 失败！"; exit 1; }; \
-	fi
-	@if [ ! -d $(MPC_DIR) ]; then \
-		echo "解压 mpc..."; \
-		tar -zxvf $(SOURCE_DIR)/mpc-$(MPC_VERSION).tar.gz -C $(SOURCE_DIR) || { echo "解压 mpc 失败！"; exit 1; }; \
 	fi
 	mkdir -p $(TOOLS_DIR); 
 	@echo "解压操作完成，并且完成文件夹的初始化，接下来请执行: make linux"
@@ -134,58 +97,27 @@ binutils: init
 	../configure --target=$(TARGET) --prefix=$(TOOLS_DIR) \
 		--disable-multilib \
 		--disable-werror \
-		--with-arch=armv7l \
+		--with-arch=armv7-a \
 		--with-float=soft \
-		--with-pkgversion="aarch64-linux with glibc and binutils-2.37" \
 		-v 2>&1 | tee $(LOG_DIR)/binutils-configure.log || { echo "配置 binutils 失败！"; exit 1; }; \
 	make -j$(JOBS) 2>&1 | tee $(LOG_DIR)/binutils-make.log || { echo "构建 binutils 失败！"; exit 1; }; \
 	make install 2>&1 | tee $(LOG_DIR)/binutils-make-install.log || { echo "安装 binutils 失败！"; exit 1; }; \
 	echo "binutils 安装完成，接下来请执行: make pass1-gcc"
 
-gmp: init
-	@echo "安装 GMP.."
-
-	mkdir -p $(GMP_BUILD_DIR) && cd $(GMP_BUILD_DIR); \
-	../configure --prefix=$(GMP_INSTALL_DIR) --disable-shared || { echo "配置 GMP 失败！"; exit 1; }; \
-	make -j$(JOBS) || { echo "构建 GMP 失败！"; exit 1; }; \
-	make install || { echo "安装 GMP 失败！"; exit 1; }; 
-
-install-prerequisites: init
-	@echo "安装 GMPFR 和 MPC..."
-
-	mkdir -p $(MPFR_BUILD_DIR) && cd $(MPFR_BUILD_DIR); \
-	../configure --prefix=$(MPFR_INSTALL_DIR) --with-gmp=$(GMP_INSTALL_DIR) --disable-shared || { echo "配置 MPFR 失败！"; exit 1; }; \
-	make -j$(JOBS) || { echo "构建 MPFR 失败！"; exit 1; }; \
-	make install || { echo "安装 MPFR 失败！"; exit 1; }; \
-
-	mkdir -p $(MPC_BUILD_DIR) && cd $(MPC_BUILD_DIR); \
-	../configure --prefix=$(MPC_INSTALL_DIR) --with-gmp=$(GMP_INSTALL_DIR) --with-mpfr=$(MPFR_INSTALL_DIR) --disable-shared || { echo "配置 MPC 失败！"; exit 1; };\
-	make -j$(JOBS) || { echo "构建 MPC 失败！"; exit 1; }; \
-	make install || { echo "安装 MPC 失败！"; exit 1; }; \
-	echo "安装 GMP 、MPFR 、MPC完成,接下来请执行: make pass1-gcc"
 
 pass1-gcc: init
 	echo "配置和安装 pass1-gcc..."
-	@cd $(GCC_DIR); \
 	if [ -d $(GCC_BUILD_DIR) ]; then \
 		rm -rf $(GCC_BUILD_DIR); \
-	fi; \
+	fi; 
+	cd $(GCC_DIR); \
+	./contrib/download_prerequisites 
 	mkdir -p $(GCC_BUILD_DIR) && cd $(GCC_BUILD_DIR); \
-	./contrib/download_prerequisites \
 	../configure --target=$(TARGET) --prefix=$(TOOLS_DIR) \
 				--disable-multilib \
 				--enable-languages=c,c++,go \
-				--disable-libsanitizer \
-				--disable-lto --disable-libmudflap \
-				--with-arch=armv7 \
+				--with-arch=armv7-a \
 				--with-float=soft \
-				--disable-libquadmath --disable-libssp --disable-nls \
-				--with-as=$(BINUTILS_BUILD_DIR)gas/as-new \
-				--with-ld=$(BINUTILS_BUILD_DIR)ld/ld-new \
-				--with-pkgversion="Self across toolchain with glibc and gcc-13.2.0" \
-				--with-gmp=$(GMP_INSTALL_DIR) \
-				--with-mpfr=$(MPFR_INSTALL_DIR) \
-				--with-mpc=$(MPC_INSTALL_DIR) \
 				--enable-threads=posix 2>&1 | tee $(LOG_DIR)/pass1-configure.log || { echo "配置 pass1-gcc 失败！"; exit 1; }; \
 	make -j$(JOBS) all-gcc 2>&1 | tee $(LOG_DIR)/pass1-make-all-gcc.log || { echo "构建 pass1-gcc 失败！"; exit 1; }; \
 	make install-gcc 2>&1 | tee $(LOG_DIR)/pass1-make-install-gcc.log || { echo "安装 pass1-gcc 失败！"; exit 1; }; \
@@ -193,7 +125,7 @@ pass1-gcc: init
 
 glibc: init
 	echo "配置和安装 glibc 头文件和启动文件..."
-	@cd $(GLIBC_DIR); \
+	cd $(GLIBC_DIR); \
 	if [ -d $(GLIBC_BUILD_DIR) ]; then \
 		rm -rf $(GLIBC_BUILD_DIR); \
 	fi; \
@@ -202,16 +134,14 @@ glibc: init
 		--target=$(TARGET) \
 		--prefix=$(TOOLS_DIR)/$(TARGET) \
 		--with-headers=$(TOOLS_DIR)/$(TARGET)/include \
-		--with-arch=armv7l 
-		--with-fpu=vfp
+		--with-arch=armv7-a \
+		--with-fpu=vfpv3-d16 \
 		--with-float=hard \
 		--disable-multilib \
 		--disable-profile \
 		--enable-threads=posix \
 		--disable-werror \
 		libc_cv_forced_unwind=yes \
-		libc_cv_c_cleanup=yes \
-		libc_cv_ctors_header=yes \
 		--with-pkgversion="Self across toolchain with glibc and glibc-2.39" \
 		-v 2>&1 | tee $(LOG_DIR)/glibc-configure.log || { \
 			echo "配置 glibc 失败！" >&2; \
@@ -227,13 +157,14 @@ glibc: init
 	echo "编译 glibc 启动文件失败！" >&2; \
 		cat $(LOG_DIR)/glibc-make-csu.log >&2; \
 	exit 1; \
-	}; \
-	install csu/crt1.o csu/crti.o csu/crtn.o $(TOOLS_DIR)/$(TARGET)/lib || { \
+	}; 
+	cd $(GLIBC_BUILD_DIR); \
+	install csu/crt1.o csu/crti.o csu/crtn.o $(TOOLS_DIR)/$(TARGET)/lib  | tee $(LOG_DIR)/glibc-make-csu/crt1.log || { \
 	echo "安装 glibc csu/crt1.o失败!" >&2; \
 		cat $(LOG_DIR)/glibc-make-csu/crt1.log >&2; \
 	exit 1; \
 	}; \
-	${TARGET}-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o $(TOOLS_DIR)/$(TARGET)/lib/libc.so || { \
+	${TARGET}-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o $(TOOLS_DIR)/$(TARGET)/lib/libc.so | tee $(LOG_DIR)/glibc-placeholder.log  || { \
 	echo "创建 glibc 占位符失败!" >&2; \
 		cat $(LOG_DIR)/glibc-placeholder.log >&2; \
 	exit 1; \

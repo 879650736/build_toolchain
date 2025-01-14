@@ -16,22 +16,39 @@ if test -r ../../../bfd/../mkinstalldirs; then \
 else \
   ../../../bfd/mkinstalldirs /root/arm-gcc-build/tools/share; \
 fi
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/da/LC_MESSAGES
 installing ../../../bfd/po/da.gmo as /root/arm-gcc-build/tools/share/locale/da/LC_MESSAGES/bfd.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/es/LC_MESSAGES
 installing ../../../bfd/po/es.gmo as /root/arm-gcc-build/tools/share/locale/es/LC_MESSAGES/bfd.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/fi/LC_MESSAGES
 installing ../../../bfd/po/fi.gmo as /root/arm-gcc-build/tools/share/locale/fi/LC_MESSAGES/bfd.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/fr/LC_MESSAGES
 installing ../../../bfd/po/fr.gmo as /root/arm-gcc-build/tools/share/locale/fr/LC_MESSAGES/bfd.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/hr/LC_MESSAGES
 installing ../../../bfd/po/hr.gmo as /root/arm-gcc-build/tools/share/locale/hr/LC_MESSAGES/bfd.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/id/LC_MESSAGES
 installing ../../../bfd/po/id.gmo as /root/arm-gcc-build/tools/share/locale/id/LC_MESSAGES/bfd.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/ja/LC_MESSAGES
 installing ../../../bfd/po/ja.gmo as /root/arm-gcc-build/tools/share/locale/ja/LC_MESSAGES/bfd.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/pt/LC_MESSAGES
 installing ../../../bfd/po/pt.gmo as /root/arm-gcc-build/tools/share/locale/pt/LC_MESSAGES/bfd.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/ro/LC_MESSAGES
 installing ../../../bfd/po/ro.gmo as /root/arm-gcc-build/tools/share/locale/ro/LC_MESSAGES/bfd.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/ru/LC_MESSAGES
 installing ../../../bfd/po/ru.gmo as /root/arm-gcc-build/tools/share/locale/ru/LC_MESSAGES/bfd.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/rw/LC_MESSAGES
 installing ../../../bfd/po/rw.gmo as /root/arm-gcc-build/tools/share/locale/rw/LC_MESSAGES/bfd.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/sr/LC_MESSAGES
 installing ../../../bfd/po/sr.gmo as /root/arm-gcc-build/tools/share/locale/sr/LC_MESSAGES/bfd.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/sv/LC_MESSAGES
 installing ../../../bfd/po/sv.gmo as /root/arm-gcc-build/tools/share/locale/sv/LC_MESSAGES/bfd.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/tr/LC_MESSAGES
 installing ../../../bfd/po/tr.gmo as /root/arm-gcc-build/tools/share/locale/tr/LC_MESSAGES/bfd.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/uk/LC_MESSAGES
 installing ../../../bfd/po/uk.gmo as /root/arm-gcc-build/tools/share/locale/uk/LC_MESSAGES/bfd.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/vi/LC_MESSAGES
 installing ../../../bfd/po/vi.gmo as /root/arm-gcc-build/tools/share/locale/vi/LC_MESSAGES/bfd.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/zh_CN/LC_MESSAGES
 installing ../../../bfd/po/zh_CN.gmo as /root/arm-gcc-build/tools/share/locale/zh_CN/LC_MESSAGES/bfd.mo
 installing ../../../bfd/po/da.gmo as /root/arm-gcc-build/tools/share/locale/da/LC_MESSAGES/bfd.mo
 installing ../../../bfd/po/es.gmo as /root/arm-gcc-build/tools/share/locale/es/LC_MESSAGES/bfd.mo
@@ -84,14 +101,19 @@ else \
   ../../../opcodes/mkinstalldirs /root/arm-gcc-build/tools/share; \
 fi
 installing ../../../opcodes/po/da.gmo as /root/arm-gcc-build/tools/share/locale/da/LC_MESSAGES/opcodes.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/de/LC_MESSAGES
 installing ../../../opcodes/po/de.gmo as /root/arm-gcc-build/tools/share/locale/de/LC_MESSAGES/opcodes.mo
 installing ../../../opcodes/po/es.gmo as /root/arm-gcc-build/tools/share/locale/es/LC_MESSAGES/opcodes.mo
 installing ../../../opcodes/po/fi.gmo as /root/arm-gcc-build/tools/share/locale/fi/LC_MESSAGES/opcodes.mo
 installing ../../../opcodes/po/fr.gmo as /root/arm-gcc-build/tools/share/locale/fr/LC_MESSAGES/opcodes.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/ga/LC_MESSAGES
 installing ../../../opcodes/po/ga.gmo as /root/arm-gcc-build/tools/share/locale/ga/LC_MESSAGES/opcodes.mo
 installing ../../../opcodes/po/id.gmo as /root/arm-gcc-build/tools/share/locale/id/LC_MESSAGES/opcodes.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/it/LC_MESSAGES
 installing ../../../opcodes/po/it.gmo as /root/arm-gcc-build/tools/share/locale/it/LC_MESSAGES/opcodes.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/nl/LC_MESSAGES
 installing ../../../opcodes/po/nl.gmo as /root/arm-gcc-build/tools/share/locale/nl/LC_MESSAGES/opcodes.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/pt_BR/LC_MESSAGES
 installing ../../../opcodes/po/pt_BR.gmo as /root/arm-gcc-build/tools/share/locale/pt_BR/LC_MESSAGES/opcodes.mo
 installing ../../../opcodes/po/ro.gmo as /root/arm-gcc-build/tools/share/locale/ro/LC_MESSAGES/opcodes.mo
 installing ../../../opcodes/po/sr.gmo as /root/arm-gcc-build/tools/share/locale/sr/LC_MESSAGES/opcodes.mo
@@ -164,7 +186,9 @@ if test -r ../../../binutils/../mkinstalldirs; then \
 else \
   ../../../binutils/mkinstalldirs /root/arm-gcc-build/tools/share; \
 fi
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/bg/LC_MESSAGES
 installing ../../../binutils/po/bg.gmo as /root/arm-gcc-build/tools/share/locale/bg/LC_MESSAGES/binutils.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/ca/LC_MESSAGES
 installing ../../../binutils/po/ca.gmo as /root/arm-gcc-build/tools/share/locale/ca/LC_MESSAGES/binutils.mo
 installing ../../../binutils/po/da.gmo as /root/arm-gcc-build/tools/share/locale/da/LC_MESSAGES/binutils.mo
 installing ../../../binutils/po/es.gmo as /root/arm-gcc-build/tools/share/locale/es/LC_MESSAGES/binutils.mo
@@ -178,6 +202,7 @@ installing ../../../binutils/po/pt.gmo as /root/arm-gcc-build/tools/share/locale
 installing ../../../binutils/po/ro.gmo as /root/arm-gcc-build/tools/share/locale/ro/LC_MESSAGES/binutils.mo
 installing ../../../binutils/po/ru.gmo as /root/arm-gcc-build/tools/share/locale/ru/LC_MESSAGES/binutils.mo
 installing ../../../binutils/po/rw.gmo as /root/arm-gcc-build/tools/share/locale/rw/LC_MESSAGES/binutils.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/sk/LC_MESSAGES
 installing ../../../binutils/po/sk.gmo as /root/arm-gcc-build/tools/share/locale/sk/LC_MESSAGES/binutils.mo
 installing ../../../binutils/po/sr.gmo as /root/arm-gcc-build/tools/share/locale/sr/LC_MESSAGES/binutils.mo
 installing ../../../binutils/po/sv.gmo as /root/arm-gcc-build/tools/share/locale/sv/LC_MESSAGES/binutils.mo
@@ -185,6 +210,7 @@ installing ../../../binutils/po/tr.gmo as /root/arm-gcc-build/tools/share/locale
 installing ../../../binutils/po/uk.gmo as /root/arm-gcc-build/tools/share/locale/uk/LC_MESSAGES/binutils.mo
 installing ../../../binutils/po/vi.gmo as /root/arm-gcc-build/tools/share/locale/vi/LC_MESSAGES/binutils.mo
 installing ../../../binutils/po/zh_CN.gmo as /root/arm-gcc-build/tools/share/locale/zh_CN/LC_MESSAGES/binutils.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/zh_TW/LC_MESSAGES
 installing ../../../binutils/po/zh_TW.gmo as /root/arm-gcc-build/tools/share/locale/zh_TW/LC_MESSAGES/binutils.mo
 installing ../../../binutils/po/bg.gmo as /root/arm-gcc-build/tools/share/locale/bg/LC_MESSAGES/binutils.mo
 installing ../../../binutils/po/ca.gmo as /root/arm-gcc-build/tools/share/locale/ca/LC_MESSAGES/binutils.mo
@@ -248,6 +274,7 @@ libtool: install: /usr/bin/install -c strip-new /root/arm-gcc-build/tools/bin/ar
   /bin/bash ./libtool  --mode=install /usr/bin/install -c cxxfilt /root/arm-gcc-build/tools/bin/arm-linux-gnueabihf-c++filt
 libtool: install: /usr/bin/install -c cxxfilt /root/arm-gcc-build/tools/bin/arm-linux-gnueabihf-c++filt
 /bin/bash ../../binutils/../mkinstalldirs /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin
+mkdir -p -- /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin
 for i in nm-new strip-new ar ranlib dlltool objdump objcopy readelf; do \
   if [ -f $i ]; then \
     j=`echo $i | sed -e 's/-new//'`; \
@@ -351,15 +378,18 @@ fi
 installing ../../../gprof/po/bg.gmo as /root/arm-gcc-build/tools/share/locale/bg/LC_MESSAGES/gprof.mo
 installing ../../../gprof/po/da.gmo as /root/arm-gcc-build/tools/share/locale/da/LC_MESSAGES/gprof.mo
 installing ../../../gprof/po/de.gmo as /root/arm-gcc-build/tools/share/locale/de/LC_MESSAGES/gprof.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/eo/LC_MESSAGES
 installing ../../../gprof/po/eo.gmo as /root/arm-gcc-build/tools/share/locale/eo/LC_MESSAGES/gprof.mo
 installing ../../../gprof/po/es.gmo as /root/arm-gcc-build/tools/share/locale/es/LC_MESSAGES/gprof.mo
 installing ../../../gprof/po/fi.gmo as /root/arm-gcc-build/tools/share/locale/fi/LC_MESSAGES/gprof.mo
 installing ../../../gprof/po/fr.gmo as /root/arm-gcc-build/tools/share/locale/fr/LC_MESSAGES/gprof.mo
 installing ../../../gprof/po/ga.gmo as /root/arm-gcc-build/tools/share/locale/ga/LC_MESSAGES/gprof.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/hu/LC_MESSAGES
 installing ../../../gprof/po/hu.gmo as /root/arm-gcc-build/tools/share/locale/hu/LC_MESSAGES/gprof.mo
 installing ../../../gprof/po/id.gmo as /root/arm-gcc-build/tools/share/locale/id/LC_MESSAGES/gprof.mo
 installing ../../../gprof/po/it.gmo as /root/arm-gcc-build/tools/share/locale/it/LC_MESSAGES/gprof.mo
 installing ../../../gprof/po/ja.gmo as /root/arm-gcc-build/tools/share/locale/ja/LC_MESSAGES/gprof.mo
+mkdir -p -- /root/arm-gcc-build/tools/share/locale/ms/LC_MESSAGES
 installing ../../../gprof/po/ms.gmo as /root/arm-gcc-build/tools/share/locale/ms/LC_MESSAGES/gprof.mo
 installing ../../../gprof/po/nl.gmo as /root/arm-gcc-build/tools/share/locale/nl/LC_MESSAGES/gprof.mo
 installing ../../../gprof/po/pt_BR.gmo as /root/arm-gcc-build/tools/share/locale/pt_BR/LC_MESSAGES/gprof.mo
@@ -515,6 +545,7 @@ libtool: install: /usr/bin/install -c .libs/libdep.so /root/arm-gcc-build/tools/
 libtool: install: /usr/bin/install -c .libs/libdep.lai /root/arm-gcc-build/tools/lib/bfd-plugins/libdep.la
 libtool: install: warning: remember to run `libtool --finish /nowhere'
 /bin/bash ../../ld/../mkinstalldirs /root/arm-gcc-build/tools/arm-linux-gnueabihf/lib/ldscripts
+mkdir -p -- /root/arm-gcc-build/tools/arm-linux-gnueabihf/lib/ldscripts
 for f in ldscripts/* ; do \
   /usr/bin/install -c -m 644 $f /root/arm-gcc-build/tools/arm-linux-gnueabihf/lib/$f ; \
 done

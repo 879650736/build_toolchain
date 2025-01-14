@@ -63,17 +63,17 @@ checking for arm-linux-gnueabihf-gxx... no
 checking for arm-linux-gnueabihf-gcc... no
 checking for arm-linux-gnueabihf-gfortran... no
 checking for arm-linux-gnueabihf-gccgo... no
-checking for arm-linux-gnueabihf-ar... arm-linux-gnueabihf-ar
-checking for arm-linux-gnueabihf-as... arm-linux-gnueabihf-as
+checking for arm-linux-gnueabihf-ar... no
+checking for arm-linux-gnueabihf-as... no
 checking for arm-linux-gnueabihf-dlltool... no
-checking for arm-linux-gnueabihf-ld... arm-linux-gnueabihf-ld
+checking for arm-linux-gnueabihf-ld... no
 checking for arm-linux-gnueabihf-lipo... no
-checking for arm-linux-gnueabihf-nm... arm-linux-gnueabihf-nm
-checking for arm-linux-gnueabihf-objcopy... arm-linux-gnueabihf-objcopy
-checking for arm-linux-gnueabihf-objdump... arm-linux-gnueabihf-objdump
-checking for arm-linux-gnueabihf-ranlib... arm-linux-gnueabihf-ranlib
-checking for arm-linux-gnueabihf-readelf... arm-linux-gnueabihf-readelf
-checking for arm-linux-gnueabihf-strip... arm-linux-gnueabihf-strip
+checking for arm-linux-gnueabihf-nm... no
+checking for arm-linux-gnueabihf-objcopy... no
+checking for arm-linux-gnueabihf-objdump... no
+checking for arm-linux-gnueabihf-ranlib... no
+checking for arm-linux-gnueabihf-readelf... no
+checking for arm-linux-gnueabihf-strip... no
 checking for arm-linux-gnueabihf-windres... no
 checking for arm-linux-gnueabihf-windmc... no
 checking where to find the target ar... just compiled
