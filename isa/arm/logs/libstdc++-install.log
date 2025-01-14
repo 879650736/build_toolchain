@@ -1,0 +1,27 @@
+make[1]: Entering directory '/root/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1'
+make[2]: Entering directory '/root/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1'
+/bin/bash ../mkinstalldirs /root/arm-gcc-build/tools /root/arm-gcc-build/tools
+make[3]: Entering directory '/root/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1/fixincludes'
+gcc -g -O2      -o fixincl fixincl.o fixtests.o fixfixes.o server.o procopen.o fixlib.o fixopts.o ../libiberty/libiberty.a
+echo timestamp > full-stamp
+srcdir="../../fixincludes" /bin/bash ../../fixincludes/mkfixinc.sh arm-unknown-linux-gnueabihf
+sed -e 's/@gcc_version@/13.2.0/' < mkheaders.almost > mkheadersT
+mv -f mkheadersT mkheaders
+rm -rf /root/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/install-tools
+/bin/bash ../../fixincludes/../mkinstalldirs /root/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/install-tools
+mkdir -p -- /root/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/install-tools
+/bin/bash ../../fixincludes/../mkinstalldirs /root/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/install-tools/include
+mkdir -p -- /root/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/install-tools/include
+/usr/bin/install -c -m 644 ../../fixincludes/README-fixinc \
+  /root/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/install-tools/include/README
+/usr/bin/install -c fixinc.sh /root/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/install-tools/fixinc.sh
+/usr/bin/install -c fixincl /root/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/install-tools/fixincl
+/usr/bin/install -c mkheaders /root/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/install-tools/mkheaders
+make[3]: Leaving directory '/root/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1/fixincludes'
+make[3]: Entering directory '/root/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1/gcc'
+make[3]: *** No rule to make target 'install'.  Stop.
+make[3]: Leaving directory '/root/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1/gcc'
+make[2]: *** [Makefile:4709: install-gcc] Error 2
+make[2]: Leaving directory '/root/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1'
+make[1]: *** [Makefile:2585: install] Error 2
+make[1]: Leaving directory '/root/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1'

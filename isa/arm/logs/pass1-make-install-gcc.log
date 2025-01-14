@@ -1,3 +1,14 @@
 make[1]: Entering directory '/root/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1'
-make[1]: *** No rule to make target 'install-gcc'.  Stop.
+/bin/bash ../mkinstalldirs /root/arm-gcc-build/tools /root/arm-gcc-build/tools
+make[2]: Entering directory '/root/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1/fixincludes'
+gcc -c -g -O2   -W -Wall -Wwrite-strings -Wstrict-prototypes -Wmissing-prototypes -Wold-style-definition -Wmissing-format-attribute -Wno-overlength-strings -pedantic -Wno-long-long   -DHAVE_CONFIG_H -I. -I../../fixincludes -I../include -I../../fixincludes/../include ../../fixincludes/fixincl.c
+gcc -c -g -O2   -W -Wall -Wwrite-strings -Wstrict-prototypes -Wmissing-prototypes -Wold-style-definition -Wmissing-format-attribute -Wno-overlength-strings -pedantic -Wno-long-long   -DHAVE_CONFIG_H -I. -I../../fixincludes -I../include -I../../fixincludes/../include ../../fixincludes/fixtests.c
+gcc -c -g -O2   -W -Wall -Wwrite-strings -Wstrict-prototypes -Wmissing-prototypes -Wold-style-definition -Wmissing-format-attribute -Wno-overlength-strings -pedantic -Wno-long-long   -DHAVE_CONFIG_H -I. -I../../fixincludes -I../include -I../../fixincludes/../include ../../fixincludes/fixfixes.c
+gcc -c -g -O2   -W -Wall -Wwrite-strings -Wstrict-prototypes -Wmissing-prototypes -Wold-style-definition -Wmissing-format-attribute -Wno-overlength-strings -pedantic -Wno-long-long   -DHAVE_CONFIG_H -I. -I../../fixincludes -I../include -I../../fixincludes/../include ../../fixincludes/server.c
+gcc -c -g -O2   -W -Wall -Wwrite-strings -Wstrict-prototypes -Wmissing-prototypes -Wold-style-definition -Wmissing-format-attribute -Wno-overlength-strings -pedantic -Wno-long-long   -DHAVE_CONFIG_H -I. -I../../fixincludes -I../include -I../../fixincludes/../include ../../fixincludes/procopen.c
+gcc -c -g -O2   -W -Wall -Wwrite-strings -Wstrict-prototypes -Wmissing-prototypes -Wold-style-definition -Wmissing-format-attribute -Wno-overlength-strings -pedantic -Wno-long-long   -DHAVE_CONFIG_H -I. -I../../fixincludes -I../include -I../../fixincludes/../include ../../fixincludes/fixlib.c
+gcc -c -g -O2   -W -Wall -Wwrite-strings -Wstrict-prototypes -Wmissing-prototypes -Wold-style-definition -Wmissing-format-attribute -Wno-overlength-strings -pedantic -Wno-long-long   -DHAVE_CONFIG_H -I. -I../../fixincludes -I../include -I../../fixincludes/../include ../../fixincludes/fixopts.c
+make[2]: *** No rule to make target '../libiberty/libiberty.a', needed by 'full-stamp'.  Stop.
+make[2]: Leaving directory '/root/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1/fixincludes'
+make[1]: *** [Makefile:4026: install-fixincludes] Error 2
 make[1]: Leaving directory '/root/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1'

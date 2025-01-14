@@ -32,13 +32,99 @@ checking whether the D compiler works... no
 checking how to compare bootstrapped objects... cmp --ignore-initial=16 $$f1 $$f2
 checking whether g++ supports C++11 features by default... yes
 checking for objdir... .libs
-checking for the correct version of gmp.h... no
-configure: error: Building GCC requires GMP 4.2+, MPFR 3.1.0+ and MPC 0.8.0+.
-Try the --with-gmp, --with-mpfr and/or --with-mpc options to specify
-their locations.  Source code for these libraries can be found at
-their respective hosting sites as well as at
-https://gcc.gnu.org/pub/gcc/infrastructure/.  See also
-http://gcc.gnu.org/install/prerequisites.html for additional info.  If
-you obtained GMP, MPFR and/or MPC from a vendor distribution package,
-make sure that you have installed both the libraries and the header
-files.  They may be located in separate packages.
+checking for the correct version of gmp.h... yes
+checking for the correct version of mpfr.h... yes
+checking for the correct version of mpc.h... yes
+checking for the correct version of the gmp/mpfr libraries... yes
+checking for the correct version of the mpc libraries... yes
+checking for isl 0.15 or later... no
+required isl version is 0.15 or later
+*** This configuration is not supported in the following subdirectories:
+     target-libquadmath gnattools target-libada target-libphobos target-zlib target-libgfortran target-libgm2 target-libobjc target-libsanitizer target-libssp
+    (Any other directories should still work fine.)
+checking for default BUILD_CONFIG... 
+checking for --enable-vtable-verify... no
+checking for bison... bison -y
+checking for bison... bison
+checking for gm4... no
+checking for gnum4... no
+checking for m4... m4
+checking for flex... flex
+checking for flex... flex
+checking for makeinfo... no
+/root/arm-gcc-build/source/gcc-13.2.0/missing: 81: makeinfo: not found
+checking for expect... no
+checking for runtest... no
+checking for ar... ar
+checking for as... as
+checking for dlltool... no
+checking for dsymutil... no
+checking for ld... ld
+checking for lipo... no
+checking for nm... nm
+checking for ranlib... ranlib
+checking for strip... strip
+checking for windres... no
+checking for windmc... no
+checking for objcopy... objcopy
+checking for objdump... objdump
+checking for otool... no
+checking for readelf... readelf
+checking for arm-linux-gnueabihf-cc... no
+checking for arm-linux-gnueabihf-gcc... no
+checking for arm-linux-gnueabihf-c++... no
+checking for arm-linux-gnueabihf-g++... no
+checking for arm-linux-gnueabihf-cxx... no
+checking for arm-linux-gnueabihf-gxx... no
+checking for arm-linux-gnueabihf-gcc... no
+checking for arm-linux-gnueabihf-gfortran... no
+checking for arm-linux-gnueabihf-gccgo... no
+checking for arm-linux-gnueabihf-gdc... no
+checking for arm-linux-gnueabihf-gm2... no
+checking for ar... /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/ar
+checking for as... /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/as
+checking for dlltool... no
+checking for arm-linux-gnueabihf-dlltool... no
+checking for dsymutil... no
+checking for arm-linux-gnueabihf-dsymutil... no
+checking for ld... /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/ld
+checking for lipo... no
+checking for arm-linux-gnueabihf-lipo... no
+checking for nm... /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/nm
+checking for objcopy... /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/objcopy
+checking for objdump... /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/objdump
+checking for otool... no
+checking for arm-linux-gnueabihf-otool... no
+checking for ranlib... /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/ranlib
+checking for readelf... /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/readelf
+checking for strip... /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/strip
+checking for windres... no
+checking for arm-linux-gnueabihf-windres... no
+checking for windmc... no
+checking for arm-linux-gnueabihf-windmc... no
+checking where to find the target ar... pre-installed in /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin
+checking where to find the target as... pre-installed in /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin
+checking where to find the target cc... just compiled
+checking where to find the target c++... just compiled
+checking where to find the target c++ for libstdc++... just compiled
+checking where to find the target dlltool... pre-installed
+checking where to find the target dsymutil... pre-installed
+checking where to find the target gcc... just compiled
+checking where to find the target gfortran... pre-installed
+checking where to find the target gccgo... just compiled
+checking where to find the target gdc... pre-installed
+checking where to find the target gm2... pre-installed
+checking where to find the target ld... pre-installed in /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin
+checking where to find the target lipo... pre-installed
+checking where to find the target nm... pre-installed in /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin
+checking where to find the target objcopy... pre-installed in /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin
+checking where to find the target objdump... pre-installed in /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin
+checking where to find the target otool... pre-installed
+checking where to find the target ranlib... pre-installed in /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin
+checking where to find the target readelf... pre-installed in /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin
+checking where to find the target strip... pre-installed in /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin
+checking where to find the target windres... pre-installed
+checking where to find the target windmc... pre-installed
+checking whether to enable maintainer-specific portions of Makefiles... no
+configure: creating ./config.status
+config.status: creating Makefile

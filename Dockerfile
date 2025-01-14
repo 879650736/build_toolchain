@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
     python3-dev \
     sudo
 
-# 创建一个用户来执行编译
+
 WORKDIR /home
 
 # 设置默认命令 (可选，可用于调试)

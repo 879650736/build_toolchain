@@ -1,3 +1,555 @@
-make[1]: Entering directory '/root/arm-gcc-build/source/binutils-/binutils_build'
-make[1]: *** No rule to make target 'install'.  Stop.
-make[1]: Leaving directory '/root/arm-gcc-build/source/binutils-/binutils_build'
+make[1]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build'
+make[2]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build'
+/bin/bash ../mkinstalldirs /root/arm-gcc-build/tools /root/arm-gcc-build/tools
+make[3]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/bfd'
+make  install-recursive
+make[4]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/bfd'
+Making install in doc
+make[5]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/bfd/doc'
+ /usr/bin/mkdir -p '/root/arm-gcc-build/tools/share/info'
+ /usr/bin/install -c -m 644 ../../../bfd/doc/bfd.info '/root/arm-gcc-build/tools/share/info'
+make[5]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/bfd/doc'
+Making install in po
+make[5]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/bfd/po'
+if test -r ../../../bfd/../mkinstalldirs; then \
+  ../../../bfd/../mkinstalldirs /root/arm-gcc-build/tools/share; \
+else \
+  ../../../bfd/mkinstalldirs /root/arm-gcc-build/tools/share; \
+fi
+installing ../../../bfd/po/da.gmo as /root/arm-gcc-build/tools/share/locale/da/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/es.gmo as /root/arm-gcc-build/tools/share/locale/es/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/fi.gmo as /root/arm-gcc-build/tools/share/locale/fi/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/fr.gmo as /root/arm-gcc-build/tools/share/locale/fr/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/hr.gmo as /root/arm-gcc-build/tools/share/locale/hr/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/id.gmo as /root/arm-gcc-build/tools/share/locale/id/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/ja.gmo as /root/arm-gcc-build/tools/share/locale/ja/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/pt.gmo as /root/arm-gcc-build/tools/share/locale/pt/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/ro.gmo as /root/arm-gcc-build/tools/share/locale/ro/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/ru.gmo as /root/arm-gcc-build/tools/share/locale/ru/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/rw.gmo as /root/arm-gcc-build/tools/share/locale/rw/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/sr.gmo as /root/arm-gcc-build/tools/share/locale/sr/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/sv.gmo as /root/arm-gcc-build/tools/share/locale/sv/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/tr.gmo as /root/arm-gcc-build/tools/share/locale/tr/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/uk.gmo as /root/arm-gcc-build/tools/share/locale/uk/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/vi.gmo as /root/arm-gcc-build/tools/share/locale/vi/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/zh_CN.gmo as /root/arm-gcc-build/tools/share/locale/zh_CN/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/da.gmo as /root/arm-gcc-build/tools/share/locale/da/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/es.gmo as /root/arm-gcc-build/tools/share/locale/es/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/fi.gmo as /root/arm-gcc-build/tools/share/locale/fi/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/fr.gmo as /root/arm-gcc-build/tools/share/locale/fr/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/hr.gmo as /root/arm-gcc-build/tools/share/locale/hr/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/id.gmo as /root/arm-gcc-build/tools/share/locale/id/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/ja.gmo as /root/arm-gcc-build/tools/share/locale/ja/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/pt.gmo as /root/arm-gcc-build/tools/share/locale/pt/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/ro.gmo as /root/arm-gcc-build/tools/share/locale/ro/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/ru.gmo as /root/arm-gcc-build/tools/share/locale/ru/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/rw.gmo as /root/arm-gcc-build/tools/share/locale/rw/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/sr.gmo as /root/arm-gcc-build/tools/share/locale/sr/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/sv.gmo as /root/arm-gcc-build/tools/share/locale/sv/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/tr.gmo as /root/arm-gcc-build/tools/share/locale/tr/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/uk.gmo as /root/arm-gcc-build/tools/share/locale/uk/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/vi.gmo as /root/arm-gcc-build/tools/share/locale/vi/LC_MESSAGES/bfd.mo
+installing ../../../bfd/po/zh_CN.gmo as /root/arm-gcc-build/tools/share/locale/zh_CN/LC_MESSAGES/bfd.mo
+if test "bfd" = "gettext"; then \
+  if test -r ../../../bfd/../mkinstalldirs; then \
+    ../../../bfd/../mkinstalldirs /root/arm-gcc-build/tools/share/gettext/po; \
+  else \
+    ../../../bfd/mkinstalldirs /root/arm-gcc-build/tools/share/gettext/po; \
+  fi; \
+  /usr/bin/install -c -m 644 ../../../bfd/po/Makefile.in.in \
+		  /root/arm-gcc-build/tools/share/gettext/po/Makefile.in.in; \
+else \
+  : ; \
+fi
+make[5]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/bfd/po'
+make[5]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/bfd'
+make[6]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/bfd'
+make[6]: Nothing to be done for 'install-exec-am'.
+make[6]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/bfd'
+make[5]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/bfd'
+make[4]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/bfd'
+make[3]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/bfd'
+make[3]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/opcodes'
+Making install in .
+make[4]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/opcodes'
+make[5]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/opcodes'
+make[5]: Nothing to be done for 'install-exec-am'.
+make[5]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/opcodes'
+make[4]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/opcodes'
+Making install in po
+make[4]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/opcodes/po'
+if test -r ../../../opcodes/../mkinstalldirs; then \
+  ../../../opcodes/../mkinstalldirs /root/arm-gcc-build/tools/share; \
+else \
+  ../../../opcodes/mkinstalldirs /root/arm-gcc-build/tools/share; \
+fi
+installing ../../../opcodes/po/da.gmo as /root/arm-gcc-build/tools/share/locale/da/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/de.gmo as /root/arm-gcc-build/tools/share/locale/de/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/es.gmo as /root/arm-gcc-build/tools/share/locale/es/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/fi.gmo as /root/arm-gcc-build/tools/share/locale/fi/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/fr.gmo as /root/arm-gcc-build/tools/share/locale/fr/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/ga.gmo as /root/arm-gcc-build/tools/share/locale/ga/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/id.gmo as /root/arm-gcc-build/tools/share/locale/id/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/it.gmo as /root/arm-gcc-build/tools/share/locale/it/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/nl.gmo as /root/arm-gcc-build/tools/share/locale/nl/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/pt_BR.gmo as /root/arm-gcc-build/tools/share/locale/pt_BR/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/ro.gmo as /root/arm-gcc-build/tools/share/locale/ro/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/sr.gmo as /root/arm-gcc-build/tools/share/locale/sr/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/sv.gmo as /root/arm-gcc-build/tools/share/locale/sv/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/tr.gmo as /root/arm-gcc-build/tools/share/locale/tr/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/uk.gmo as /root/arm-gcc-build/tools/share/locale/uk/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/vi.gmo as /root/arm-gcc-build/tools/share/locale/vi/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/zh_CN.gmo as /root/arm-gcc-build/tools/share/locale/zh_CN/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/da.gmo as /root/arm-gcc-build/tools/share/locale/da/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/de.gmo as /root/arm-gcc-build/tools/share/locale/de/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/es.gmo as /root/arm-gcc-build/tools/share/locale/es/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/fi.gmo as /root/arm-gcc-build/tools/share/locale/fi/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/fr.gmo as /root/arm-gcc-build/tools/share/locale/fr/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/ga.gmo as /root/arm-gcc-build/tools/share/locale/ga/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/id.gmo as /root/arm-gcc-build/tools/share/locale/id/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/it.gmo as /root/arm-gcc-build/tools/share/locale/it/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/nl.gmo as /root/arm-gcc-build/tools/share/locale/nl/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/pt_BR.gmo as /root/arm-gcc-build/tools/share/locale/pt_BR/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/ro.gmo as /root/arm-gcc-build/tools/share/locale/ro/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/sr.gmo as /root/arm-gcc-build/tools/share/locale/sr/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/sv.gmo as /root/arm-gcc-build/tools/share/locale/sv/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/tr.gmo as /root/arm-gcc-build/tools/share/locale/tr/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/uk.gmo as /root/arm-gcc-build/tools/share/locale/uk/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/vi.gmo as /root/arm-gcc-build/tools/share/locale/vi/LC_MESSAGES/opcodes.mo
+installing ../../../opcodes/po/zh_CN.gmo as /root/arm-gcc-build/tools/share/locale/zh_CN/LC_MESSAGES/opcodes.mo
+if test "opcodes" = "gettext"; then \
+  if test -r ../../../opcodes/../mkinstalldirs; then \
+    ../../../opcodes/../mkinstalldirs /root/arm-gcc-build/tools/share/gettext/po; \
+  else \
+    ../../../opcodes/mkinstalldirs /root/arm-gcc-build/tools/share/gettext/po; \
+  fi; \
+  /usr/bin/install -c -m 644 ../../../opcodes/po/Makefile.in.in \
+		  /root/arm-gcc-build/tools/share/gettext/po/Makefile.in.in; \
+else \
+  : ; \
+fi
+make[4]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/opcodes/po'
+make[3]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/opcodes'
+make[3]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/binutils'
+make  install-recursive
+make[4]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/binutils'
+Making install in doc
+make[5]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/binutils/doc'
+make[6]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/binutils/doc'
+make[6]: Nothing to be done for 'install-exec-am'.
+ /usr/bin/mkdir -p '/root/arm-gcc-build/tools/share/info'
+ /usr/bin/install -c -m 644 ../../../binutils/doc/binutils.info '/root/arm-gcc-build/tools/share/info'
+ /usr/bin/mkdir -p '/root/arm-gcc-build/tools/share/man/man1'
+ /usr/bin/install -c -m 644 '../../../binutils/doc/addr2line.1' '/root/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-addr2line.1'
+ /usr/bin/install -c -m 644 '../../../binutils/doc/ar.1' '/root/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-ar.1'
+ /usr/bin/install -c -m 644 '../../../binutils/doc/dlltool.1' '/root/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-dlltool.1'
+ /usr/bin/install -c -m 644 '../../../binutils/doc/nm.1' '/root/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-nm.1'
+ /usr/bin/install -c -m 644 '../../../binutils/doc/objcopy.1' '/root/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-objcopy.1'
+ /usr/bin/install -c -m 644 '../../../binutils/doc/objdump.1' '/root/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-objdump.1'
+ /usr/bin/install -c -m 644 '../../../binutils/doc/ranlib.1' '/root/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-ranlib.1'
+ /usr/bin/install -c -m 644 '../../../binutils/doc/readelf.1' '/root/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-readelf.1'
+ /usr/bin/install -c -m 644 '../../../binutils/doc/size.1' '/root/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-size.1'
+ /usr/bin/install -c -m 644 '../../../binutils/doc/strings.1' '/root/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-strings.1'
+ /usr/bin/install -c -m 644 '../../../binutils/doc/strip.1' '/root/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-strip.1'
+ /usr/bin/install -c -m 644 '../../../binutils/doc/elfedit.1' '/root/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-elfedit.1'
+ /usr/bin/install -c -m 644 '../../../binutils/doc/windres.1' '/root/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-windres.1'
+ /usr/bin/install -c -m 644 '../../../binutils/doc/windmc.1' '/root/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-windmc.1'
+ /usr/bin/install -c -m 644 'c++filt.1' '/root/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-c++filt.1'
+make[6]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/binutils/doc'
+make[5]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/binutils/doc'
+Making install in po
+make[5]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/binutils/po'
+if test -r ../../../binutils/../mkinstalldirs; then \
+  ../../../binutils/../mkinstalldirs /root/arm-gcc-build/tools/share; \
+else \
+  ../../../binutils/mkinstalldirs /root/arm-gcc-build/tools/share; \
+fi
+installing ../../../binutils/po/bg.gmo as /root/arm-gcc-build/tools/share/locale/bg/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/ca.gmo as /root/arm-gcc-build/tools/share/locale/ca/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/da.gmo as /root/arm-gcc-build/tools/share/locale/da/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/es.gmo as /root/arm-gcc-build/tools/share/locale/es/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/fi.gmo as /root/arm-gcc-build/tools/share/locale/fi/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/fr.gmo as /root/arm-gcc-build/tools/share/locale/fr/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/hr.gmo as /root/arm-gcc-build/tools/share/locale/hr/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/id.gmo as /root/arm-gcc-build/tools/share/locale/id/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/it.gmo as /root/arm-gcc-build/tools/share/locale/it/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/ja.gmo as /root/arm-gcc-build/tools/share/locale/ja/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/pt.gmo as /root/arm-gcc-build/tools/share/locale/pt/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/ro.gmo as /root/arm-gcc-build/tools/share/locale/ro/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/ru.gmo as /root/arm-gcc-build/tools/share/locale/ru/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/rw.gmo as /root/arm-gcc-build/tools/share/locale/rw/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/sk.gmo as /root/arm-gcc-build/tools/share/locale/sk/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/sr.gmo as /root/arm-gcc-build/tools/share/locale/sr/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/sv.gmo as /root/arm-gcc-build/tools/share/locale/sv/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/tr.gmo as /root/arm-gcc-build/tools/share/locale/tr/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/uk.gmo as /root/arm-gcc-build/tools/share/locale/uk/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/vi.gmo as /root/arm-gcc-build/tools/share/locale/vi/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/zh_CN.gmo as /root/arm-gcc-build/tools/share/locale/zh_CN/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/zh_TW.gmo as /root/arm-gcc-build/tools/share/locale/zh_TW/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/bg.gmo as /root/arm-gcc-build/tools/share/locale/bg/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/ca.gmo as /root/arm-gcc-build/tools/share/locale/ca/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/da.gmo as /root/arm-gcc-build/tools/share/locale/da/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/es.gmo as /root/arm-gcc-build/tools/share/locale/es/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/fi.gmo as /root/arm-gcc-build/tools/share/locale/fi/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/fr.gmo as /root/arm-gcc-build/tools/share/locale/fr/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/hr.gmo as /root/arm-gcc-build/tools/share/locale/hr/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/id.gmo as /root/arm-gcc-build/tools/share/locale/id/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/it.gmo as /root/arm-gcc-build/tools/share/locale/it/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/ja.gmo as /root/arm-gcc-build/tools/share/locale/ja/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/pt.gmo as /root/arm-gcc-build/tools/share/locale/pt/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/ro.gmo as /root/arm-gcc-build/tools/share/locale/ro/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/ru.gmo as /root/arm-gcc-build/tools/share/locale/ru/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/rw.gmo as /root/arm-gcc-build/tools/share/locale/rw/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/sk.gmo as /root/arm-gcc-build/tools/share/locale/sk/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/sr.gmo as /root/arm-gcc-build/tools/share/locale/sr/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/sv.gmo as /root/arm-gcc-build/tools/share/locale/sv/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/tr.gmo as /root/arm-gcc-build/tools/share/locale/tr/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/uk.gmo as /root/arm-gcc-build/tools/share/locale/uk/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/vi.gmo as /root/arm-gcc-build/tools/share/locale/vi/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/zh_CN.gmo as /root/arm-gcc-build/tools/share/locale/zh_CN/LC_MESSAGES/binutils.mo
+installing ../../../binutils/po/zh_TW.gmo as /root/arm-gcc-build/tools/share/locale/zh_TW/LC_MESSAGES/binutils.mo
+if test "binutils" = "gettext"; then \
+  if test -r ../../../binutils/../mkinstalldirs; then \
+    ../../../binutils/../mkinstalldirs /root/arm-gcc-build/tools/share/gettext/po; \
+  else \
+    ../../../binutils/mkinstalldirs /root/arm-gcc-build/tools/share/gettext/po; \
+  fi; \
+  /usr/bin/install -c -m 644 ../../../binutils/po/Makefile.in.in \
+		  /root/arm-gcc-build/tools/share/gettext/po/Makefile.in.in; \
+else \
+  : ; \
+fi
+make[5]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/binutils/po'
+make[5]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/binutils'
+make[6]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/binutils'
+ /usr/bin/mkdir -p '/root/arm-gcc-build/tools/bin'
+  /bin/bash ./libtool   --mode=install /usr/bin/install -c size '/root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-size'
+libtool: install: /usr/bin/install -c size /root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-size
+  /bin/bash ./libtool   --mode=install /usr/bin/install -c objdump '/root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-objdump'
+libtool: install: /usr/bin/install -c objdump /root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-objdump
+  /bin/bash ./libtool   --mode=install /usr/bin/install -c ar '/root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-ar'
+libtool: install: /usr/bin/install -c ar /root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-ar
+  /bin/bash ./libtool   --mode=install /usr/bin/install -c strings '/root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-strings'
+libtool: install: /usr/bin/install -c strings /root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-strings
+  /bin/bash ./libtool   --mode=install /usr/bin/install -c ranlib '/root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-ranlib'
+libtool: install: /usr/bin/install -c ranlib /root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-ranlib
+  /bin/bash ./libtool   --mode=install /usr/bin/install -c objcopy '/root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-objcopy'
+libtool: install: /usr/bin/install -c objcopy /root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-objcopy
+  /bin/bash ./libtool   --mode=install /usr/bin/install -c addr2line '/root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-addr2line'
+libtool: install: /usr/bin/install -c addr2line /root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-addr2line
+  /bin/bash ./libtool   --mode=install /usr/bin/install -c readelf '/root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-readelf'
+libtool: install: /usr/bin/install -c readelf /root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-readelf
+  /bin/bash ./libtool   --mode=install /usr/bin/install -c elfedit '/root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-elfedit'
+libtool: install: /usr/bin/install -c elfedit /root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-elfedit
+  /bin/bash ./libtool  --mode=install /usr/bin/install -c nm-new /root/arm-gcc-build/tools/bin/arm-linux-gnueabihf-nm
+libtool: install: /usr/bin/install -c nm-new /root/arm-gcc-build/tools/bin/arm-linux-gnueabihf-nm
+  /bin/bash ./libtool  --mode=install /usr/bin/install -c strip-new /root/arm-gcc-build/tools/bin/arm-linux-gnueabihf-strip
+libtool: install: /usr/bin/install -c strip-new /root/arm-gcc-build/tools/bin/arm-linux-gnueabihf-strip
+  /bin/bash ./libtool  --mode=install /usr/bin/install -c cxxfilt /root/arm-gcc-build/tools/bin/arm-linux-gnueabihf-c++filt
+libtool: install: /usr/bin/install -c cxxfilt /root/arm-gcc-build/tools/bin/arm-linux-gnueabihf-c++filt
+/bin/bash ../../binutils/../mkinstalldirs /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin
+for i in nm-new strip-new ar ranlib dlltool objdump objcopy readelf; do \
+  if [ -f $i ]; then \
+    j=`echo $i | sed -e 's/-new//'`; \
+    k=`echo $j | sed 's&^&arm-linux-gnueabihf-&'`; \
+    if [ "/root/arm-gcc-build/tools/bin/$k" != "/root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/$j" ]; then \
+      rm -f /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/$j; \
+      ln /root/arm-gcc-build/tools/bin/$k /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/$j >/dev/null 2>/dev/null \
+	||  /bin/bash ./libtool --mode=install /usr/bin/install -c $i /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/$j; \
+    fi; \
+  else true; \
+  fi; \
+done
+make[6]: Nothing to be done for 'install-data-am'.
+make[6]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/binutils'
+make[5]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/binutils'
+make[4]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/binutils'
+make[3]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/binutils'
+make[3]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/etc'
+make[3]: Nothing to be done for 'install'.
+make[3]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/etc'
+make[3]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gas'
+Making install in doc
+make[4]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gas/doc'
+make[5]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gas/doc'
+make[5]: Nothing to be done for 'install-exec-am'.
+ /usr/bin/mkdir -p '/root/arm-gcc-build/tools/share/info'
+ /usr/bin/install -c -m 644 ../../../gas/doc/as.info '/root/arm-gcc-build/tools/share/info'
+ /usr/bin/mkdir -p '/root/arm-gcc-build/tools/share/man/man1'
+ /usr/bin/install -c -m 644 '../../../gas/doc/as.1' '/root/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-as.1'
+make[5]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gas/doc'
+make[4]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gas/doc'
+Making install in po
+make[4]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gas/po'
+if test -r ../../../gas/../mkinstalldirs; then \
+  ../../../gas/../mkinstalldirs /root/arm-gcc-build/tools/share; \
+else \
+  ../../../gas/mkinstalldirs /root/arm-gcc-build/tools/share; \
+fi
+installing ../../../gas/po/es.gmo as /root/arm-gcc-build/tools/share/locale/es/LC_MESSAGES/gas.mo
+installing ../../../gas/po/fi.gmo as /root/arm-gcc-build/tools/share/locale/fi/LC_MESSAGES/gas.mo
+installing ../../../gas/po/fr.gmo as /root/arm-gcc-build/tools/share/locale/fr/LC_MESSAGES/gas.mo
+installing ../../../gas/po/id.gmo as /root/arm-gcc-build/tools/share/locale/id/LC_MESSAGES/gas.mo
+installing ../../../gas/po/ja.gmo as /root/arm-gcc-build/tools/share/locale/ja/LC_MESSAGES/gas.mo
+installing ../../../gas/po/ru.gmo as /root/arm-gcc-build/tools/share/locale/ru/LC_MESSAGES/gas.mo
+installing ../../../gas/po/rw.gmo as /root/arm-gcc-build/tools/share/locale/rw/LC_MESSAGES/gas.mo
+installing ../../../gas/po/sv.gmo as /root/arm-gcc-build/tools/share/locale/sv/LC_MESSAGES/gas.mo
+installing ../../../gas/po/tr.gmo as /root/arm-gcc-build/tools/share/locale/tr/LC_MESSAGES/gas.mo
+installing ../../../gas/po/uk.gmo as /root/arm-gcc-build/tools/share/locale/uk/LC_MESSAGES/gas.mo
+installing ../../../gas/po/zh_CN.gmo as /root/arm-gcc-build/tools/share/locale/zh_CN/LC_MESSAGES/gas.mo
+installing ../../../gas/po/es.gmo as /root/arm-gcc-build/tools/share/locale/es/LC_MESSAGES/gas.mo
+installing ../../../gas/po/fi.gmo as /root/arm-gcc-build/tools/share/locale/fi/LC_MESSAGES/gas.mo
+installing ../../../gas/po/fr.gmo as /root/arm-gcc-build/tools/share/locale/fr/LC_MESSAGES/gas.mo
+installing ../../../gas/po/id.gmo as /root/arm-gcc-build/tools/share/locale/id/LC_MESSAGES/gas.mo
+installing ../../../gas/po/ja.gmo as /root/arm-gcc-build/tools/share/locale/ja/LC_MESSAGES/gas.mo
+installing ../../../gas/po/ru.gmo as /root/arm-gcc-build/tools/share/locale/ru/LC_MESSAGES/gas.mo
+installing ../../../gas/po/rw.gmo as /root/arm-gcc-build/tools/share/locale/rw/LC_MESSAGES/gas.mo
+installing ../../../gas/po/sv.gmo as /root/arm-gcc-build/tools/share/locale/sv/LC_MESSAGES/gas.mo
+installing ../../../gas/po/tr.gmo as /root/arm-gcc-build/tools/share/locale/tr/LC_MESSAGES/gas.mo
+installing ../../../gas/po/uk.gmo as /root/arm-gcc-build/tools/share/locale/uk/LC_MESSAGES/gas.mo
+installing ../../../gas/po/zh_CN.gmo as /root/arm-gcc-build/tools/share/locale/zh_CN/LC_MESSAGES/gas.mo
+if test "gas" = "gettext"; then \
+  if test -r ../../../gas/../mkinstalldirs; then \
+    ../../../gas/../mkinstalldirs /root/arm-gcc-build/tools/share/gettext/po; \
+  else \
+    ../../../gas/mkinstalldirs /root/arm-gcc-build/tools/share/gettext/po; \
+  fi; \
+  /usr/bin/install -c -m 644 ../../../gas/po/Makefile.in.in \
+		  /root/arm-gcc-build/tools/share/gettext/po/Makefile.in.in; \
+else \
+  : ; \
+fi
+make[4]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gas/po'
+make[4]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gas'
+make[5]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gas'
+/bin/bash ../../gas/../mkinstalldirs /root/arm-gcc-build/tools/bin
+  /bin/bash ./libtool  --mode=install /usr/bin/install -c as-new /root/arm-gcc-build/tools/bin/arm-linux-gnueabihf-as
+libtool: install: /usr/bin/install -c as-new /root/arm-gcc-build/tools/bin/arm-linux-gnueabihf-as
+/bin/bash ../../gas/../mkinstalldirs /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin
+n=`echo as | sed 's&^&arm-linux-gnueabihf-&'`; \
+if [ "/root/arm-gcc-build/tools/bin/$n" != "/root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/as" ]; then \
+  rm -f /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/as; \
+  ln /root/arm-gcc-build/tools/bin/$n /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/as >/dev/null 2>/dev/null \
+    ||  /bin/bash ./libtool --mode=install /usr/bin/install -c as-new /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/as; \
+else \
+  true ; \
+fi
+make[5]: Nothing to be done for 'install-data-am'.
+make[5]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gas'
+make[4]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gas'
+make[3]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gas'
+make[3]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gprof'
+make  install-recursive
+make[4]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gprof'
+Making install in po
+make[5]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gprof/po'
+if test -r ../../../gprof/../mkinstalldirs; then \
+  ../../../gprof/../mkinstalldirs /root/arm-gcc-build/tools/share; \
+else \
+  ../../../gprof/mkinstalldirs /root/arm-gcc-build/tools/share; \
+fi
+installing ../../../gprof/po/bg.gmo as /root/arm-gcc-build/tools/share/locale/bg/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/da.gmo as /root/arm-gcc-build/tools/share/locale/da/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/de.gmo as /root/arm-gcc-build/tools/share/locale/de/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/eo.gmo as /root/arm-gcc-build/tools/share/locale/eo/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/es.gmo as /root/arm-gcc-build/tools/share/locale/es/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/fi.gmo as /root/arm-gcc-build/tools/share/locale/fi/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/fr.gmo as /root/arm-gcc-build/tools/share/locale/fr/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/ga.gmo as /root/arm-gcc-build/tools/share/locale/ga/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/hu.gmo as /root/arm-gcc-build/tools/share/locale/hu/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/id.gmo as /root/arm-gcc-build/tools/share/locale/id/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/it.gmo as /root/arm-gcc-build/tools/share/locale/it/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/ja.gmo as /root/arm-gcc-build/tools/share/locale/ja/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/ms.gmo as /root/arm-gcc-build/tools/share/locale/ms/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/nl.gmo as /root/arm-gcc-build/tools/share/locale/nl/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/pt_BR.gmo as /root/arm-gcc-build/tools/share/locale/pt_BR/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/ro.gmo as /root/arm-gcc-build/tools/share/locale/ro/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/ru.gmo as /root/arm-gcc-build/tools/share/locale/ru/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/rw.gmo as /root/arm-gcc-build/tools/share/locale/rw/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/sr.gmo as /root/arm-gcc-build/tools/share/locale/sr/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/sv.gmo as /root/arm-gcc-build/tools/share/locale/sv/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/tr.gmo as /root/arm-gcc-build/tools/share/locale/tr/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/uk.gmo as /root/arm-gcc-build/tools/share/locale/uk/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/vi.gmo as /root/arm-gcc-build/tools/share/locale/vi/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/bg.gmo as /root/arm-gcc-build/tools/share/locale/bg/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/da.gmo as /root/arm-gcc-build/tools/share/locale/da/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/de.gmo as /root/arm-gcc-build/tools/share/locale/de/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/eo.gmo as /root/arm-gcc-build/tools/share/locale/eo/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/es.gmo as /root/arm-gcc-build/tools/share/locale/es/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/fi.gmo as /root/arm-gcc-build/tools/share/locale/fi/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/fr.gmo as /root/arm-gcc-build/tools/share/locale/fr/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/ga.gmo as /root/arm-gcc-build/tools/share/locale/ga/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/hu.gmo as /root/arm-gcc-build/tools/share/locale/hu/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/id.gmo as /root/arm-gcc-build/tools/share/locale/id/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/it.gmo as /root/arm-gcc-build/tools/share/locale/it/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/ja.gmo as /root/arm-gcc-build/tools/share/locale/ja/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/ms.gmo as /root/arm-gcc-build/tools/share/locale/ms/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/nl.gmo as /root/arm-gcc-build/tools/share/locale/nl/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/pt_BR.gmo as /root/arm-gcc-build/tools/share/locale/pt_BR/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/ro.gmo as /root/arm-gcc-build/tools/share/locale/ro/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/ru.gmo as /root/arm-gcc-build/tools/share/locale/ru/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/rw.gmo as /root/arm-gcc-build/tools/share/locale/rw/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/sr.gmo as /root/arm-gcc-build/tools/share/locale/sr/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/sv.gmo as /root/arm-gcc-build/tools/share/locale/sv/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/tr.gmo as /root/arm-gcc-build/tools/share/locale/tr/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/uk.gmo as /root/arm-gcc-build/tools/share/locale/uk/LC_MESSAGES/gprof.mo
+installing ../../../gprof/po/vi.gmo as /root/arm-gcc-build/tools/share/locale/vi/LC_MESSAGES/gprof.mo
+if test "gprof" = "gettext"; then \
+  if test -r ../../../gprof/../mkinstalldirs; then \
+    ../../../gprof/../mkinstalldirs /root/arm-gcc-build/tools/share/gettext/po; \
+  else \
+    ../../../gprof/mkinstalldirs /root/arm-gcc-build/tools/share/gettext/po; \
+  fi; \
+  /usr/bin/install -c -m 644 ../../../gprof/po/Makefile.in.in \
+		  /root/arm-gcc-build/tools/share/gettext/po/Makefile.in.in; \
+else \
+  : ; \
+fi
+make[5]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gprof/po'
+make[5]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gprof'
+make[6]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gprof'
+ /usr/bin/mkdir -p '/root/arm-gcc-build/tools/bin'
+  /bin/bash ./libtool   --mode=install /usr/bin/install -c gprof '/root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-gprof'
+libtool: install: /usr/bin/install -c gprof /root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-gprof
+ /usr/bin/mkdir -p '/root/arm-gcc-build/tools/share/info'
+ /usr/bin/install -c -m 644 ../../gprof/gprof.info '/root/arm-gcc-build/tools/share/info'
+ /usr/bin/mkdir -p '/root/arm-gcc-build/tools/share/man/man1'
+ /usr/bin/install -c -m 644 '../../gprof/gprof.1' '/root/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-gprof.1'
+make[6]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gprof'
+make[5]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gprof'
+make[4]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gprof'
+make[3]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/gprof'
+make[3]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/intl'
+make[3]: Nothing to be done for 'install'.
+make[3]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/intl'
+make[3]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/libctf'
+make[4]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/libctf'
+make[4]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/libctf'
+make[3]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/libctf'
+make[3]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/ld'
+make  install-recursive
+make[4]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/ld'
+Making install in po
+make[5]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/ld/po'
+if test -r ../../../ld/../mkinstalldirs; then \
+  ../../../ld/../mkinstalldirs /root/arm-gcc-build/tools/share; \
+else \
+  ../../../ld/mkinstalldirs /root/arm-gcc-build/tools/share; \
+fi
+installing ../../../ld/po/bg.gmo as /root/arm-gcc-build/tools/share/locale/bg/LC_MESSAGES/ld.mo
+installing ../../../ld/po/da.gmo as /root/arm-gcc-build/tools/share/locale/da/LC_MESSAGES/ld.mo
+installing ../../../ld/po/de.gmo as /root/arm-gcc-build/tools/share/locale/de/LC_MESSAGES/ld.mo
+installing ../../../ld/po/es.gmo as /root/arm-gcc-build/tools/share/locale/es/LC_MESSAGES/ld.mo
+installing ../../../ld/po/fi.gmo as /root/arm-gcc-build/tools/share/locale/fi/LC_MESSAGES/ld.mo
+installing ../../../ld/po/fr.gmo as /root/arm-gcc-build/tools/share/locale/fr/LC_MESSAGES/ld.mo
+installing ../../../ld/po/ga.gmo as /root/arm-gcc-build/tools/share/locale/ga/LC_MESSAGES/ld.mo
+installing ../../../ld/po/id.gmo as /root/arm-gcc-build/tools/share/locale/id/LC_MESSAGES/ld.mo
+installing ../../../ld/po/it.gmo as /root/arm-gcc-build/tools/share/locale/it/LC_MESSAGES/ld.mo
+installing ../../../ld/po/ja.gmo as /root/arm-gcc-build/tools/share/locale/ja/LC_MESSAGES/ld.mo
+installing ../../../ld/po/pt_BR.gmo as /root/arm-gcc-build/tools/share/locale/pt_BR/LC_MESSAGES/ld.mo
+installing ../../../ld/po/ru.gmo as /root/arm-gcc-build/tools/share/locale/ru/LC_MESSAGES/ld.mo
+installing ../../../ld/po/sr.gmo as /root/arm-gcc-build/tools/share/locale/sr/LC_MESSAGES/ld.mo
+installing ../../../ld/po/sv.gmo as /root/arm-gcc-build/tools/share/locale/sv/LC_MESSAGES/ld.mo
+installing ../../../ld/po/tr.gmo as /root/arm-gcc-build/tools/share/locale/tr/LC_MESSAGES/ld.mo
+installing ../../../ld/po/uk.gmo as /root/arm-gcc-build/tools/share/locale/uk/LC_MESSAGES/ld.mo
+installing ../../../ld/po/vi.gmo as /root/arm-gcc-build/tools/share/locale/vi/LC_MESSAGES/ld.mo
+installing ../../../ld/po/zh_CN.gmo as /root/arm-gcc-build/tools/share/locale/zh_CN/LC_MESSAGES/ld.mo
+installing ../../../ld/po/zh_TW.gmo as /root/arm-gcc-build/tools/share/locale/zh_TW/LC_MESSAGES/ld.mo
+installing ../../../ld/po/bg.gmo as /root/arm-gcc-build/tools/share/locale/bg/LC_MESSAGES/ld.mo
+installing ../../../ld/po/da.gmo as /root/arm-gcc-build/tools/share/locale/da/LC_MESSAGES/ld.mo
+installing ../../../ld/po/de.gmo as /root/arm-gcc-build/tools/share/locale/de/LC_MESSAGES/ld.mo
+installing ../../../ld/po/es.gmo as /root/arm-gcc-build/tools/share/locale/es/LC_MESSAGES/ld.mo
+installing ../../../ld/po/fi.gmo as /root/arm-gcc-build/tools/share/locale/fi/LC_MESSAGES/ld.mo
+installing ../../../ld/po/fr.gmo as /root/arm-gcc-build/tools/share/locale/fr/LC_MESSAGES/ld.mo
+installing ../../../ld/po/ga.gmo as /root/arm-gcc-build/tools/share/locale/ga/LC_MESSAGES/ld.mo
+installing ../../../ld/po/id.gmo as /root/arm-gcc-build/tools/share/locale/id/LC_MESSAGES/ld.mo
+installing ../../../ld/po/it.gmo as /root/arm-gcc-build/tools/share/locale/it/LC_MESSAGES/ld.mo
+installing ../../../ld/po/ja.gmo as /root/arm-gcc-build/tools/share/locale/ja/LC_MESSAGES/ld.mo
+installing ../../../ld/po/pt_BR.gmo as /root/arm-gcc-build/tools/share/locale/pt_BR/LC_MESSAGES/ld.mo
+installing ../../../ld/po/ru.gmo as /root/arm-gcc-build/tools/share/locale/ru/LC_MESSAGES/ld.mo
+installing ../../../ld/po/sr.gmo as /root/arm-gcc-build/tools/share/locale/sr/LC_MESSAGES/ld.mo
+installing ../../../ld/po/sv.gmo as /root/arm-gcc-build/tools/share/locale/sv/LC_MESSAGES/ld.mo
+installing ../../../ld/po/tr.gmo as /root/arm-gcc-build/tools/share/locale/tr/LC_MESSAGES/ld.mo
+installing ../../../ld/po/uk.gmo as /root/arm-gcc-build/tools/share/locale/uk/LC_MESSAGES/ld.mo
+installing ../../../ld/po/vi.gmo as /root/arm-gcc-build/tools/share/locale/vi/LC_MESSAGES/ld.mo
+installing ../../../ld/po/zh_CN.gmo as /root/arm-gcc-build/tools/share/locale/zh_CN/LC_MESSAGES/ld.mo
+installing ../../../ld/po/zh_TW.gmo as /root/arm-gcc-build/tools/share/locale/zh_TW/LC_MESSAGES/ld.mo
+if test "ld" = "gettext"; then \
+  if test -r ../../../ld/../mkinstalldirs; then \
+    ../../../ld/../mkinstalldirs /root/arm-gcc-build/tools/share/gettext/po; \
+  else \
+    ../../../ld/mkinstalldirs /root/arm-gcc-build/tools/share/gettext/po; \
+  fi; \
+  /usr/bin/install -c -m 644 ../../../ld/po/Makefile.in.in \
+		  /root/arm-gcc-build/tools/share/gettext/po/Makefile.in.in; \
+else \
+  : ; \
+fi
+make[5]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/ld/po'
+make[5]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/ld'
+make[6]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/ld'
+ /usr/bin/mkdir -p '/root/arm-gcc-build/tools/bin'
+  /bin/bash ./libtool   --mode=install /usr/bin/install -c ld-new '/root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-ld.bfd'
+libtool: install: /usr/bin/install -c ld-new /root/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-ld.bfd
+/bin/bash ../../ld/../mkinstalldirs /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin
+n=`echo ld.bfd | sed 's/^ld-new$/ld.bfd/;s&^&arm-linux-gnueabihf-&'`; \
+if test "/root/arm-gcc-build/tools/bin" != "/root/arm-gcc-build/tools/arm-linux-gnueabihf/bin"; then \
+  rm -f /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/ld.bfd; \
+  ln /root/arm-gcc-build/tools/bin/$n /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/ld.bfd >/dev/null 2>/dev/null \
+  ||  /bin/bash ./libtool --mode=install /usr/bin/install -c ld-new /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/ld.bfd; \
+fi; \
+if test "xyes" = "xyes"; then \
+  ld=`echo ld | sed 's/^ld-new$/ld.bfd/;s&^&arm-linux-gnueabihf-&'`; \
+  rm -f /root/arm-gcc-build/tools/bin/$ld; \
+  ln /root/arm-gcc-build/tools/bin/$n /root/arm-gcc-build/tools/bin/$ld >/dev/null 2>/dev/null \
+  ||  /bin/bash ./libtool --mode=install /usr/bin/install -c ld-new /root/arm-gcc-build/tools/bin/$ld; \
+  if test "/root/arm-gcc-build/tools/bin" != "/root/arm-gcc-build/tools/arm-linux-gnueabihf/bin"; then \
+    rm -f /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/ld; \
+    ln /root/arm-gcc-build/tools/bin/$n /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/ld >/dev/null 2>/dev/null \
+    ||  /bin/bash ./libtool --mode=install /usr/bin/install -c ld-new /root/arm-gcc-build/tools/arm-linux-gnueabihf/bin/ld; \
+  fi; \
+fi
+ /usr/bin/mkdir -p '/root/arm-gcc-build/tools/lib/bfd-plugins'
+ /bin/bash ./libtool   --mode=install /usr/bin/install -c   libdep.la '/root/arm-gcc-build/tools/lib/bfd-plugins'
+libtool: install: /usr/bin/install -c .libs/libdep.so /root/arm-gcc-build/tools/lib/bfd-plugins/libdep.so
+libtool: install: /usr/bin/install -c .libs/libdep.lai /root/arm-gcc-build/tools/lib/bfd-plugins/libdep.la
+libtool: install: warning: remember to run `libtool --finish /nowhere'
+/bin/bash ../../ld/../mkinstalldirs /root/arm-gcc-build/tools/arm-linux-gnueabihf/lib/ldscripts
+for f in ldscripts/* ; do \
+  /usr/bin/install -c -m 644 $f /root/arm-gcc-build/tools/arm-linux-gnueabihf/lib/$f ; \
+done
+rm -f /root/arm-gcc-build/tools/lib/bfd-plugins/libdep.la
+rm -f /root/arm-gcc-build/tools/lib/bfd-plugins/libdep.dll.a
+ /usr/bin/mkdir -p '/root/arm-gcc-build/tools/share/info'
+ /usr/bin/install -c -m 644 ../../ld/ld.info '/root/arm-gcc-build/tools/share/info'
+ /usr/bin/mkdir -p '/root/arm-gcc-build/tools/share/man/man1'
+ /usr/bin/install -c -m 644 '../../ld/ld.1' '/root/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-ld.1'
+make[6]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/ld'
+make[5]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/ld'
+make[4]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/ld'
+make[3]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/ld'
+make[3]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/libiberty'
+make[4]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/libiberty/testsuite'
+make[4]: Nothing to be done for 'all'.
+make[4]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/libiberty/testsuite'
+if test -n ""; then \
+	/bin/bash ../../libiberty/../mkinstalldirs /root/arm-gcc-build/tools/lib/`gcc -g -O2     -print-multi-os-directory`; \
+	/usr/bin/install -c -m 644 ./libiberty.a /root/arm-gcc-build/tools/lib/`gcc -g -O2     -print-multi-os-directory`/./libiberty.an; \
+	( cd /root/arm-gcc-build/tools/lib/`gcc -g -O2     -print-multi-os-directory` ; chmod 644 ./libiberty.an ;ranlib --plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so ./libiberty.an ); \
+	mv -f /root/arm-gcc-build/tools/lib/`gcc -g -O2     -print-multi-os-directory`/./libiberty.an /root/arm-gcc-build/tools/lib/`gcc -g -O2     -print-multi-os-directory`/./libiberty.a; \
+	case "" in \
+	  /*)    thd=;; \
+	  *)     thd=/root/arm-gcc-build/tools/include/;; \
+	esac; \
+	/bin/bash ../../libiberty/../mkinstalldirs ${thd}; \
+	for h in ../../libiberty/../include/ansidecl.h ../../libiberty/../include/demangle.h ../../libiberty/../include/dyn-string.h ../../libiberty/../include/fibheap.h ../../libiberty/../include/floatformat.h ../../libiberty/../include/hashtab.h ../../libiberty/../include/libiberty.h ../../libiberty/../include/objalloc.h ../../libiberty/../include/partition.h ../../libiberty/../include/safe-ctype.h ../../libiberty/../include/sort.h ../../libiberty/../include/splay-tree.h ../../libiberty/../include/timeval-utils.h; do \
+	  /usr/bin/install -c -m 644 $h ${thd}; \
+	done; \
+fi
+make[4]: Entering directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/libiberty/testsuite'
+make[4]: Nothing to be done for 'install'.
+make[4]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/libiberty/testsuite'
+make[3]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build/libiberty'
+make[2]: Nothing to be done for 'install-target'.
+make[2]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build'
+make[1]: Leaving directory '/root/arm-gcc-build/source/binutils-2.37/binutils_build'

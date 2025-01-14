@@ -1,0 +1,5 @@
+make[1]: Entering directory '/root/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1'
+/bin/bash ../mkinstalldirs /root/arm-gcc-build/tools /root/arm-gcc-build/tools
+/bin/bash: line 3: cd: arm-linux-gnueabihf/libgcc: No such file or directory
+make[1]: *** [Makefile:14063: install-target-libgcc] Error 1
+make[1]: Leaving directory '/root/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1'
