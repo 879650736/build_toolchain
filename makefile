@@ -20,15 +20,17 @@ BINUTILS_URL := https://ftp.gnu.org/gnu/binutils/binutils-$(BINUTILS_VERSION).ta
 LINUX_URL := https://ftp.sjtu.edu.cn/sites/ftp.kernel.org/pub/linux/kernel/v6.x/linux-$(LINUX_VERSION).tar.xz
 GLIBC_URL := https://ftp.gnu.org/pub/gnu/glibc/glibc-$(GLIBC_VERSION).tar.gz
 USER_DIR := /usr
-LOG_DIR := /home/logs
+LOG_DIR := /home/ssy/build_toolchain/logs
 JOBS ?= 4
+
+
 export PATH
 export PATH := $(TOOLS_DIR)/bin:$(PATH)
 
 # 定义目标
 all: init_env code init linux binutils pass1-gcc glibc libgcc all-glibc libstdc++ install_env
 
-test: init_env copy init linux binutils pass1-gcc
+test: init_env download copy init linux binutils pass1-gcc glibc libgcc all-glibc libstdc++
 init_env:
 	mkdir -p $(LOG_DIR)
 	echo "检查 ${TOOLCHAIN_HOME} 是否存在..."
@@ -115,6 +117,9 @@ pass1-gcc: init
 	mkdir -p $(GCC_BUILD_DIR) && cd $(GCC_BUILD_DIR); \
 	../configure --target=$(TARGET) --prefix=$(TOOLS_DIR) \
 				--disable-multilib \
+				--disable-libsanitizer \
+				--disable-lto --disable-libmudflap \
+				--disable-libquadmath --disable-libssp --disable-nls \
 				--enable-languages=c,c++,go \
 				--with-arch=armv7-a \
 				--with-float=soft \
@@ -130,6 +135,7 @@ glibc: init
 		rm -rf $(GLIBC_BUILD_DIR); \
 	fi; \
 	mkdir -p $(GLIBC_BUILD_DIR) && cd $(GLIBC_BUILD_DIR); \
+	unset LD_LIBRARY_PATH; \
 	../configure --host=$(TARGET) \
 		--target=$(TARGET) \
 		--prefix=$(TOOLS_DIR)/$(TARGET) \
@@ -148,6 +154,7 @@ glibc: init
 			cat $(LOG_DIR)/glibc-configure.log >&2; \
 			exit 1; \
 		}; \
+	cd $(GLIBC_BUILD_DIR); \
 	make install-bootstrap-headers=yes install-headers 2>&1 | tee $(LOG_DIR)/glibc-install-headers.log || { \
 	echo "安装 glibc headers 失败！" >&2; \
 		cat $(LOG_DIR)/glibc-install-headers.log >&2; \
@@ -159,20 +166,9 @@ glibc: init
 	exit 1; \
 	}; 
 	cd $(GLIBC_BUILD_DIR); \
-	install csu/crt1.o csu/crti.o csu/crtn.o $(TOOLS_DIR)/$(TARGET)/lib  | tee $(LOG_DIR)/glibc-make-csu/crt1.log || { \
-	echo "安装 glibc csu/crt1.o失败!" >&2; \
-		cat $(LOG_DIR)/glibc-make-csu/crt1.log >&2; \
-	exit 1; \
-	}; \
-	${TARGET}-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o $(TOOLS_DIR)/$(TARGET)/lib/libc.so | tee $(LOG_DIR)/glibc-placeholder.log  || { \
-	echo "创建 glibc 占位符失败!" >&2; \
-		cat $(LOG_DIR)/glibc-placeholder.log >&2; \
-	exit 1; \
-	}; \
-	touch $(TOOLS_DIR)/$(TARGET)/include/gnu/stubs.h || { \
-	echo "创建 gnu/stubs.h 失败！" >&2; \
-	exit 1; \
-	}; \
+	install csu/crt1.o csu/crti.o csu/crtn.o $(TOOLS_DIR)/$(TARGET)/lib; \
+	${TARGET}-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o $(TOOLS_DIR)/$(TARGET)/lib/libc.so;\
+	touch $(TOOLS_DIR)/$(TARGET)/include/gnu/stubs.h; \
 	echo "安装标准 C 库头文件和启动文件成功，接下来请执行: make libgcc"
 
 libgcc: init
@@ -207,10 +203,16 @@ install_env: init
 testsuite: init
 	echo "Running GCC Testsuite..."
 	@cd $(GCC_BUILD_DIR); \
-	unset LD_LIBRARY_PATH;\
-	make check-gcc RUNTESTFLAGS="--target_board=unix-arm" 2>&1 | tee $(LOG_DIR)/testsuite.log; \
-	echo "GCC Testsuite finished. Check testsuite.log for results."
-
+	unset LD_LIBRARY_PATH; \
+	if [ -d $(LOG_DIR) ]; then \
+		echo "Log directory exists."; \
+	else \
+		mkdir -p $(LOG_DIR); \
+		echo "Created log directory."; \
+	fi; \
+	make check-gcc RUNTESTFLAGS="--target_board=unix-arm " 2>&1 | tee $(LOG_DIR)/testsuite.log; \
+	echo "GCC Testsuite finished. Check $(LOG_DIR)/testsuite.log for results."
+	
 clean:
 	echo "删除无用文件..."
 	@cd $(SOURCE_DIR); \
@@ -224,7 +226,22 @@ delete:
 	rm -rf $(TOOLCHAIN_HOME)
 	echo "删除全部构建完成，接下来请执行: make all"
 
+download:
+	echo "下载源码..."
+	@if [ ! -f ./binutils-$(BINUTILS_VERSION).tar.gz ]; then \
+		wget $(BINUTILS_URL) || { echo "下载 binutils 失败！"; exit 1; }; \
+	fi
+	@if [ ! -f ./gcc-$(GCC_VERSION).tar.gz ]; then \
+		wget $(GCC_URL) || { echo "下载 gcc 失败！"; exit 1; }; \
+	fi
+	@if [ ! -f ./linux-$(LINUX_VERSION).tar.xz ]; then \
+		wget $(LINUX_URL) || { echo "下载 linux 内核源码失败！"; exit 1; }; \
+	fi
+	@if [ ! -f ./glibc-$(GLIBC_VERSION).tar.gz ]; then \
+		wget $(GLIBC_URL) || { echo "下载 glibc 失败！"; exit 1; }; \
+	fi
+
 copy:
 	@mkdir -p $(SOURCE_DIR)
-	cp /home/*.tar.gz $(SOURCE_DIR)
-	cp /home/*.tar.xz $(SOURCE_DIR)
+	cp /home/ssy/build_toolchain/*.tar.gz $(SOURCE_DIR)
+	cp /home/ssy/build_toolchain/*.tar.xz $(SOURCE_DIR)
