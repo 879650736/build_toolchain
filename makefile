@@ -227,14 +227,15 @@ file:
 	file test_code/arm_test_static 2>&1 | tee -a $(LOG_DIR)/file-target.log
 ldd:
 	@echo "display ldd" 2>&1 | tee $(LOG_DIR)/ldd-target.log
-	ldd test_code/arm_test > test_code/first_ldd.log 2>&1 | tee -a $(LOG_DIR)/ldd-target.log
+	ldd test_code/arm_test 2>&1 | tee -a $(LOG_DIR)/ldd-target.log
 #ldd test_code/arm_test_static > static_ldd.log 2>&1 | tee -a $(LOG_DIR)/ldd-target.log
 run_test:
 	@echo "Running compiled binary with qemu-arm..." 2>&1 | tee $(LOG_DIR)/run_test-target.log
 	@echo "begin first test" 2>&1 | tee -a $(LOG_DIR)/run_test-target.log
-	qemu-arm -L $(TOOLS_DIR)/$(TARGET) test_code/arm_test > test_code/first.log 2>&1 | tee -a $(LOG_DIR)/run_test-target.log
+	qemu-arm -L $(TOOLS_DIR)/$(TARGET) test_code/arm_test  2>&1 | tee -a $(LOG_DIR)/run_test-target.log
+	@echo "=========================================" 2>&1 | tee $(LOG_DIR)/run_test-target.log
 	@echo "begin static test" 2>&1 | tee -a $(LOG_DIR)/run_test-target.log
-	qemu-arm -L $(TOOLS_DIR)/$(TARGET) test_code/arm_test_static > test_code/static.log 2>&1 | tee -a $(LOG_DIR)/run_test-target.log
+	qemu-arm -L $(TOOLS_DIR)/$(TARGET) test_code/arm_test_static  2>&1 | tee -a $(LOG_DIR)/run_test-target.log
 	@echo "Test execution completed." 2>&1 | tee -a $(LOG_DIR)/run_test-target.log
 
 clean:

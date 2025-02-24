@@ -1,5 +1,0 @@
-=== Cross Compilation Test ===
-CPU Architecture: arm
-Operating System: linux
-ARM SWP operation test: 0x95511559
-Floating point test: 8.5397
