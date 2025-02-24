@@ -1,0 +1,30 @@
+make[1]: Entering directory '/home/ssy/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1'
+/bin/bash ../mkinstalldirs /home/ssy/arm-gcc-build/tools /home/ssy/arm-gcc-build/tools
+make[2]: Entering directory '/home/ssy/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1/arm-linux-gnueabihf/libgcc'
+/bin/bash ../../../libgcc/../mkinstalldirs /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0
+/usr/bin/install -c -m 644 libgcc_eh.a /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/
+chmod 644 /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/libgcc_eh.a
+/home/ssy/arm-gcc-build/tools/arm-linux-gnueabihf/bin/ranlib /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/libgcc_eh.a
+/bin/bash ../../../libgcc/../mkinstalldirs /home/ssy/arm-gcc-build/tools/arm-linux-gnueabihf/lib; /usr/bin/install -c -m 644 ./libgcc_s.so.1 /home/ssy/arm-gcc-build/tools/arm-linux-gnueabihf/lib/libgcc_s.so.1; rm -f /home/ssy/arm-gcc-build/tools/arm-linux-gnueabihf/lib/libgcc_s.so; /usr/bin/install -c -m 644 ./libgcc_s.so /home/ssy/arm-gcc-build/tools/arm-linux-gnueabihf/lib/libgcc_s.so
+/bin/bash ../../../libgcc/../mkinstalldirs /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0
+/usr/bin/install -c -m 644 libgcc.a /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/
+chmod 644 /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/libgcc.a
+/home/ssy/arm-gcc-build/tools/arm-linux-gnueabihf/bin/ranlib /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/libgcc.a
+/usr/bin/install -c -m 644 libgcov.a /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/
+chmod 644 /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/libgcov.a
+/home/ssy/arm-gcc-build/tools/arm-linux-gnueabihf/bin/ranlib /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/libgcov.a
+parts="crtbegin.o crtbeginS.o crtbeginT.o crtend.o crtendS.o crtfastmath.o";				\
+for file in $parts; do					\
+  rm -f /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/$file;		\
+  /usr/bin/install -c -m 644 $file /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/;	\
+  case $file in 					\
+    *.a)						\
+      /home/ssy/arm-gcc-build/tools/arm-linux-gnueabihf/bin/ranlib ../.././gcc/$file ;;	\
+  esac;							\
+done
+/bin/bash ../../../libgcc/../mkinstalldirs /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/include
+/usr/bin/install -c -m 644 unwind.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/include
+/bin/bash ../../../libgcc/../mkinstalldirs /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/include
+/usr/bin/install -c -m 644 ../../../libgcc/gcov.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/include
+make[2]: Leaving directory '/home/ssy/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1/arm-linux-gnueabihf/libgcc'
+make[1]: Leaving directory '/home/ssy/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1'

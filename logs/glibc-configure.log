@@ -1,0 +1,109 @@
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... arm-unknown-linux-gnueabihf
+checking for arm-linux-gnueabihf-gcc... arm-linux-gnueabihf-gcc
+checking for suffix of object files... o
+checking whether the compiler supports GNU C... yes
+checking whether arm-linux-gnueabihf-gcc accepts -g... yes
+checking for arm-linux-gnueabihf-gcc option to enable C11 features... none needed
+checking for gcc... gcc
+checking for arm-linux-gnueabihf-g++... arm-linux-gnueabihf-g++
+checking whether the compiler supports GNU C++... yes
+checking whether arm-linux-gnueabihf-g++ accepts -g... yes
+checking for arm-linux-gnueabihf-g++ option to enable C++11 features... unsupported
+checking for arm-linux-gnueabihf-g++ option to enable C++98 features... unsupported
+checking whether arm-linux-gnueabihf-g++ can link programs... no
+checking for sysdeps preconfigure fragments... aarch64 alpha arc arm configure: Found compiler is configured for armv7
+checking for grep that handles long lines and -e... /bin/grep
+checking for egrep... /bin/grep -E
+csky hppa i386 loongarch m68k microblaze checking for grep that handles long lines and -e... (cached) /bin/grep
+checking for egrep... (cached) /bin/grep -E
+mips nios2 or1k powerpc riscv s390 sh checking for grep that handles long lines and -e... (cached) /bin/grep
+checking for egrep... (cached) /bin/grep -E
+sparc x86_64 
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether ln -s works... yes
+checking for /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/../../../../arm-linux-gnueabihf/bin/ld... /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/../../../../arm-linux-gnueabihf/bin/ld
+checking version of /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/../../../../arm-linux-gnueabihf/bin/ld... 2.37, ok
+checking for gnumake... no
+checking for gmake... no
+checking for make... make
+checking version of make... 4.1, ok
+checking for gnumsgfmt... no
+checking for gmsgfmt... no
+checking for msgfmt... no
+checking for makeinfo... no
+checking for sed... sed
+checking version of sed... 4.4, ok
+checking for gawk... gawk
+checking version of gawk... 4.1.4, ok
+checking for bison... bison
+checking version of bison... 3.0.4, ok
+checking if arm-linux-gnueabihf-gcc is sufficient to build libc... yes
+checking for python3... python3
+checking version of python3... 3.6.9, ok
+configure: WARNING:
+*** These auxiliary programs are missing or incompatible versions: msgfmt makeinfo
+*** some features or tests will be disabled.
+*** Check the INSTALL file for required versions.
+checking for use of fpu sysdeps directories... no
+checking for -fstack-protector... yes
+checking for -fstack-protector-strong... yes
+checking for -fstack-protector-all... yes
+checking for assembler and linker STT_GNU_IFUNC support... yes
+checking for gcc attribute ifunc support... yes
+checking whether the linker supports textrels along with ifunc... yes
+checking for GNU attribute retain support... yes
+checking if compiler warns about alias for function with incompatible types... yes
+checking sysdep dirs... sysdeps/unix/sysv/linux/arm/le sysdeps/unix/sysv/linux/arm sysdeps/arm/nptl sysdeps/unix/sysv/linux sysdeps/nptl sysdeps/pthread sysdeps/gnu sysdeps/unix/inet sysdeps/unix/sysv sysdeps/unix/arm sysdeps/unix sysdeps/posix sysdeps/arm/le/armv7/multiarch sysdeps/arm/armv7/multiarch sysdeps/arm/le/armv7 sysdeps/arm/armv7 sysdeps/arm/armv6t2 sysdeps/arm/armv6 sysdeps/arm/le/nofpu sysdeps/arm/nofpu sysdeps/ieee754/soft-fp sysdeps/arm/le sysdeps/arm sysdeps/wordsize-32 sysdeps/ieee754/flt-32 sysdeps/ieee754/dbl-64 sysdeps/ieee754 sysdeps/generic
+checking LD_LIBRARY_PATH variable... ok
+checking for bash... /bin/bash
+checking for perl... /usr/bin/perl
+checking for install-info... /usr/bin/install-info
+checking for .set assembler directive... yes
+checking linker support for protected data symbol... yes
+checking linker support for INSERT in linker script... yes
+checking for broken __attribute__((alias()))... no
+checking whether to put _rtld_local into .sdata section... no
+checking for libunwind-support in compiler... no
+checking whether --noexecstack is desirable for .S files... yes
+checking for linker that supports -z execstack... yes
+checking for linker that supports -z start-stop-gc... yes
+checking for linker that supports --depaudit... yes
+checking for linker that supports -z pack-relative-relocs... no
+checking for linker that supports --no-dynamic-linker... yes
+checking for -static-pie... yes
+checking for -fpie... yes
+checking for GLOB_DAT reloc... yes
+checking for -mtls-dialect=gnu2... yes
+checking if -Wno-ignored-attributes is required for aliases... 
+checking whether cc puts quotes around section names... no
+checking for __builtin_memset... no
+checking for redirection of built-in functions... yes
+checking for compiler option to disable generation of FMA instructions... -ffp-contract=off
+checking for compiler option that -fsignaling-nans... -fsignaling-nans
+checking if arm-linux-gnueabihf-gcc accepts -fno-tree-loop-distribute-patterns with __attribute__ ((__optimize__))... yes
+checking for libgd... no
+checking for is_selinux_enabled in -lselinux... no
+checking for maximum supported _FORTIFY_SOURCE level... 2
+checking whether the assembler requires one version per symbol... no
+checking for __builtin_trap with no external dependencies... yes
+checking whether the C++ compiler supports thread_local... no
+running configure fragment for sysdeps/unix/sysv/linux
+checking installed Linux kernel header files... 3.2.0 or later
+checking for kernel header at least 3.2.0... ok
+running configure fragment for sysdeps/gnu
+running configure fragment for sysdeps/arm
+checking for grep that handles long lines and -e... (cached) /bin/grep
+checking for egrep... (cached) /bin/grep -E
+checking whether the compiler is using the ARM hard-float ABI... no
+checking whether PC-relative relocs in movw/movt work properly... yes
+checking whether TPOFF relocs with addends are assembled correctly... yes
+checking whether -fPIC is default... no
+checking whether -fPIE is default... no
+checking if we can build programs as PIE... yes
+checking if we can build static PIE programs... no
+configure: creating ./config.status
+config.status: creating config.make
+config.status: creating Makefile
+config.status: creating config.h
+config.status: executing default commands

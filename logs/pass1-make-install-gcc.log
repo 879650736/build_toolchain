@@ -1,0 +1,850 @@
+make[1]: Entering directory '/home/ssy/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1'
+/bin/bash ../mkinstalldirs /home/ssy/arm-gcc-build/tools /home/ssy/arm-gcc-build/tools
+make[2]: Entering directory '/home/ssy/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1/fixincludes'
+rm -rf /home/ssy/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/install-tools
+/bin/bash ../../fixincludes/../mkinstalldirs /home/ssy/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/install-tools
+mkdir -p -- /home/ssy/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/install-tools
+/bin/bash ../../fixincludes/../mkinstalldirs /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/install-tools/include
+mkdir -p -- /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/install-tools/include
+/usr/bin/install -c -m 644 ../../fixincludes/README-fixinc \
+  /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/install-tools/include/README
+/usr/bin/install -c fixinc.sh /home/ssy/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/install-tools/fixinc.sh
+/usr/bin/install -c fixincl /home/ssy/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/install-tools/fixincl
+/usr/bin/install -c mkheaders /home/ssy/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/install-tools/mkheaders
+make[2]: Leaving directory '/home/ssy/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1/fixincludes'
+make[2]: Entering directory '/home/ssy/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1/gcc'
+/bin/bash ../../gcc/../mkinstalldirs /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0
+/bin/bash ../../gcc/../mkinstalldirs /home/ssy/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0
+/bin/bash ../../gcc/../mkinstalldirs /home/ssy/arm-gcc-build/tools/bin
+/bin/bash ../../gcc/../mkinstalldirs /home/ssy/arm-gcc-build/tools/include
+mkdir -p -- /home/ssy/arm-gcc-build/tools/include
+/bin/bash ../../gcc/../mkinstalldirs /home/ssy/arm-gcc-build/tools/share/info
+/bin/bash ../../gcc/../mkinstalldirs /home/ssy/arm-gcc-build/tools/share/man/man1
+/bin/bash ../../gcc/../mkinstalldirs /home/ssy/arm-gcc-build/tools/share/man/man7
+mkdir -p -- /home/ssy/arm-gcc-build/tools/share/man/man7
+if test "" != "yes" ; then \
+  rm -f /home/ssy/arm-gcc-build/tools/bin/arm-linux-gnueabihf-g++; \
+  /usr/bin/install -c xg++ /home/ssy/arm-gcc-build/tools/bin/arm-linux-gnueabihf-g++; \
+  chmod a+x /home/ssy/arm-gcc-build/tools/bin/arm-linux-gnueabihf-g++; \
+  rm -f /home/ssy/arm-gcc-build/tools/bin/arm-linux-gnueabihf-c++; \
+  ( cd /home/ssy/arm-gcc-build/tools/bin && \
+    ln arm-linux-gnueabihf-g++ arm-linux-gnueabihf-c++ ); \
+  if [ -f cc1plus ] ; then \
+    if [ ! -f g++-cross ] ; then \
+      rm -f /home/ssy/arm-gcc-build/tools/bin/arm-linux-gnueabihf-arm-linux-gnueabihf-g++; \
+      ( cd /home/ssy/arm-gcc-build/tools/bin && \
+	ln arm-linux-gnueabihf-g++ arm-linux-gnueabihf-arm-linux-gnueabihf-g++ ); \
+      rm -f /home/ssy/arm-gcc-build/tools/bin/arm-linux-gnueabihf-arm-linux-gnueabihf-c++; \
+      ( cd /home/ssy/arm-gcc-build/tools/bin && \
+	ln arm-linux-gnueabihf-c++ arm-linux-gnueabihf-arm-linux-gnueabihf-c++ ); \
+    fi ; \
+  fi; \
+fi
+rm -f /home/ssy/arm-gcc-build/tools/bin/arm-linux-gnueabihf-gccgo
+/usr/bin/install -c gccgo /home/ssy/arm-gcc-build/tools/bin/arm-linux-gnueabihf-gccgo
+if test -f go1; then \
+  if test -f gccgo-cross; then \
+    :; \
+  else \
+    rm -f /home/ssy/arm-gcc-build/tools/bin/arm-linux-gnueabihf-arm-linux-gnueabihf-gccgo; \
+    ( cd /home/ssy/arm-gcc-build/tools/bin && \
+      ln arm-linux-gnueabihf-gccgo arm-linux-gnueabihf-arm-linux-gnueabihf-gccgo ); \
+  fi; \
+fi
+for file in gnat1 cc1 cc1plus d21 f951 go1  lto1 cc1gm2 cc1obj cc1objplus rust1; do \
+  if [ -f $file ] ; then \
+    rm -f /home/ssy/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/$file; \
+    /usr/bin/install -c $file /home/ssy/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/$file; \
+  else true; \
+  fi; \
+done
+for file in  collect2 ..; do \
+  if [ x"$file" != x.. ]; then \
+    rm -f /home/ssy/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/$file; \
+    /usr/bin/install -c $file /home/ssy/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/$file; \
+  else true; fi; \
+done
+rm -f /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/specs
+if test "" != "yes" ; then \
+  if [ -f gcov ]; \
+  then \
+    rm -f /home/ssy/arm-gcc-build/tools/bin/arm-linux-gnueabihf-gcov; \
+    /usr/bin/install -c gcov /home/ssy/arm-gcc-build/tools/bin/arm-linux-gnueabihf-gcov; \
+  fi; \
+fi
+if test "" != "yes" ; then \
+  if [ -f gcov-tool ]; \
+  then \
+    rm -f /home/ssy/arm-gcc-build/tools/bin/arm-linux-gnueabihf-gcov-tool; \
+    /usr/bin/install -c \
+    gcov-tool /home/ssy/arm-gcc-build/tools/bin/arm-linux-gnueabihf-gcov-tool; \
+  fi; \
+fi
+if test "" != "yes" ; then \
+  if [ -f gcov-dump ]; \
+  then \
+    rm -f /home/ssy/arm-gcc-build/tools/bin/arm-linux-gnueabihf-gcov-dump; \
+    /usr/bin/install -c \
+    gcov-dump /home/ssy/arm-gcc-build/tools/bin/arm-linux-gnueabihf-gcov-dump; \
+  fi; \
+fi
+/bin/bash ../../gcc/../mkinstalldirs /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/include
+mkdir -p -- /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/include
+rm -rf /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/include-fixed
+mkdir /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/include-fixed
+chmod a+rx /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/include-fixed
+(cd `${PWDCMD-pwd}`/include ; \
+ tar -cf - .; exit 0) | (cd /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/include; tar xpf - )
+(cd `${PWDCMD-pwd}`/include-fixed ; \
+ tar -cf - .; exit 0) | (cd /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/include-fixed; tar xpf - )
+files=`cd /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/include-fixed; find . -type l -print 2>/dev/null`; \
+if [ $? -eq 0 ]; then \
+  dir=`cd include-fixed; ${PWDCMD-pwd}`; \
+  for i in $files; do \
+    dest=`ls -ld /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/include-fixed/$i | sed -n 's/.*-> //p'`; \
+    if expr "$dest" : "$dir.*" > /dev/null; then \
+      rm -f /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/include-fixed/$i; \
+      ln -s `echo $i | sed "s|/[^/]*|/..|g" | sed 's|/..$||'``echo "$dest" | sed "s|$dir||"` /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/include-fixed/$i; \
+    fi; \
+  done; \
+fi
+/bin/bash ../../gcc/../mkinstalldirs /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/install-tools/include
+/bin/bash ../../gcc/../mkinstalldirs /home/ssy/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/install-tools
+/usr/bin/install -c -m 644 ../../gcc/gsyslimits.h \
+  /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/install-tools/gsyslimits.h
+/usr/bin/install -c -m 644 macro_list /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/install-tools/macro_list
+/usr/bin/install -c -m 644 fixinc_list /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/install-tools/fixinc_list
+set -e; for ml in `cat fixinc_list`; do \
+  multi_dir=`echo ${ml} | sed -e 's/^[^;]*;//'`; \
+  /bin/bash ../../gcc/../mkinstalldirs /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/install-tools/include${multi_dir}; \
+  /usr/bin/install -c -m 644 include${multi_dir}/limits.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/install-tools/include${multi_dir}/limits.h; \
+done
+/usr/bin/install -c ../../gcc/../mkinstalldirs \
+	/home/ssy/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/install-tools/mkinstalldirs ; \
+sysroot_headers_suffix='${sysroot_headers_suffix}'; \
+	echo 'SYSTEM_HEADER_DIR="'"`echo /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/../../../../arm-linux-gnueabihf/sys-include | sed -e :a -e 's,[^/]*/\.\.\/,,' -e ta`"'"' \
+	> /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/install-tools/mkheaders.conf
+echo 'OTHER_FIXINCLUDES_DIRS=""' \
+	>> /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/install-tools/mkheaders.conf
+echo 'STMP_FIXINC="stmp-fixinc"' \
+	>> /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/install-tools/mkheaders.conf
+if test "" != "yes" ; then \
+  rm -f /home/ssy/arm-gcc-build/tools/bin/arm-linux-gnueabihf-cpp; \
+  /usr/bin/install -c -m 755 cpp /home/ssy/arm-gcc-build/tools/bin/arm-linux-gnueabihf-cpp; \
+  if [ x != x ]; then \
+    rm -f /home/ssy/arm-gcc-build/tools//arm-linux-gnueabihf-cpp; \
+    /usr/bin/install -c -m 755 cpp /home/ssy/arm-gcc-build/tools//arm-linux-gnueabihf-cpp; \
+  else true; fi; \
+fi
+rm -f /home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-g++.1
+/usr/bin/install -c -m 644 doc/g++.1 /home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-g++.1
+chmod a-x /home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-g++.1
+rm -f /home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-gccgo.1
+/usr/bin/install -c -m 644 doc/gccgo.1 /home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-gccgo.1
+chmod a-x /home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-gccgo.1
+rm -f /home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-gcc.1
+/usr/bin/install -c -m 644 doc/gcc.1 /home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-gcc.1
+chmod a-x /home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-gcc.1
+rm -f /home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-cpp.1
+/usr/bin/install -c -m 644 ../../gcc/doc/cpp.1 /home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-cpp.1
+chmod a-x /home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-cpp.1
+rm -f /home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-gcov.1
+/usr/bin/install -c -m 644 ../../gcc/doc/gcov.1 /home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-gcov.1
+chmod a-x /home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-gcov.1
+rm -f /home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-gcov-tool.1
+/usr/bin/install -c -m 644 ../../gcc/doc/gcov-tool.1 /home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-gcov-tool.1
+chmod a-x /home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-gcov-tool.1
+rm -f /home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-gcov-dump.1
+/usr/bin/install -c -m 644 ../../gcc/doc/gcov-dump.1 /home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-gcov-dump.1
+chmod a-x /home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-gcov-dump.1
+rm -f /home/ssy/arm-gcc-build/tools/share/man/man7/fsf-funding.7
+/usr/bin/install -c -m 644 ../../gcc/doc/fsf-funding.7 /home/ssy/arm-gcc-build/tools/share/man/man7/fsf-funding.7
+chmod a-x /home/ssy/arm-gcc-build/tools/share/man/man7/fsf-funding.7
+rm -f /home/ssy/arm-gcc-build/tools/share/man/man7/gfdl.7
+/usr/bin/install -c -m 644 ../../gcc/doc/gfdl.7 /home/ssy/arm-gcc-build/tools/share/man/man7/gfdl.7
+chmod a-x /home/ssy/arm-gcc-build/tools/share/man/man7/gfdl.7
+rm -f /home/ssy/arm-gcc-build/tools/share/man/man7/gpl.7
+/usr/bin/install -c -m 644 ../../gcc/doc/gpl.7 /home/ssy/arm-gcc-build/tools/share/man/man7/gpl.7
+chmod a-x /home/ssy/arm-gcc-build/tools/share/man/man7/gpl.7
+if [ x = xinfo ]; then \
+	/home/ssy/arm-gcc-build/source/gcc-13.2.0/missing makeinfo --split-size=5000000 --no-split -I . -I ../../gcc/doc \
+		-I ../../gcc/doc/include -o doc/cpp.info ../../gcc/doc/cpp.texi; \
+fi
+rm -f /home/ssy/arm-gcc-build/tools/share/info/cpp.info
+if [ -f doc/cpp.info ]; then \
+  for f in doc/cpp.info*; do \
+    realfile=`echo $f | sed -e 's|.*/\([^/]*\)$|\1|'`; \
+    /usr/bin/install -c -m 644 $f /home/ssy/arm-gcc-build/tools/share/info/$realfile; \
+    chmod a-x /home/ssy/arm-gcc-build/tools/share/info/$realfile; \
+  done; \
+else true; fi
+if /bin/bash -c 'install-info --version' >/dev/null 2>&1; then \
+  if [ -f /home/ssy/arm-gcc-build/tools/share/info/cpp.info ]; then \
+    install-info --dir-file=/home/ssy/arm-gcc-build/tools/share/info/dir /home/ssy/arm-gcc-build/tools/share/info/cpp.info; \
+  else true; fi; \
+else true; fi;
+if [ x = xinfo ]; then \
+	/home/ssy/arm-gcc-build/source/gcc-13.2.0/missing makeinfo --split-size=5000000 --no-split -I . -I ../../gcc/doc \
+		-I ../../gcc/doc/include -o doc/gcc.info ../../gcc/doc/gcc.texi; \
+fi
+rm -f /home/ssy/arm-gcc-build/tools/share/info/gcc.info
+if [ -f doc/gcc.info ]; then \
+  for f in doc/gcc.info*; do \
+    realfile=`echo $f | sed -e 's|.*/\([^/]*\)$|\1|'`; \
+    /usr/bin/install -c -m 644 $f /home/ssy/arm-gcc-build/tools/share/info/$realfile; \
+    chmod a-x /home/ssy/arm-gcc-build/tools/share/info/$realfile; \
+  done; \
+else true; fi
+if /bin/bash -c 'install-info --version' >/dev/null 2>&1; then \
+  if [ -f /home/ssy/arm-gcc-build/tools/share/info/gcc.info ]; then \
+    install-info --dir-file=/home/ssy/arm-gcc-build/tools/share/info/dir /home/ssy/arm-gcc-build/tools/share/info/gcc.info; \
+  else true; fi; \
+else true; fi;
+if [ x = xinfo ]; then \
+	/home/ssy/arm-gcc-build/source/gcc-13.2.0/missing makeinfo --split-size=5000000 --no-split -I . -I ../../gcc/doc \
+		-I ../../gcc/doc/include -o doc/cppinternals.info ../../gcc/doc/cppinternals.texi; \
+fi
+rm -f /home/ssy/arm-gcc-build/tools/share/info/cppinternals.info
+if [ -f doc/cppinternals.info ]; then \
+  for f in doc/cppinternals.info*; do \
+    realfile=`echo $f | sed -e 's|.*/\([^/]*\)$|\1|'`; \
+    /usr/bin/install -c -m 644 $f /home/ssy/arm-gcc-build/tools/share/info/$realfile; \
+    chmod a-x /home/ssy/arm-gcc-build/tools/share/info/$realfile; \
+  done; \
+else true; fi
+if /bin/bash -c 'install-info --version' >/dev/null 2>&1; then \
+  if [ -f /home/ssy/arm-gcc-build/tools/share/info/cppinternals.info ]; then \
+    install-info --dir-file=/home/ssy/arm-gcc-build/tools/share/info/dir /home/ssy/arm-gcc-build/tools/share/info/cppinternals.info; \
+  else true; fi; \
+else true; fi;
+if [ x = xinfo ]; then \
+	/home/ssy/arm-gcc-build/source/gcc-13.2.0/missing makeinfo --split-size=5000000 --no-split -I ../../gcc/doc \
+		-I ../../gcc/doc/include -o doc/gccinstall.info ../../gcc/doc/install.texi; \
+fi
+rm -f /home/ssy/arm-gcc-build/tools/share/info/gccinstall.info
+if [ -f doc/gccinstall.info ]; then \
+  for f in doc/gccinstall.info*; do \
+    realfile=`echo $f | sed -e 's|.*/\([^/]*\)$|\1|'`; \
+    /usr/bin/install -c -m 644 $f /home/ssy/arm-gcc-build/tools/share/info/$realfile; \
+    chmod a-x /home/ssy/arm-gcc-build/tools/share/info/$realfile; \
+  done; \
+else true; fi
+if /bin/bash -c 'install-info --version' >/dev/null 2>&1; then \
+  if [ -f /home/ssy/arm-gcc-build/tools/share/info/gccinstall.info ]; then \
+    install-info --dir-file=/home/ssy/arm-gcc-build/tools/share/info/dir /home/ssy/arm-gcc-build/tools/share/info/gccinstall.info; \
+  else true; fi; \
+else true; fi;
+build/genhooks -d \
+		../../gcc/doc/tm.texi.in > tmp-tm.texi
+case `echo X|tr X '\101'` in \
+  A) tr -d '\015' < tmp-tm.texi > tmp2-tm.texi ;; \
+  *) tr -d '\r' < tmp-tm.texi > tmp2-tm.texi ;; \
+esac
+mv tmp2-tm.texi tmp-tm.texi
+/bin/bash ../../gcc/../move-if-change tmp-tm.texi tm.texi
+if [ x = xinfo ]; then \
+	/home/ssy/arm-gcc-build/source/gcc-13.2.0/missing makeinfo --split-size=5000000 --no-split -I . -I ../../gcc/doc \
+		-I ../../gcc/doc/include -o doc/gccint.info ../../gcc/doc/gccint.texi; \
+fi
+rm -f /home/ssy/arm-gcc-build/tools/share/info/gccint.info
+if [ -f doc/gccint.info ]; then \
+  for f in doc/gccint.info*; do \
+    realfile=`echo $f | sed -e 's|.*/\([^/]*\)$|\1|'`; \
+    /usr/bin/install -c -m 644 $f /home/ssy/arm-gcc-build/tools/share/info/$realfile; \
+    chmod a-x /home/ssy/arm-gcc-build/tools/share/info/$realfile; \
+  done; \
+else true; fi
+if /bin/bash -c 'install-info --version' >/dev/null 2>&1; then \
+  if [ -f /home/ssy/arm-gcc-build/tools/share/info/gccint.info ]; then \
+    install-info --dir-file=/home/ssy/arm-gcc-build/tools/share/info/dir /home/ssy/arm-gcc-build/tools/share/info/gccint.info; \
+  else true; fi; \
+else true; fi;
+if test "x" = xinfo; then \
+  rm -f doc/gccgo.info*; \
+  /home/ssy/arm-gcc-build/source/gcc-13.2.0/missing makeinfo --split-size=5000000 --no-split -I ../../gcc/doc \
+	-I ../../gcc/doc/include -o doc/gccgo.info ../../gcc/go/gccgo.texi; \
+else true; fi
+rm -f /home/ssy/arm-gcc-build/tools/share/info/gccgo.info
+if [ -f doc/gccgo.info ]; then \
+  for f in doc/gccgo.info*; do \
+    realfile=`echo $f | sed -e 's|.*/\([^/]*\)$|\1|'`; \
+    /usr/bin/install -c -m 644 $f /home/ssy/arm-gcc-build/tools/share/info/$realfile; \
+    chmod a-x /home/ssy/arm-gcc-build/tools/share/info/$realfile; \
+  done; \
+else true; fi
+if /bin/bash -c 'install-info --version' >/dev/null 2>&1; then \
+  if [ -f /home/ssy/arm-gcc-build/tools/share/info/gccgo.info ]; then \
+    install-info --dir-file=/home/ssy/arm-gcc-build/tools/share/info/dir /home/ssy/arm-gcc-build/tools/share/info/gccgo.info; \
+  else true; fi; \
+else true; fi;
+rm -f /home/ssy/arm-gcc-build/tools/bin/arm-linux-gnueabihf-gcc
+/usr/bin/install -c xgcc /home/ssy/arm-gcc-build/tools/bin/arm-linux-gnueabihf-gcc
+if test "" != "yes" ; then \
+  if [ "arm-linux-gnueabihf-gcc" != "arm-linux-gnueabihf-gcc-13.2.0" ]; then \
+    rm -f /home/ssy/arm-gcc-build/tools/bin/arm-linux-gnueabihf-gcc-13.2.0; \
+    ( cd /home/ssy/arm-gcc-build/tools/bin && \
+      ln arm-linux-gnueabihf-gcc arm-linux-gnueabihf-gcc-13.2.0 ); \
+  fi; \
+  if [ ! -f gcc-cross ] \
+      && [ "arm-linux-gnueabihf-gcc" != "arm-linux-gnueabihf-arm-linux-gnueabihf-gcc" ]; then \
+    rm -f /home/ssy/arm-gcc-build/tools/bin/arm-linux-gnueabihf-gcc-tmp; \
+    ( cd /home/ssy/arm-gcc-build/tools/bin && \
+      ln arm-linux-gnueabihf-gcc arm-linux-gnueabihf-gcc-tmp && \
+      mv -f arm-linux-gnueabihf-gcc-tmp arm-linux-gnueabihf-arm-linux-gnueabihf-gcc ); \
+  fi; \
+fi
+/usr/bin/install -c lto-wrapper /home/ssy/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/lto-wrapper
+if test "" != "yes" ; then \
+  for i in gcc-ar gcc-nm gcc-ranlib; do \
+    install_name=`echo $i|sed 's&^&arm-linux-gnueabihf-&'` ;\
+    target_install_name=arm-linux-gnueabihf-`echo $i|sed 's&^&arm-linux-gnueabihf-&'` ; \
+    rm -f /home/ssy/arm-gcc-build/tools/bin/$install_name ; \
+    /usr/bin/install -c $i /home/ssy/arm-gcc-build/tools/bin/$install_name ;\
+    if test -f gcc-cross; then \
+      :; \
+    else \
+      rm -f /home/ssy/arm-gcc-build/tools/bin/$target_install_name; \
+      ( cd /home/ssy/arm-gcc-build/tools/bin && \
+	ln $install_name $target_install_name ) ; \
+    fi ; \
+  done; \
+fi
+headers="cp-tree.h cxx-pretty-print.h name-lookup.h type-utils.h operators.def cp-trait.def contracts.h"; \
+for file in $headers; do \
+  path=../../gcc/cp/$file; \
+  dest=/home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cp/$file; \
+  echo /usr/bin/install -c -m 644 $path $dest; \
+  dir=`dirname $dest`; \
+  /bin/bash ../../gcc/../mkinstalldirs $dir; \
+  /usr/bin/install -c -m 644 $path $dest; \
+done
+/usr/bin/install -c -m 644 ../../gcc/cp/cp-tree.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cp/cp-tree.h
+mkdir -p -- /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cp
+/usr/bin/install -c -m 644 ../../gcc/cp/cxx-pretty-print.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cp/cxx-pretty-print.h
+/usr/bin/install -c -m 644 ../../gcc/cp/name-lookup.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cp/name-lookup.h
+/usr/bin/install -c -m 644 ../../gcc/cp/type-utils.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cp/type-utils.h
+/usr/bin/install -c -m 644 ../../gcc/cp/operators.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cp/operators.def
+/usr/bin/install -c -m 644 ../../gcc/cp/cp-trait.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cp/cp-trait.def
+/usr/bin/install -c -m 644 ../../gcc/cp/contracts.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cp/contracts.h
+rm -f tmp-header-vars
+echo USER_H=float.h iso646.h stdarg.h stdbool.h stddef.h varargs.h stdfix.h stdnoreturn.h stdalign.h stdatomic.h config/arm/mmintrin.h arm_neon.h arm_acle.h arm_fp16.h arm_cmse.h arm_bf16.h arm_mve_types.h arm_mve.h arm_cde.h unwind-arm-common.h >> tmp-header-vars; echo T_GLIMITS_H=glimits.h >> tmp-header-vars; echo T_STDINT_GCC_H=stdint-gcc.h >> tmp-header-vars; echo HASHTAB_H=hashtab.h >> tmp-header-vars; echo OBSTACK_H=obstack.h >> tmp-header-vars; echo SPLAY_TREE_H=splay-tree.h >> tmp-header-vars; echo MD5_H=md5.h >> tmp-header-vars; echo XREGEX_H=xregex.h >> tmp-header-vars; echo FNMATCH_H=fnmatch.h >> tmp-header-vars; echo LINKER_PLUGIN_API_H=plugin-api.h >> tmp-header-vars; echo BCONFIG_H=bconfig.h auto-host.h ansidecl.h >> tmp-header-vars; echo CONFIG_H=config.h auto-host.h ansidecl.h >> tmp-header-vars; echo TCONFIG_H=tconfig.h auto-host.h ansidecl.h >> tmp-header-vars; echo TM_P_H=tm_p.h config/arm/arm-flags.h arm-protos.h aarch-common-protos.h linux-protos.h tm-preds.h >> tmp-header-vars; echo TM_D_H=tm_d.h config/arm/arm-d.h >> tmp-header-vars; echo GTM_H=tm.h options.h config/vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h >> tmp-header-vars; echo TM_H=tm.h options.h config/vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h >> tmp-header-vars; echo DUMPFILE_H=line-map.h dumpfile.h >> tmp-header-vars; echo VEC_H=vec.h statistics.h ggc.h gtype-desc.h statistics.h >> tmp-header-vars; echo HASH_TABLE_H=hashtab.h hash-table.h ggc.h gtype-desc.h statistics.h >> tmp-header-vars; echo EXCEPT_H=except.h hashtab.h >> tmp-header-vars; echo TARGET_H=tm.h options.h config/vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h target.h target.def target-hooks-macros.h target-insns.def insn-modes.h insn-codes.h >> tmp-header-vars; echo C_TARGET_H=c-family/c-target.h c-family/c-target.def target-hooks-macros.h >> tmp-header-vars; echo COMMON_TARGET_H=common/common-target.h line-map.h input.h common/common-target.def target-hooks-macros.h >> tmp-header-vars; echo D_TARGET_H=d/d-target.h d/d-target.def target-hooks-macros.h >> tmp-header-vars; echo MACHMODE_H=machmode.h mode-classes.def >> tmp-header-vars; echo HOOKS_H=hooks.h >> tmp-header-vars; echo HOSTHOOKS_DEF_H=hosthooks-def.h hooks.h >> tmp-header-vars; echo LANGHOOKS_DEF_H=langhooks-def.h hooks.h >> tmp-header-vars; echo TARGET_DEF_H=target-def.h target-hooks-def.h hooks.h targhooks.h >> tmp-header-vars; echo C_TARGET_DEF_H=c-family/c-target-def.h c-family/c-target-hooks-def.h tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h config/arm/arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h c-family/c-common.h c-family/c-common.def tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h splay-tree.h line-map.h cpplib.h ggc.h gtype-desc.h statistics.h diagnostic-core.h line-map.h input.h bversion.h diagnostic.def hooks.h common/common-targhooks.h >> tmp-header-vars; echo CORETYPES_H=coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h >> tmp-header-vars; echo RTL_BASE_H=coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h rtl.h rtl.def reg-notes.def insn-notes.def line-map.h input.h real.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h fixed-value.h alias.h hashtab.h >> tmp-header-vars; echo FIXED_VALUE_H=fixed-value.h >> tmp-header-vars; echo RTL_H=coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h rtl.h rtl.def reg-notes.def insn-notes.def line-map.h input.h real.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h fixed-value.h alias.h hashtab.h flags.h flag-types.h options.h flag-types.h config/arm/arm-opts.h aarch-common.h genrtl.h >> tmp-header-vars; echo READ_MD_H=obstack.h hashtab.h read-md.h >> tmp-header-vars; echo INTERNAL_FN_H=internal-fn.h internal-fn.def >> tmp-header-vars; echo TREE_CORE_H=tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h config/arm/arm-opts.h aarch-common.h real.h fixed-value.h >> tmp-header-vars; echo TREE_H=tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h config/arm/arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h >> tmp-header-vars; echo REGSET_H=regset.h bitmap.h hashtab.h statistics.h hard-reg-set.h >> tmp-header-vars; echo BASIC_BLOCK_H=basic-block.h predict.h predict.def vec.h statistics.h ggc.h gtype-desc.h statistics.h function.h hashtab.h tm.h options.h config/vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h hard-reg-set.h vec.h statistics.h ggc.h gtype-desc.h statistics.h line-map.h input.h cfg-flags.def cfghooks.h profile-count.h >> tmp-header-vars; echo GIMPLE_H=gimple.h gimple.def gsstruct.def vec.h statistics.h ggc.h gtype-desc.h statistics.h ggc.h gtype-desc.h statistics.h basic-block.h predict.h predict.def vec.h statistics.h ggc.h gtype-desc.h statistics.h function.h hashtab.h tm.h options.h config/vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h hard-reg-set.h vec.h statistics.h ggc.h gtype-desc.h statistics.h line-map.h input.h cfg-flags.def cfghooks.h profile-count.h tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h tree-ssa-operands.h tree-ssa-alias.h internal-fn.h internal-fn.def hashtab.h hash-table.h ggc.h gtype-desc.h statistics.h is-a.h >> tmp-header-vars; echo GCOV_IO_H=gcov-io.h version.h auto-host.h gcov-counter.def >> tmp-header-vars; echo RECOG_H=recog.h >> tmp-header-vars; echo EMIT_RTL_H=emit-rtl.h >> tmp-header-vars; echo FLAGS_H=flags.h flag-types.h options.h flag-types.h config/arm/arm-opts.h aarch-common.h >> tmp-header-vars; echo OPTIONS_H=options.h flag-types.h config/arm/arm-opts.h aarch-common.h >> tmp-header-vars; echo FUNCTION_H=function.h hashtab.h tm.h options.h config/vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h hard-reg-set.h vec.h statistics.h ggc.h gtype-desc.h statistics.h line-map.h input.h >> tmp-header-vars; echo EXPR_H=expr.h insn-config.h function.h hashtab.h tm.h options.h config/vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h hard-reg-set.h vec.h statistics.h ggc.h gtype-desc.h statistics.h line-map.h input.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h rtl.h rtl.def reg-notes.def insn-notes.def line-map.h input.h real.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h fixed-value.h alias.h hashtab.h flags.h flag-types.h options.h flag-types.h arm-opts.h aarch-common.h genrtl.h flags.h flag-types.h options.h flag-types.h arm-opts.h aarch-common.h tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h emit-rtl.h >> tmp-header-vars; echo OPTABS_H=optabs.h insn-codes.h insn-opinit.h >> tmp-header-vars; echo REGS_H=regs.h hard-reg-set.h >> tmp-header-vars; echo CFGLOOP_H=cfgloop.h basic-block.h predict.h predict.def vec.h statistics.h ggc.h gtype-desc.h statistics.h function.h hashtab.h tm.h options.h config/vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h hard-reg-set.h vec.h statistics.h ggc.h gtype-desc.h statistics.h line-map.h input.h cfg-flags.def cfghooks.h profile-count.h bitmap.h hashtab.h statistics.h sbitmap.h >> tmp-header-vars; echo IPA_UTILS_H=ipa-utils.h tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h config/arm/arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h cgraph.h vec.h statistics.h ggc.h gtype-desc.h statistics.h tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h basic-block.h predict.h predict.def vec.h statistics.h ggc.h gtype-desc.h statistics.h function.h hashtab.h tm.h options.h vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h hard-reg-set.h vec.h statistics.h ggc.h gtype-desc.h statistics.h line-map.h input.h cfg-flags.def cfghooks.h profile-count.h function.h hashtab.h tm.h options.h vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h hard-reg-set.h vec.h statistics.h ggc.h gtype-desc.h statistics.h line-map.h input.h cif-code.def ipa-ref.h plugin-api.h is-a.h >> tmp-header-vars; echo IPA_REFERENCE_H=ipa-reference.h bitmap.h hashtab.h statistics.h tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h config/arm/arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h >> tmp-header-vars; echo CGRAPH_H=cgraph.h vec.h statistics.h ggc.h gtype-desc.h statistics.h tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h config/arm/arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h basic-block.h predict.h predict.def vec.h statistics.h ggc.h gtype-desc.h statistics.h function.h hashtab.h tm.h options.h vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h hard-reg-set.h vec.h statistics.h ggc.h gtype-desc.h statistics.h line-map.h input.h cfg-flags.def cfghooks.h profile-count.h function.h hashtab.h tm.h options.h vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h hard-reg-set.h vec.h statistics.h ggc.h gtype-desc.h statistics.h line-map.h input.h cif-code.def ipa-ref.h plugin-api.h is-a.h >> tmp-header-vars; echo DF_H=df.h bitmap.h hashtab.h statistics.h regset.h bitmap.h hashtab.h statistics.h hard-reg-set.h sbitmap.h basic-block.h predict.h predict.def vec.h statistics.h ggc.h gtype-desc.h statistics.h function.h hashtab.h tm.h options.h config/vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h hard-reg-set.h vec.h statistics.h ggc.h gtype-desc.h statistics.h line-map.h input.h cfg-flags.def cfghooks.h profile-count.h alloc-pool.h timevar.h timevar.def >> tmp-header-vars; echo RESOURCE_H=resource.h hard-reg-set.h df.h bitmap.h hashtab.h statistics.h regset.h bitmap.h hashtab.h statistics.h hard-reg-set.h sbitmap.h basic-block.h predict.h predict.def vec.h statistics.h ggc.h gtype-desc.h statistics.h function.h hashtab.h tm.h options.h config/vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h hard-reg-set.h vec.h statistics.h ggc.h gtype-desc.h statistics.h line-map.h input.h cfg-flags.def cfghooks.h profile-count.h alloc-pool.h timevar.h timevar.def >> tmp-header-vars; echo GCC_H=gcc.h version.h diagnostic-core.h line-map.h input.h bversion.h diagnostic.def >> tmp-header-vars; echo GGC_H=ggc.h gtype-desc.h statistics.h >> tmp-header-vars; echo TIMEVAR_H=timevar.h timevar.def >> tmp-header-vars; echo INSN_ATTR_H=insn-attr.h insn-attr-common.h insn-addr.h >> tmp-header-vars; echo INSN_ADDR_H=insn-addr.h >> tmp-header-vars; echo C_COMMON_H=c-family/c-common.h c-family/c-common.def tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h config/arm/arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h splay-tree.h line-map.h cpplib.h ggc.h gtype-desc.h statistics.h diagnostic-core.h line-map.h input.h bversion.h diagnostic.def >> tmp-header-vars; echo C_PRAGMA_H=c-family/c-pragma.h line-map.h cpplib.h >> tmp-header-vars; echo C_TREE_H=c/c-tree.h c-family/c-common.h c-family/c-common.def tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h config/arm/arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h splay-tree.h line-map.h cpplib.h ggc.h gtype-desc.h statistics.h diagnostic-core.h line-map.h input.h bversion.h diagnostic.def diagnostic.h diagnostic-core.h line-map.h input.h bversion.h diagnostic.def pretty-print.h line-map.h input.h obstack.h wide-int-print.h >> tmp-header-vars; echo SYSTEM_H=system.h hwint.h libiberty.h safe-ctype.h filenames.h hashtab.h >> tmp-header-vars; echo PREDICT_H=predict.h predict.def >> tmp-header-vars; echo CPPLIB_H=line-map.h cpplib.h >> tmp-header-vars; echo CODYLIB_H=cody.hh >> tmp-header-vars; echo INPUT_H=line-map.h input.h >> tmp-header-vars; echo OPTS_H=line-map.h input.h vec.h statistics.h ggc.h gtype-desc.h statistics.h opts.h obstack.h >> tmp-header-vars; echo SYMTAB_H=symtab.h obstack.h >> tmp-header-vars; echo CPP_INTERNAL_H=internal.h >> tmp-header-vars; echo TREE_DUMP_H=tree-dump.h splay-tree.h line-map.h dumpfile.h >> tmp-header-vars; echo TREE_PASS_H=tree-pass.h timevar.h timevar.def line-map.h dumpfile.h >> tmp-header-vars; echo TREE_SSA_H=tree-ssa.h tree-ssa-operands.h bitmap.h hashtab.h statistics.h sbitmap.h basic-block.h predict.h predict.def vec.h statistics.h ggc.h gtype-desc.h statistics.h function.h hashtab.h tm.h options.h config/vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h hard-reg-set.h vec.h statistics.h ggc.h gtype-desc.h statistics.h line-map.h input.h cfg-flags.def cfghooks.h profile-count.h gimple.h gimple.def gsstruct.def vec.h statistics.h ggc.h gtype-desc.h statistics.h ggc.h gtype-desc.h statistics.h basic-block.h predict.h predict.def vec.h statistics.h ggc.h gtype-desc.h statistics.h function.h hashtab.h tm.h options.h vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h hard-reg-set.h vec.h statistics.h ggc.h gtype-desc.h statistics.h line-map.h input.h cfg-flags.def cfghooks.h profile-count.h tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h tree-ssa-operands.h tree-ssa-alias.h internal-fn.h internal-fn.def hashtab.h hash-table.h ggc.h gtype-desc.h statistics.h is-a.h hashtab.h cgraph.h vec.h statistics.h ggc.h gtype-desc.h statistics.h tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h basic-block.h predict.h predict.def vec.h statistics.h ggc.h gtype-desc.h statistics.h function.h hashtab.h tm.h options.h vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h hard-reg-set.h vec.h statistics.h ggc.h gtype-desc.h statistics.h line-map.h input.h cfg-flags.def cfghooks.h profile-count.h function.h hashtab.h tm.h options.h vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h hard-reg-set.h vec.h statistics.h ggc.h gtype-desc.h statistics.h line-map.h input.h cif-code.def ipa-ref.h plugin-api.h is-a.h ipa-reference.h bitmap.h hashtab.h statistics.h tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h tree-ssa-alias.h >> tmp-header-vars; echo PRETTY_PRINT_H=pretty-print.h line-map.h input.h obstack.h wide-int-print.h >> tmp-header-vars; echo TREE_PRETTY_PRINT_H=tree-pretty-print.h pretty-print.h line-map.h input.h obstack.h wide-int-print.h >> tmp-header-vars; echo GIMPLE_PRETTY_PRINT_H=gimple-pretty-print.h tree-pretty-print.h pretty-print.h line-map.h input.h obstack.h wide-int-print.h >> tmp-header-vars; echo DIAGNOSTIC_CORE_H=diagnostic-core.h line-map.h input.h bversion.h diagnostic.def >> tmp-header-vars; echo DIAGNOSTIC_H=diagnostic.h diagnostic-core.h line-map.h input.h bversion.h diagnostic.def pretty-print.h line-map.h input.h obstack.h wide-int-print.h >> tmp-header-vars; echo C_PRETTY_PRINT_H=c-family/c-pretty-print.h pretty-print.h line-map.h input.h obstack.h wide-int-print.h c-family/c-common.h c-family/c-common.def tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h config/arm/arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h splay-tree.h line-map.h cpplib.h ggc.h gtype-desc.h statistics.h diagnostic-core.h line-map.h input.h bversion.h diagnostic.def tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h >> tmp-header-vars; echo TREE_INLINE_H=tree-inline.h >> tmp-header-vars; echo REAL_H=real.h >> tmp-header-vars; echo LTO_STREAMER_H=lto-streamer.h plugin-api.h tm.h options.h config/vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h target.h target.def target-hooks-macros.h target-insns.def insn-modes.h insn-codes.h cgraph.h vec.h statistics.h ggc.h gtype-desc.h statistics.h tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h basic-block.h predict.h predict.def vec.h statistics.h ggc.h gtype-desc.h statistics.h function.h hashtab.h tm.h options.h vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h hard-reg-set.h vec.h statistics.h ggc.h gtype-desc.h statistics.h line-map.h input.h cfg-flags.def cfghooks.h profile-count.h function.h hashtab.h tm.h options.h vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h hard-reg-set.h vec.h statistics.h ggc.h gtype-desc.h statistics.h line-map.h input.h cif-code.def ipa-ref.h plugin-api.h is-a.h vec.h statistics.h ggc.h gtype-desc.h statistics.h hashtab.h hash-table.h ggc.h gtype-desc.h statistics.h tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h gimple.h gimple.def gsstruct.def vec.h statistics.h ggc.h gtype-desc.h statistics.h ggc.h gtype-desc.h statistics.h basic-block.h predict.h predict.def vec.h statistics.h ggc.h gtype-desc.h statistics.h function.h hashtab.h tm.h options.h vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h hard-reg-set.h vec.h statistics.h ggc.h gtype-desc.h statistics.h line-map.h input.h cfg-flags.def cfghooks.h profile-count.h tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h tree-ssa-operands.h tree-ssa-alias.h internal-fn.h internal-fn.def hashtab.h hash-table.h ggc.h gtype-desc.h statistics.h is-a.h gcov-io.h version.h auto-host.h gcov-counter.def diagnostic.h diagnostic-core.h line-map.h input.h bversion.h diagnostic.def pretty-print.h line-map.h input.h obstack.h wide-int-print.h alloc-pool.h >> tmp-header-vars; echo IPA_PROP_H=ipa-prop.h tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h config/arm/arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h vec.h statistics.h ggc.h gtype-desc.h statistics.h cgraph.h vec.h statistics.h ggc.h gtype-desc.h statistics.h tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h basic-block.h predict.h predict.def vec.h statistics.h ggc.h gtype-desc.h statistics.h function.h hashtab.h tm.h options.h vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h hard-reg-set.h vec.h statistics.h ggc.h gtype-desc.h statistics.h line-map.h input.h cfg-flags.def cfghooks.h profile-count.h function.h hashtab.h tm.h options.h vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h hard-reg-set.h vec.h statistics.h ggc.h gtype-desc.h statistics.h line-map.h input.h cif-code.def ipa-ref.h plugin-api.h is-a.h gimple.h gimple.def gsstruct.def vec.h statistics.h ggc.h gtype-desc.h statistics.h ggc.h gtype-desc.h statistics.h basic-block.h predict.h predict.def vec.h statistics.h ggc.h gtype-desc.h statistics.h function.h hashtab.h tm.h options.h vxworks-dummy.h elfos.h gnu-user.h linux.h linux-android.h glibc-stdint.h elf.h linux-gas.h linux-elf.h bpabi.h linux-eabi.h aout.h arm.h initfini-array.h defaults.h insn-constants.h arm-cpu.h arm-isa.h insn-flags.h options.h flag-types.h arm-opts.h aarch-common.h hard-reg-set.h vec.h statistics.h ggc.h gtype-desc.h statistics.h line-map.h input.h cfg-flags.def cfghooks.h profile-count.h tree.h tree-core.h coretypes.h insn-modes.h signop.h wide-int.h wide-int-print.h insn-modes-inline.h machmode.h mode-classes.def double-int.h align.h poly-int.h poly-int-types.h all-tree.def tree.def c-family/c-common.def ada-tree.def cp-tree.def d-tree.def m2-tree.def objc-tree.def builtins.def sync-builtins.def omp-builtins.def gtm-builtins.def sanitizer.def line-map.h input.h statistics.h vec.h statistics.h ggc.h gtype-desc.h statistics.h treestruct.def hashtab.h alias.h symtab.h obstack.h flags.h flag-types.h options.h flag-types.h arm-opts.h aarch-common.h real.h fixed-value.h tree-check.h tree-ssa-operands.h tree-ssa-alias.h internal-fn.h internal-fn.def hashtab.h hash-table.h ggc.h gtype-desc.h statistics.h is-a.h alloc-pool.h >> tmp-header-vars; echo BITMAP_H=bitmap.h hashtab.h statistics.h >> tmp-header-vars; echo GCC_PLUGIN_H=gcc-plugin.h highlev-plugin-common.h plugin.def config.h auto-host.h ansidecl.h system.h hwint.h libiberty.h safe-ctype.h filenames.h hashtab.h hashtab.h >> tmp-header-vars; echo PLUGIN_H=plugin.h gcc-plugin.h highlev-plugin-common.h plugin.def config.h auto-host.h ansidecl.h system.h hwint.h libiberty.h safe-ctype.h filenames.h hashtab.h hashtab.h >> tmp-header-vars; echo PLUGIN_VERSION_H=plugin-version.h configargs.h >> tmp-header-vars; echo CONTEXT_H=context.h >> tmp-header-vars; echo GENSUPPORT_H=gensupport.h read-md.h optabs.def >> tmp-header-vars; echo RTL_SSA_H=pretty-print.h line-map.h input.h obstack.h wide-int-print.h insn-config.h splay-tree-utils.h recog.h regs.h hard-reg-set.h function-abi.h obstack-utils.h mux-utils.h rtlanal.h memmodel.h emit-rtl.h rtl-ssa/accesses.h rtl-ssa/insns.h rtl-ssa/blocks.h rtl-ssa/changes.h rtl-ssa/functions.h rtl-ssa/is-a.inl rtl-ssa/access-utils.h rtl-ssa/insn-utils.h rtl-ssa/movement.h rtl-ssa/change-utils.h rtl-ssa/member-fns.inl >> tmp-header-vars; echo GTFILES_H=gt-coverage.h gt-symtab-thunks.h gt-caller-save.h gt-symtab.h gt-alias.h gt-bitmap.h gt-cselib.h gt-cgraph.h gt-ipa-prop.h gt-ipa-cp.h gt-ipa-sra.h gt-ipa-modref.h gt-diagnostic-spec.h gt-dwarf2asm.h gt-dwarf2cfi.h gt-dwarf2ctf.h gt-dwarf2out.h gt-ctfout.h gt-btfout.h gt-tree-vect-generic.h gt-gimple-isel.h gt-dojump.h gt-emit-rtl.h gt-explow.h gt-expr.h gt-function.h gt-except.h gt-ggc-tests.h gt-gcse.h gt-godump.h gt-lists.h gt-optabs-libfuncs.h gt-profile.h gt-mcf.h gt-reg-stack.h gt-cfgrtl.h gt-stor-layout.h gt-stringpool.h gt-tree.h gt-varasm.h gt-tree-ssanames.h gt-tree-eh.h gt-tree-ssa-address.h gt-tree-cfg.h gt-tree-ssa-loop-ivopts.h gt-tree-dfa.h gt-tree-iterator.h gt-gimple-expr.h gt-tree-scalar-evolution.h gt-tree-profile.h gt-tree-nested.h gt-omp-general.h gt-omp-low.h gt-targhooks.h gt-arm.h gt-passes.h gt-cgraphclones.h gt-tree-phinodes.h gt-trans-mem.h gt-vtable-verify.h gt-asan.h gt-ubsan.h gt-tsan.h gt-sanopt.h gt-sancov.h gt-ipa-devirt.h gt-calls.h gt-analyzer-analyzer-language.h gt-arm-builtins.h gt-arm-mve-builtins.h gt-ada-decl.h gt-ada-trans.h gt-ada-utils.h gt-ada-misc.h gt-c-c-lang.h gt-c-c-decl.h gt-c-family-c-common.h gt-c-family-c-cppbuiltin.h gt-c-family-c-pragma.h gt-c-family-c-format.h gt-c-c-objc-common.h gt-c-c-parser.h gt-c-family-c-common.h gt-c-family-c-format.h gt-c-family-c-cppbuiltin.h gt-c-family-c-pragma.h gt-cp-call.h gt-cp-class.h gt-cp-constexpr.h gt-cp-contracts.h gt-cp-constraint.h gt-cp-coroutines.h gt-cp-cp-gimplify.h gt-cp-cp-lang.h gt-cp-cp-objcp-common.h gt-cp-decl.h gt-cp-decl2.h gt-cp-except.h gt-cp-friend.h gt-cp-init.h gt-cp-lambda.h gt-cp-lex.h gt-cp-logic.h gt-cp-mangle.h gt-cp-method.h gt-cp-module.h gt-cp-name-lookup.h gt-cp-parser.h gt-cp-pt.h gt-cp-rtti.h gt-cp-semantics.h gt-cp-tree.h gt-cp-typeck2.h gt-cp-vtable-class-hierarchy.h gt-d-d-builtins.h gt-d-d-lang.h gt-d-typeinfo.h gt-fortran-f95-lang.h gt-fortran-trans-decl.h gt-fortran-trans-intrinsic.h gt-fortran-trans-io.h gt-fortran-trans-stmt.h gt-fortran-trans-types.h gt-go-go-lang.h gt-jit-dummy-frontend.h gt-lto-lto-lang.h gt-lto-lto.h gt-lto-lto-common.h gt-lto-lto-dump.h gt-m2-gm2-lang.h gt-m2-rtegraph.h gt-m2-m2block.h gt-m2-m2builtins.h gt-m2-m2decl.h gt-m2-m2except.h gt-m2-m2expr.h gt-m2-m2statement.h gt-m2-m2type.h gt-objc-objc-act.h gt-objc-objc-runtime-shared-support.h gt-objc-objc-gnu-runtime-abi-01.h gt-objc-objc-next-runtime-abi-01.h gt-objc-objc-next-runtime-abi-02.h gt-c-c-parser.h gt-c-c-decl.h gt-c-c-objc-common.h gt-c-family-c-common.h gt-c-family-c-cppbuiltin.h gt-c-family-c-pragma.h gt-c-family-c-format.h gt-c-family-c-common.h gt-c-family-c-format.h gt-c-family-c-cppbuiltin.h gt-c-family-c-pragma.h gt-cp-call.h gt-cp-class.h gt-cp-constexpr.h gt-cp-contracts.h gt-cp-constraint.h gt-cp-coroutines.h gt-cp-cp-gimplify.h gt-objcp-objcp-lang.h gt-cp-cp-objcp-common.h gt-cp-decl.h gt-cp-decl2.h gt-cp-except.h gt-cp-friend.h gt-cp-init.h gt-cp-lambda.h gt-cp-lex.h gt-cp-logic.h gt-cp-mangle.h gt-cp-method.h gt-cp-module.h gt-cp-name-lookup.h gt-cp-parser.h gt-cp-pt.h gt-cp-rtti.h gt-cp-semantics.h gt-cp-tree.h gt-cp-typeck2.h gt-cp-vtable-class-hierarchy.h gt-objc-objc-act.h gt-objc-objc-gnu-runtime-abi-01.h gt-objc-objc-next-runtime-abi-01.h gt-objc-objc-next-runtime-abi-02.h gt-objc-objc-runtime-shared-support.h gt-rust-rust-lang.h >> tmp-header-vars; echo GTFILES_LANG_H=gtype-ada.h gtype-c.h gtype-cp.h gtype-d.h gtype-fortran.h gtype-go.h gtype-jit.h gtype-lto.h gtype-m2.h gtype-objc.h gtype-objcp.h gtype-rust.h >> tmp-header-vars;
+/bin/bash ../../gcc/../move-if-change tmp-header-vars b-header-vars
+echo timestamp > s-header-vars
+/bin/bash ../../gcc/../mkinstalldirs /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin
+/usr/bin/install -c -m 644 gtype.state /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/gtype.state
+/bin/bash ../../gcc/../mkinstalldirs /home/ssy/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/plugin
+mkdir -p -- /home/ssy/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/plugin
+/usr/bin/install -c gengtype /home/ssy/arm-gcc-build/tools/libexec/gcc/arm-linux-gnueabihf/13.2.0/plugin/gengtype
+/bin/bash ../../gcc/../mkinstalldirs /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include
+headers=`echo ../../gcc/../include/ansidecl.h ../../gcc/../include/filenames.h ../../gcc/../include/gomp-constants.h ../../gcc/../include/hashtab.h ../../gcc/../include/libiberty.h ../../gcc/../include/md5.h ../../gcc/../include/obstack.h ../../gcc/../include/plugin-api.h ../../gcc/../include/safe-ctype.h ../../gcc/../include/splay-tree.h ../../gcc/../libcpp/include/cpplib.h ../../gcc/../libcpp/include/line-map.h ../../gcc/../libcpp/include/symtab.h ../../gcc/ada/gcc-interface/ada-tree.def ../../gcc/config/arm/aarch-common-protos.h ../../gcc/config/arm/aarch-common.h ../../gcc/config/arm/aout.h ../../gcc/config/arm/arm-flags.h ../../gcc/config/arm/arm-opts.h ../../gcc/config/arm/arm-protos.h ../../gcc/config/arm/arm.h ../../gcc/config/arm/bpabi.h ../../gcc/config/arm/elf.h ../../gcc/config/arm/linux-eabi.h ../../gcc/config/arm/linux-elf.h ../../gcc/config/arm/linux-gas.h ../../gcc/config/elfos.h ../../gcc/config/glibc-stdint.h ../../gcc/config/gnu-user.h ../../gcc/config/initfini-array.h ../../gcc/config/linux-android.h ../../gcc/config/linux-protos.h ../../gcc/config/linux.h ../../gcc/config/vxworks-dummy.h ../../gcc/cp/cp-tree.def ../../gcc/d/d-tree.def ../../gcc/defaults.h ../../gcc/insn-addr.h ../../gcc/m2/m2-tree.def ../../gcc/objc/objc-tree.def alias.h align.h all-tree.def alloc-pool.h ansidecl.h arm-cpu.h arm-isa.h attribs.h auto-host.h basic-block.h bitmap.h builtins.def bversion.h c-family/c-common.def c-family/c-common.h c-family/c-objc.h c-family/c-pragma.h c-family/c-pretty-print.h c/c-tree.h calls.h cfg-flags.def cfg.h cfganal.h cfgbuild.h cfgcleanup.h cfgexpand.h cfghooks.h cfgloop.h cfgloopmanip.h cfgrtl.h cgraph.h cif-code.def config.h config/arm/aarch-common-protos.h config/arm/aout.h config/arm/arm-flags.h config/arm/arm-protos.h config/arm/arm.h config/arm/bpabi.h config/arm/elf.h config/arm/linux-eabi.h config/arm/linux-elf.h config/arm/linux-gas.h config/elfos.h config/glibc-stdint.h config/gnu-user.h config/initfini-array.h config/linux-android.h config/linux-protos.h config/linux.h config/vxworks-dummy.h configargs.h context.h coretypes.h cppdefault.h debug.h defaults.h df.h diagnostic-color.h diagnostic-core.h diagnostic.def diagnostic.h dominance.h double-int.h dumpfile.h emit-rtl.h except.h expr.h file-prefix-map.h fixed-value.h flag-types.h flags.h fold-const-call.h fold-const.h function.h gcc-plugin.h gcc-symtab.h genrtl.h ggc.h gimple-builder.h gimple-expr.h gimple-fold.h gimple-iterator.h gimple-low.h gimple-pretty-print.h gimple-ssa.h gimple-walk.h gimple.def gimple.h gimplify-me.h gimplify.h gsstruct.def gtm-builtins.def gtype-desc.h hard-reg-set.h hash-map.h hash-set.h hash-table.h highlev-plugin-common.h hwint.h inchash.h incpath.h input.h insn-attr-common.h insn-attr.h insn-codes.h insn-config.h insn-constants.h insn-flags.h insn-modes-inline.h insn-modes.h insn-notes.def internal-fn.def internal-fn.h intl.h ipa-param-manipulation.h ipa-prop.h ipa-ref.h ipa-reference.h ipa-utils.h is-a.h langhooks.h lcm.h machmode.h memmodel.h mode-classes.def omp-builtins.def options.h opts.h output.h params-enum.h params.def params.h params.list pass-instances.def pass_manager.h plugin-version.h plugin.def plugin.h poly-int-types.h poly-int.h predict.def predict.h prefix.h pretty-print.h print-rtl.h print-tree.h profile-count.h real.h realmpfr.h reg-notes.def regset.h resource.h rtl.def rtl.h sanitizer.def sbitmap.h signop.h ssa-iterators.h statistics.h stmt.h stor-layout.h stringpool.h sync-builtins.def system.h target-hooks-macros.h target-insns.def target.def target.h timevar.def timevar.h tm-preds.h tm.h tm_p.h toplev.h tree-cfg.h tree-cfgcleanup.h tree-check.h tree-core.h tree-dfa.h tree-dump.h tree-eh.h tree-hasher.h tree-inline.h tree-into-ssa.h tree-iterator.h tree-nested.h tree-object-size.h tree-outof-ssa.h tree-parloops.h tree-pass.h tree-phinodes.h tree-pretty-print.h tree-ssa-address.h tree-ssa-alias.h tree-ssa-coalesce.h tree-ssa-dom.h tree-ssa-loop-ivopts.h tree-ssa-loop-manip.h tree-ssa-loop-niter.h tree-ssa-loop.h tree-ssa-operands.h tree-ssa-sccvn.h tree-ssa-ter.h tree-ssa-threadedge.h tree-ssa-threadupdate.h tree-ssa.h tree-ssanames.h tree.def tree.h treestruct.def varasm.h vec.h version.h wide-int-print.h wide-int.h $(cd ../../gcc; echo *.h *.def) | tr ' ' '\012' | sort -u`; \
+srcdirstrip=`echo "../../gcc" | sed 's/[].[^$\\*|]/\\\\&/g'`; \
+for file in $headers; do \
+  if [ -f $file ] ; then \
+    path=$file; \
+  elif [ -f ../../gcc/$file ]; then \
+    path=../../gcc/$file; \
+  else continue; \
+  fi; \
+  case $path in \
+  "../../gcc"/config/* | "../../gcc"/common/config/* \
+  | "../../gcc"/c-family/* | "../../gcc"/*.def ) \
+    base=`echo "$path" | sed -e "s|$srcdirstrip/||"`;; \
+  *) base=`basename $path` ;; \
+  esac; \
+  dest=/home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/$base; \
+  echo /usr/bin/install -c -m 644 $path $dest; \
+  dir=`dirname $dest`; \
+  /bin/bash ../../gcc/../mkinstalldirs $dir; \
+  /usr/bin/install -c -m 644 $path $dest; \
+done
+/usr/bin/install -c -m 644 ../../gcc/addresses.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/addresses.h
+/usr/bin/install -c -m 644 ../../gcc/alias.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/alias.h
+/usr/bin/install -c -m 644 ../../gcc/align.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/align.h
+/usr/bin/install -c -m 644 ../../gcc/alloc-pool.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/alloc-pool.h
+/usr/bin/install -c -m 644 all-tree.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/all-tree.def
+/usr/bin/install -c -m 644 arm-cpu.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/arm-cpu.h
+/usr/bin/install -c -m 644 arm-isa.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/arm-isa.h
+/usr/bin/install -c -m 644 ../../gcc/array-traits.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/array-traits.h
+/usr/bin/install -c -m 644 ../../gcc/asan.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/asan.h
+/usr/bin/install -c -m 644 ../../gcc/attr-fnspec.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/attr-fnspec.h
+/usr/bin/install -c -m 644 ../../gcc/attribs.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/attribs.h
+/usr/bin/install -c -m 644 auto-host.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/auto-host.h
+/usr/bin/install -c -m 644 ../../gcc/auto-profile.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/auto-profile.h
+/usr/bin/install -c -m 644 ../../gcc/backend.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/backend.h
+/usr/bin/install -c -m 644 ../../gcc/basic-block.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/basic-block.h
+/usr/bin/install -c -m 644 ../../gcc/bb-reorder.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/bb-reorder.h
+/usr/bin/install -c -m 644 ../../gcc/bitmap.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/bitmap.h
+/usr/bin/install -c -m 644 ../../gcc/builtin-attrs.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/builtin-attrs.def
+/usr/bin/install -c -m 644 ../../gcc/builtins.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/builtins.def
+/usr/bin/install -c -m 644 ../../gcc/builtins.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/builtins.h
+/usr/bin/install -c -m 644 ../../gcc/builtin-types.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/builtin-types.def
+/usr/bin/install -c -m 644 bversion.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/bversion.h
+/usr/bin/install -c -m 644 ../../gcc/calls.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/calls.h
+/usr/bin/install -c -m 644 ../../gcc/ccmp.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ccmp.h
+/usr/bin/install -c -m 644 ../../gcc/c/c-tree.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/c-tree.h
+/usr/bin/install -c -m 644 ../../gcc/c-family/c-common.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/c-family/c-common.def
+mkdir -p -- /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/c-family
+/usr/bin/install -c -m 644 ../../gcc/c-family/c-common.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/c-family/c-common.h
+/usr/bin/install -c -m 644 ../../gcc/c-family/c-objc.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/c-family/c-objc.h
+/usr/bin/install -c -m 644 ../../gcc/c-family/c-pragma.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/c-family/c-pragma.h
+/usr/bin/install -c -m 644 ../../gcc/c-family/c-pretty-print.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/c-family/c-pretty-print.h
+/usr/bin/install -c -m 644 ../../gcc/cfganal.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cfganal.h
+/usr/bin/install -c -m 644 ../../gcc/cfgbuild.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cfgbuild.h
+/usr/bin/install -c -m 644 ../../gcc/cfgcleanup.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cfgcleanup.h
+/usr/bin/install -c -m 644 ../../gcc/cfgexpand.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cfgexpand.h
+/usr/bin/install -c -m 644 ../../gcc/cfg-flags.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cfg-flags.def
+/usr/bin/install -c -m 644 ../../gcc/cfg.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cfg.h
+/usr/bin/install -c -m 644 ../../gcc/cfghooks.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cfghooks.h
+/usr/bin/install -c -m 644 ../../gcc/cfgloop.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cfgloop.h
+/usr/bin/install -c -m 644 ../../gcc/cfgloopmanip.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cfgloopmanip.h
+/usr/bin/install -c -m 644 ../../gcc/cfgrtl.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cfgrtl.h
+/usr/bin/install -c -m 644 ../../gcc/cgraph.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cgraph.h
+/usr/bin/install -c -m 644 ../../gcc/cif-code.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cif-code.def
+/usr/bin/install -c -m 644 ../../gcc/collect2-aix.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/collect2-aix.h
+/usr/bin/install -c -m 644 ../../gcc/collect2.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/collect2.h
+/usr/bin/install -c -m 644 ../../gcc/collect-utils.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/collect-utils.h
+/usr/bin/install -c -m 644 ../../gcc/color-macros.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/color-macros.h
+/usr/bin/install -c -m 644 ../../gcc/conditions.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/conditions.h
+/usr/bin/install -c -m 644 configargs.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/configargs.h
+/usr/bin/install -c -m 644 ../../gcc/config/arm/aarch-common-protos.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/aarch-common-protos.h
+mkdir -p -- /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm
+/usr/bin/install -c -m 644 ../../gcc/config/arm/aout.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/aout.h
+/usr/bin/install -c -m 644 ../../gcc/config/arm/arm-flags.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/arm-flags.h
+/usr/bin/install -c -m 644 ../../gcc/config/arm/arm.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/arm.h
+/usr/bin/install -c -m 644 ../../gcc/config/arm/arm-protos.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/arm-protos.h
+/usr/bin/install -c -m 644 ../../gcc/config/arm/bpabi.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/bpabi.h
+/usr/bin/install -c -m 644 ../../gcc/config/arm/elf.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/elf.h
+/usr/bin/install -c -m 644 ../../gcc/config/arm/linux-eabi.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/linux-eabi.h
+/usr/bin/install -c -m 644 ../../gcc/config/arm/linux-elf.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/linux-elf.h
+/usr/bin/install -c -m 644 ../../gcc/config/arm/linux-gas.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/linux-gas.h
+/usr/bin/install -c -m 644 ../../gcc/config/elfos.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/elfos.h
+/usr/bin/install -c -m 644 ../../gcc/config/glibc-stdint.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/glibc-stdint.h
+/usr/bin/install -c -m 644 ../../gcc/config/gnu-user.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/gnu-user.h
+/usr/bin/install -c -m 644 config.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config.h
+/usr/bin/install -c -m 644 ../../gcc/config/initfini-array.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/initfini-array.h
+/usr/bin/install -c -m 644 ../../gcc/config/linux-android.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/linux-android.h
+/usr/bin/install -c -m 644 ../../gcc/config/linux.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/linux.h
+/usr/bin/install -c -m 644 ../../gcc/config/linux-protos.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/linux-protos.h
+/usr/bin/install -c -m 644 ../../gcc/config/vxworks-dummy.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/vxworks-dummy.h
+/usr/bin/install -c -m 644 ../../gcc/context.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/context.h
+/usr/bin/install -c -m 644 ../../gcc/convert.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/convert.h
+/usr/bin/install -c -m 644 ../../gcc/coretypes.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/coretypes.h
+/usr/bin/install -c -m 644 ../../gcc/coroutine-builtins.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/coroutine-builtins.def
+/usr/bin/install -c -m 644 ../../gcc/coverage.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/coverage.h
+/usr/bin/install -c -m 644 ../../gcc/cppbuiltin.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cppbuiltin.h
+/usr/bin/install -c -m 644 ../../gcc/cppdefault.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cppdefault.h
+/usr/bin/install -c -m 644 ../../gcc/cselib.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cselib.h
+/usr/bin/install -c -m 644 ../../gcc/ctfc.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ctfc.h
+/usr/bin/install -c -m 644 ../../gcc/data-streamer.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/data-streamer.h
+/usr/bin/install -c -m 644 ../../gcc/dbgcnt.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/dbgcnt.def
+/usr/bin/install -c -m 644 ../../gcc/dbgcnt.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/dbgcnt.h
+/usr/bin/install -c -m 644 ../../gcc/dce.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/dce.h
+/usr/bin/install -c -m 644 ../../gcc/ddg.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ddg.h
+/usr/bin/install -c -m 644 ../../gcc/debug.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/debug.h
+/usr/bin/install -c -m 644 ../../gcc/defaults.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/defaults.h
+/usr/bin/install -c -m 644 ../../gcc/df.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/df.h
+/usr/bin/install -c -m 644 ../../gcc/dfp.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/dfp.h
+/usr/bin/install -c -m 644 ../../gcc/diagnostic-client-data-hooks.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/diagnostic-client-data-hooks.h
+/usr/bin/install -c -m 644 ../../gcc/diagnostic-color.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/diagnostic-color.h
+/usr/bin/install -c -m 644 ../../gcc/diagnostic-core.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/diagnostic-core.h
+/usr/bin/install -c -m 644 ../../gcc/diagnostic.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/diagnostic.def
+/usr/bin/install -c -m 644 ../../gcc/diagnostic-event-id.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/diagnostic-event-id.h
+/usr/bin/install -c -m 644 ../../gcc/diagnostic.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/diagnostic.h
+/usr/bin/install -c -m 644 ../../gcc/diagnostic-metadata.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/diagnostic-metadata.h
+/usr/bin/install -c -m 644 ../../gcc/diagnostic-path.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/diagnostic-path.h
+/usr/bin/install -c -m 644 ../../gcc/diagnostic-spec.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/diagnostic-spec.h
+/usr/bin/install -c -m 644 ../../gcc/diagnostic-url.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/diagnostic-url.h
+/usr/bin/install -c -m 644 ../../gcc/digraph.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/digraph.h
+/usr/bin/install -c -m 644 ../../gcc/dojump.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/dojump.h
+/usr/bin/install -c -m 644 ../../gcc/dominance.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/dominance.h
+/usr/bin/install -c -m 644 ../../gcc/domwalk.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/domwalk.h
+/usr/bin/install -c -m 644 ../../gcc/double-int.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/double-int.h
+/usr/bin/install -c -m 644 ../../gcc/dump-context.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/dump-context.h
+/usr/bin/install -c -m 644 ../../gcc/dumpfile.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/dumpfile.h
+/usr/bin/install -c -m 644 ../../gcc/dwarf2asm.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/dwarf2asm.h
+/usr/bin/install -c -m 644 ../../gcc/dwarf2ctf.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/dwarf2ctf.h
+/usr/bin/install -c -m 644 ../../gcc/dwarf2out.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/dwarf2out.h
+/usr/bin/install -c -m 644 ../../gcc/edit-context.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/edit-context.h
+/usr/bin/install -c -m 644 ../../gcc/emit-rtl.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/emit-rtl.h
+/usr/bin/install -c -m 644 ../../gcc/errors.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/errors.h
+/usr/bin/install -c -m 644 ../../gcc/escaped_string.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/escaped_string.h
+/usr/bin/install -c -m 644 ../../gcc/et-forest.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/et-forest.h
+/usr/bin/install -c -m 644 ../../gcc/except.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/except.h
+/usr/bin/install -c -m 644 ../../gcc/explow.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/explow.h
+/usr/bin/install -c -m 644 ../../gcc/expmed.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/expmed.h
+/usr/bin/install -c -m 644 ../../gcc/expr.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/expr.h
+/usr/bin/install -c -m 644 ../../gcc/fibonacci_heap.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/fibonacci_heap.h
+/usr/bin/install -c -m 644 ../../gcc/file-find.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/file-find.h
+/usr/bin/install -c -m 644 ../../gcc/file-prefix-map.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/file-prefix-map.h
+/usr/bin/install -c -m 644 ../../gcc/fixed-value.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/fixed-value.h
+/usr/bin/install -c -m 644 ../../gcc/flags.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/flags.h
+/usr/bin/install -c -m 644 ../../gcc/flag-types.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/flag-types.h
+/usr/bin/install -c -m 644 ../../gcc/fold-const-call.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/fold-const-call.h
+/usr/bin/install -c -m 644 ../../gcc/fold-const.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/fold-const.h
+/usr/bin/install -c -m 644 ../../gcc/function-abi.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/function-abi.h
+/usr/bin/install -c -m 644 ../../gcc/function.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/function.h
+/usr/bin/install -c -m 644 ../../gcc/ada/gcc-interface/ada-tree.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ada/gcc-interface/ada-tree.def
+mkdir -p -- /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ada/gcc-interface
+/usr/bin/install -c -m 644 ../../gcc/config/arm/aarch-common.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/aarch-common.h
+/usr/bin/install -c -m 644 ../../gcc/config/arm/aarch-common-protos.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/aarch-common-protos.h
+/usr/bin/install -c -m 644 ../../gcc/config/arm/aout.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/aout.h
+/usr/bin/install -c -m 644 ../../gcc/config/arm/arm-flags.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/arm-flags.h
+/usr/bin/install -c -m 644 ../../gcc/config/arm/arm.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/arm.h
+/usr/bin/install -c -m 644 ../../gcc/config/arm/arm-opts.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/arm-opts.h
+/usr/bin/install -c -m 644 ../../gcc/config/arm/arm-protos.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/arm-protos.h
+/usr/bin/install -c -m 644 ../../gcc/config/arm/bpabi.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/bpabi.h
+/usr/bin/install -c -m 644 ../../gcc/config/arm/elf.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/elf.h
+/usr/bin/install -c -m 644 ../../gcc/config/arm/linux-eabi.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/linux-eabi.h
+/usr/bin/install -c -m 644 ../../gcc/config/arm/linux-elf.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/linux-elf.h
+/usr/bin/install -c -m 644 ../../gcc/config/arm/linux-gas.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/arm/linux-gas.h
+/usr/bin/install -c -m 644 ../../gcc/config/elfos.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/elfos.h
+/usr/bin/install -c -m 644 ../../gcc/config/glibc-stdint.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/glibc-stdint.h
+/usr/bin/install -c -m 644 ../../gcc/config/gnu-user.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/gnu-user.h
+/usr/bin/install -c -m 644 ../../gcc/config/initfini-array.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/initfini-array.h
+/usr/bin/install -c -m 644 ../../gcc/config/linux-android.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/linux-android.h
+/usr/bin/install -c -m 644 ../../gcc/config/linux.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/linux.h
+/usr/bin/install -c -m 644 ../../gcc/config/linux-protos.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/linux-protos.h
+/usr/bin/install -c -m 644 ../../gcc/config/vxworks-dummy.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/config/vxworks-dummy.h
+/usr/bin/install -c -m 644 ../../gcc/cp/cp-tree.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cp/cp-tree.def
+/usr/bin/install -c -m 644 ../../gcc/d/d-tree.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/d/d-tree.def
+mkdir -p -- /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/d
+/usr/bin/install -c -m 644 ../../gcc/defaults.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/defaults.h
+/usr/bin/install -c -m 644 ../../gcc/gcc.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gcc.h
+/usr/bin/install -c -m 644 ../../gcc/../include/ansidecl.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ansidecl.h
+/usr/bin/install -c -m 644 ../../gcc/../include/filenames.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/filenames.h
+/usr/bin/install -c -m 644 ../../gcc/../include/gomp-constants.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gomp-constants.h
+/usr/bin/install -c -m 644 ../../gcc/../include/hashtab.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/hashtab.h
+/usr/bin/install -c -m 644 ../../gcc/../include/libiberty.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/libiberty.h
+/usr/bin/install -c -m 644 ../../gcc/../include/md5.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/md5.h
+/usr/bin/install -c -m 644 ../../gcc/../include/obstack.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/obstack.h
+/usr/bin/install -c -m 644 ../../gcc/../include/plugin-api.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/plugin-api.h
+/usr/bin/install -c -m 644 ../../gcc/../include/safe-ctype.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/safe-ctype.h
+/usr/bin/install -c -m 644 ../../gcc/../include/splay-tree.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/splay-tree.h
+/usr/bin/install -c -m 644 ../../gcc/insn-addr.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/insn-addr.h
+/usr/bin/install -c -m 644 ../../gcc/../libcpp/include/cpplib.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/cpplib.h
+/usr/bin/install -c -m 644 ../../gcc/../libcpp/include/line-map.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/line-map.h
+/usr/bin/install -c -m 644 ../../gcc/../libcpp/include/symtab.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/symtab.h
+/usr/bin/install -c -m 644 ../../gcc/m2/m2-tree.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/m2/m2-tree.def
+mkdir -p -- /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/m2
+/usr/bin/install -c -m 644 ../../gcc/objc/objc-tree.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/objc/objc-tree.def
+mkdir -p -- /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/objc
+/usr/bin/install -c -m 644 ../../gcc/gcc-plugin.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gcc-plugin.h
+/usr/bin/install -c -m 644 ../../gcc/gcc-rich-location.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gcc-rich-location.h
+/usr/bin/install -c -m 644 ../../gcc/gcc-symtab.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gcc-symtab.h
+/usr/bin/install -c -m 644 ../../gcc/gcov-counter.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gcov-counter.def
+/usr/bin/install -c -m 644 ../../gcc/gcov-io.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gcov-io.h
+/usr/bin/install -c -m 644 ../../gcc/gcse-common.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gcse-common.h
+/usr/bin/install -c -m 644 ../../gcc/gcse.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gcse.h
+/usr/bin/install -c -m 644 ../../gcc/generic-match.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/generic-match.h
+/usr/bin/install -c -m 644 ../../gcc/gengtype.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gengtype.h
+/usr/bin/install -c -m 644 genrtl.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/genrtl.h
+/usr/bin/install -c -m 644 ../../gcc/gensupport.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gensupport.h
+/usr/bin/install -c -m 644 ../../gcc/ggc.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ggc.h
+/usr/bin/install -c -m 644 ../../gcc/ggc-internal.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ggc-internal.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-array-bounds.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-array-bounds.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-builder.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-builder.h
+/usr/bin/install -c -m 644 ../../gcc/gimple.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple.def
+/usr/bin/install -c -m 644 ../../gcc/gimple-expr.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-expr.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-fold.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-fold.h
+/usr/bin/install -c -m 644 ../../gcc/gimple.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-iterator.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-iterator.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-low.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-low.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-match.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-match.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-predicate-analysis.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-predicate-analysis.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-predict.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-predict.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-pretty-print.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-pretty-print.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-range-cache.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-range-cache.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-range-edge.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-range-edge.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-range-fold.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-range-fold.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-range-gori.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-range-gori.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-range.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-range.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-range-infer.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-range-infer.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-range-op.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-range-op.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-range-path.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-range-path.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-range-trace.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-range-trace.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-ssa.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-ssa.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-ssa-warn-access.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-ssa-warn-access.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-ssa-warn-restrict.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-ssa-warn-restrict.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-streamer.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-streamer.h
+/usr/bin/install -c -m 644 ../../gcc/gimple-walk.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimple-walk.h
+/usr/bin/install -c -m 644 ../../gcc/gimplify.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimplify.h
+/usr/bin/install -c -m 644 ../../gcc/gimplify-me.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gimplify-me.h
+/usr/bin/install -c -m 644 ../../gcc/glimits.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/glimits.h
+/usr/bin/install -c -m 644 ../../gcc/graphds.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/graphds.h
+/usr/bin/install -c -m 644 ../../gcc/graph.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/graph.h
+/usr/bin/install -c -m 644 ../../gcc/graphite.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/graphite.h
+/usr/bin/install -c -m 644 ../../gcc/graphviz.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/graphviz.h
+/usr/bin/install -c -m 644 ../../gcc/gsstruct.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gsstruct.def
+/usr/bin/install -c -m 644 ../../gcc/gsyms.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gsyms.h
+/usr/bin/install -c -m 644 ../../gcc/gsyslimits.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gsyslimits.h
+/usr/bin/install -c -m 644 ../../gcc/gtm-builtins.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gtm-builtins.def
+/usr/bin/install -c -m 644 gtype-desc.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/gtype-desc.h
+/usr/bin/install -c -m 644 ../../gcc/hard-reg-set.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/hard-reg-set.h
+/usr/bin/install -c -m 644 ../../gcc/hash-map.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/hash-map.h
+/usr/bin/install -c -m 644 ../../gcc/hash-map-traits.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/hash-map-traits.h
+/usr/bin/install -c -m 644 ../../gcc/hash-set.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/hash-set.h
+/usr/bin/install -c -m 644 ../../gcc/hash-table.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/hash-table.h
+/usr/bin/install -c -m 644 ../../gcc/hash-traits.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/hash-traits.h
+/usr/bin/install -c -m 644 ../../gcc/highlev-plugin-common.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/highlev-plugin-common.h
+/usr/bin/install -c -m 644 ../../gcc/hooks.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/hooks.h
+/usr/bin/install -c -m 644 ../../gcc/hosthooks-def.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/hosthooks-def.h
+/usr/bin/install -c -m 644 ../../gcc/hosthooks.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/hosthooks.h
+/usr/bin/install -c -m 644 ../../gcc/hw-doloop.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/hw-doloop.h
+/usr/bin/install -c -m 644 ../../gcc/hwint.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/hwint.h
+/usr/bin/install -c -m 644 ../../gcc/ifcvt.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ifcvt.h
+/usr/bin/install -c -m 644 ../../gcc/inchash.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/inchash.h
+/usr/bin/install -c -m 644 ../../gcc/incpath.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/incpath.h
+/usr/bin/install -c -m 644 ../../gcc/input.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/input.h
+/usr/bin/install -c -m 644 ../../gcc/insn-addr.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/insn-addr.h
+/usr/bin/install -c -m 644 insn-attr-common.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/insn-attr-common.h
+/usr/bin/install -c -m 644 insn-attr.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/insn-attr.h
+/usr/bin/install -c -m 644 insn-codes.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/insn-codes.h
+/usr/bin/install -c -m 644 insn-config.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/insn-config.h
+/usr/bin/install -c -m 644 insn-constants.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/insn-constants.h
+/usr/bin/install -c -m 644 insn-flags.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/insn-flags.h
+/usr/bin/install -c -m 644 insn-modes.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/insn-modes.h
+/usr/bin/install -c -m 644 insn-modes-inline.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/insn-modes-inline.h
+/usr/bin/install -c -m 644 ../../gcc/insn-notes.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/insn-notes.def
+/usr/bin/install -c -m 644 ../../gcc/internal-fn.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/internal-fn.def
+/usr/bin/install -c -m 644 ../../gcc/internal-fn.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/internal-fn.h
+/usr/bin/install -c -m 644 ../../gcc/intl.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/intl.h
+/usr/bin/install -c -m 644 ../../gcc/int-vector-builder.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/int-vector-builder.h
+/usr/bin/install -c -m 644 ../../gcc/ipa-fnsummary.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ipa-fnsummary.h
+/usr/bin/install -c -m 644 ../../gcc/ipa-icf-gimple.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ipa-icf-gimple.h
+/usr/bin/install -c -m 644 ../../gcc/ipa-icf.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ipa-icf.h
+/usr/bin/install -c -m 644 ../../gcc/ipa-inline.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ipa-inline.h
+/usr/bin/install -c -m 644 ../../gcc/ipa-modref.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ipa-modref.h
+/usr/bin/install -c -m 644 ../../gcc/ipa-modref-tree.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ipa-modref-tree.h
+/usr/bin/install -c -m 644 ../../gcc/ipa-param-manipulation.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ipa-param-manipulation.h
+/usr/bin/install -c -m 644 ../../gcc/ipa-predicate.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ipa-predicate.h
+/usr/bin/install -c -m 644 ../../gcc/ipa-prop.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ipa-prop.h
+/usr/bin/install -c -m 644 ../../gcc/ipa-reference.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ipa-reference.h
+/usr/bin/install -c -m 644 ../../gcc/ipa-ref.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ipa-ref.h
+/usr/bin/install -c -m 644 ../../gcc/ipa-utils.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ipa-utils.h
+/usr/bin/install -c -m 644 ../../gcc/ira.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ira.h
+/usr/bin/install -c -m 644 ../../gcc/ira-int.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ira-int.h
+/usr/bin/install -c -m 644 ../../gcc/is-a.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/is-a.h
+/usr/bin/install -c -m 644 ../../gcc/iterator-utils.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/iterator-utils.h
+/usr/bin/install -c -m 644 ../../gcc/json.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/json.h
+/usr/bin/install -c -m 644 ../../gcc/langhooks-def.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/langhooks-def.h
+/usr/bin/install -c -m 644 ../../gcc/langhooks.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/langhooks.h
+/usr/bin/install -c -m 644 ../../gcc/lcm.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/lcm.h
+/usr/bin/install -c -m 644 ../../gcc/libfuncs.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/libfuncs.h
+/usr/bin/install -c -m 644 ../../gcc/limitx.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/limitx.h
+/usr/bin/install -c -m 644 ../../gcc/limity.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/limity.h
+/usr/bin/install -c -m 644 ../../gcc/logical-location.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/logical-location.h
+/usr/bin/install -c -m 644 ../../gcc/loop-unroll.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/loop-unroll.h
+/usr/bin/install -c -m 644 ../../gcc/lower-subreg.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/lower-subreg.h
+/usr/bin/install -c -m 644 ../../gcc/lra.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/lra.h
+/usr/bin/install -c -m 644 ../../gcc/lra-int.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/lra-int.h
+/usr/bin/install -c -m 644 ../../gcc/lto-compress.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/lto-compress.h
+/usr/bin/install -c -m 644 ../../gcc/lto-section-names.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/lto-section-names.h
+/usr/bin/install -c -m 644 ../../gcc/lto-streamer.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/lto-streamer.h
+/usr/bin/install -c -m 644 ../../gcc/machmode.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/machmode.def
+/usr/bin/install -c -m 644 ../../gcc/machmode.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/machmode.h
+/usr/bin/install -c -m 644 ../../gcc/make-unique.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/make-unique.h
+/usr/bin/install -c -m 644 ../../gcc/memmodel.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/memmodel.h
+/usr/bin/install -c -m 644 ../../gcc/memory-block.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/memory-block.h
+/usr/bin/install -c -m 644 ../../gcc/mem-stats.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/mem-stats.h
+/usr/bin/install -c -m 644 ../../gcc/mem-stats-traits.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/mem-stats-traits.h
+/usr/bin/install -c -m 644 ../../gcc/mode-classes.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/mode-classes.def
+/usr/bin/install -c -m 644 ../../gcc/mux-utils.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/mux-utils.h
+/usr/bin/install -c -m 644 ../../gcc/obstack-utils.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/obstack-utils.h
+/usr/bin/install -c -m 644 ../../gcc/omp-builtins.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/omp-builtins.def
+/usr/bin/install -c -m 644 ../../gcc/omp-expand.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/omp-expand.h
+/usr/bin/install -c -m 644 ../../gcc/omp-general.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/omp-general.h
+/usr/bin/install -c -m 644 ../../gcc/omp-low.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/omp-low.h
+/usr/bin/install -c -m 644 ../../gcc/omp-offload.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/omp-offload.h
+/usr/bin/install -c -m 644 ../../gcc/omp-simd-clone.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/omp-simd-clone.h
+/usr/bin/install -c -m 644 ../../gcc/optabs.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/optabs.def
+/usr/bin/install -c -m 644 ../../gcc/optabs.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/optabs.h
+/usr/bin/install -c -m 644 ../../gcc/optabs-libfuncs.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/optabs-libfuncs.h
+/usr/bin/install -c -m 644 ../../gcc/optabs-query.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/optabs-query.h
+/usr/bin/install -c -m 644 ../../gcc/optabs-tree.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/optabs-tree.h
+/usr/bin/install -c -m 644 ../../gcc/optinfo-emit-json.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/optinfo-emit-json.h
+/usr/bin/install -c -m 644 ../../gcc/optinfo.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/optinfo.h
+/usr/bin/install -c -m 644 options.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/options.h
+/usr/bin/install -c -m 644 ../../gcc/opt-problem.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/opt-problem.h
+/usr/bin/install -c -m 644 ../../gcc/opts-diagnostic.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/opts-diagnostic.h
+/usr/bin/install -c -m 644 ../../gcc/opts.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/opts.h
+/usr/bin/install -c -m 644 ../../gcc/opts-jobserver.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/opts-jobserver.h
+/usr/bin/install -c -m 644 ../../gcc/opt-suggestions.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/opt-suggestions.h
+/usr/bin/install -c -m 644 ../../gcc/ordered-hash-map.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ordered-hash-map.h
+/usr/bin/install -c -m 644 ../../gcc/output.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/output.h
+/usr/bin/install -c -m 644 ../../gcc/passes.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/passes.def
+/usr/bin/install -c -m 644 pass-instances.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/pass-instances.def
+/usr/bin/install -c -m 644 ../../gcc/pass_manager.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/pass_manager.h
+/usr/bin/install -c -m 644 ../../gcc/plugin.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/plugin.def
+/usr/bin/install -c -m 644 ../../gcc/plugin.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/plugin.h
+/usr/bin/install -c -m 644 plugin-version.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/plugin-version.h
+/usr/bin/install -c -m 644 ../../gcc/pointer-query.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/pointer-query.h
+/usr/bin/install -c -m 644 ../../gcc/poly-int.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/poly-int.h
+/usr/bin/install -c -m 644 ../../gcc/poly-int-types.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/poly-int-types.h
+/usr/bin/install -c -m 644 ../../gcc/predict.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/predict.def
+/usr/bin/install -c -m 644 ../../gcc/predict.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/predict.h
+/usr/bin/install -c -m 644 ../../gcc/prefix.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/prefix.h
+/usr/bin/install -c -m 644 ../../gcc/pretty-print.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/pretty-print.h
+/usr/bin/install -c -m 644 ../../gcc/print-rtl.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/print-rtl.h
+/usr/bin/install -c -m 644 ../../gcc/print-tree.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/print-tree.h
+/usr/bin/install -c -m 644 ../../gcc/profile-count.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/profile-count.h
+/usr/bin/install -c -m 644 ../../gcc/profile.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/profile.h
+/usr/bin/install -c -m 644 ../../gcc/range.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/range.h
+/usr/bin/install -c -m 644 ../../gcc/range-op.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/range-op.h
+/usr/bin/install -c -m 644 ../../gcc/read-md.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/read-md.h
+/usr/bin/install -c -m 644 ../../gcc/read-rtl-function.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/read-rtl-function.h
+/usr/bin/install -c -m 644 ../../gcc/real.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/real.h
+/usr/bin/install -c -m 644 ../../gcc/realmpfr.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/realmpfr.h
+/usr/bin/install -c -m 644 ../../gcc/recog.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/recog.h
+/usr/bin/install -c -m 644 ../../gcc/regcprop.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/regcprop.h
+/usr/bin/install -c -m 644 ../../gcc/reg-notes.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/reg-notes.def
+/usr/bin/install -c -m 644 ../../gcc/regrename.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/regrename.h
+/usr/bin/install -c -m 644 ../../gcc/regset.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/regset.h
+/usr/bin/install -c -m 644 ../../gcc/regs.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/regs.h
+/usr/bin/install -c -m 644 ../../gcc/reload.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/reload.h
+/usr/bin/install -c -m 644 ../../gcc/resource.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/resource.h
+/usr/bin/install -c -m 644 ../../gcc/rtlanal.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/rtlanal.h
+/usr/bin/install -c -m 644 ../../gcc/rtl.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/rtl.def
+/usr/bin/install -c -m 644 ../../gcc/rtl-error.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/rtl-error.h
+/usr/bin/install -c -m 644 ../../gcc/rtl.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/rtl.h
+/usr/bin/install -c -m 644 ../../gcc/rtlhash.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/rtlhash.h
+/usr/bin/install -c -m 644 ../../gcc/rtlhooks-def.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/rtlhooks-def.h
+/usr/bin/install -c -m 644 ../../gcc/rtl-iter.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/rtl-iter.h
+/usr/bin/install -c -m 644 ../../gcc/rtl-ssa.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/rtl-ssa.h
+/usr/bin/install -c -m 644 ../../gcc/rtx-vector-builder.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/rtx-vector-builder.h
+/usr/bin/install -c -m 644 ../../gcc/run-rtl-passes.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/run-rtl-passes.h
+/usr/bin/install -c -m 644 ../../gcc/sanitizer.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/sanitizer.def
+/usr/bin/install -c -m 644 ../../gcc/sbitmap.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/sbitmap.h
+/usr/bin/install -c -m 644 ../../gcc/sched-int.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/sched-int.h
+/usr/bin/install -c -m 644 ../../gcc/selftest-diagnostic.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/selftest-diagnostic.h
+/usr/bin/install -c -m 644 ../../gcc/selftest.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/selftest.h
+/usr/bin/install -c -m 644 ../../gcc/selftest-rtl.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/selftest-rtl.h
+/usr/bin/install -c -m 644 ../../gcc/sel-sched-dump.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/sel-sched-dump.h
+/usr/bin/install -c -m 644 ../../gcc/sel-sched.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/sel-sched.h
+/usr/bin/install -c -m 644 ../../gcc/sel-sched-ir.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/sel-sched-ir.h
+/usr/bin/install -c -m 644 ../../gcc/sese.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/sese.h
+/usr/bin/install -c -m 644 ../../gcc/shortest-paths.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/shortest-paths.h
+/usr/bin/install -c -m 644 ../../gcc/shrink-wrap.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/shrink-wrap.h
+/usr/bin/install -c -m 644 ../../gcc/signop.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/signop.h
+/usr/bin/install -c -m 644 ../../gcc/sparseset.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/sparseset.h
+/usr/bin/install -c -m 644 ../../gcc/spellcheck.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/spellcheck.h
+/usr/bin/install -c -m 644 ../../gcc/spellcheck-tree.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/spellcheck-tree.h
+/usr/bin/install -c -m 644 ../../gcc/splay-tree-utils.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/splay-tree-utils.h
+/usr/bin/install -c -m 644 ../../gcc/sreal.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/sreal.h
+/usr/bin/install -c -m 644 ../../gcc/ssa.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ssa.h
+/usr/bin/install -c -m 644 ../../gcc/ssa-iterators.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ssa-iterators.h
+/usr/bin/install -c -m 644 ../../gcc/statistics.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/statistics.h
+/usr/bin/install -c -m 644 ../../gcc/stmt.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/stmt.h
+/usr/bin/install -c -m 644 ../../gcc/stor-layout.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/stor-layout.h
+/usr/bin/install -c -m 644 ../../gcc/streamer-hooks.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/streamer-hooks.h
+/usr/bin/install -c -m 644 ../../gcc/stringpool.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/stringpool.h
+/usr/bin/install -c -m 644 ../../gcc/substring-locations.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/substring-locations.h
+/usr/bin/install -c -m 644 ../../gcc/symbol-summary.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/symbol-summary.h
+/usr/bin/install -c -m 644 ../../gcc/symtab-clones.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/symtab-clones.h
+/usr/bin/install -c -m 644 ../../gcc/symtab-thunks.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/symtab-thunks.h
+/usr/bin/install -c -m 644 ../../gcc/sync-builtins.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/sync-builtins.def
+/usr/bin/install -c -m 644 ../../gcc/system.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/system.h
+/usr/bin/install -c -m 644 ../../gcc/target.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/target.def
+/usr/bin/install -c -m 644 ../../gcc/target-def.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/target-def.h
+/usr/bin/install -c -m 644 ../../gcc/target-globals.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/target-globals.h
+/usr/bin/install -c -m 644 ../../gcc/target.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/target.h
+/usr/bin/install -c -m 644 ../../gcc/target-hooks-macros.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/target-hooks-macros.h
+/usr/bin/install -c -m 644 ../../gcc/target-insns.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/target-insns.def
+/usr/bin/install -c -m 644 ../../gcc/targhooks.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/targhooks.h
+/usr/bin/install -c -m 644 ../../gcc/timevar.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/timevar.def
+/usr/bin/install -c -m 644 ../../gcc/timevar.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/timevar.h
+/usr/bin/install -c -m 644 tm.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tm.h
+/usr/bin/install -c -m 644 tm_p.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tm_p.h
+/usr/bin/install -c -m 644 tm-preds.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tm-preds.h
+/usr/bin/install -c -m 644 ../../gcc/toplev.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/toplev.h
+/usr/bin/install -c -m 644 ../../gcc/tracer.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tracer.h
+/usr/bin/install -c -m 644 ../../gcc/trans-mem.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/trans-mem.h
+/usr/bin/install -c -m 644 ../../gcc/tree-affine.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-affine.h
+/usr/bin/install -c -m 644 ../../gcc/tree-cfgcleanup.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-cfgcleanup.h
+/usr/bin/install -c -m 644 ../../gcc/tree-cfg.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-cfg.h
+/usr/bin/install -c -m 644 tree-check.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-check.h
+/usr/bin/install -c -m 644 ../../gcc/tree-chrec.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-chrec.h
+/usr/bin/install -c -m 644 ../../gcc/tree-core.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-core.h
+/usr/bin/install -c -m 644 ../../gcc/tree-data-ref.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-data-ref.h
+/usr/bin/install -c -m 644 ../../gcc/tree.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree.def
+/usr/bin/install -c -m 644 ../../gcc/tree-dfa.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-dfa.h
+/usr/bin/install -c -m 644 ../../gcc/tree-diagnostic.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-diagnostic.h
+/usr/bin/install -c -m 644 ../../gcc/tree-dump.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-dump.h
+/usr/bin/install -c -m 644 ../../gcc/tree-eh.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-eh.h
+/usr/bin/install -c -m 644 ../../gcc/tree.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree.h
+/usr/bin/install -c -m 644 ../../gcc/tree-hasher.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-hasher.h
+/usr/bin/install -c -m 644 ../../gcc/tree-hash-traits.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-hash-traits.h
+/usr/bin/install -c -m 644 ../../gcc/tree-if-conv.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-if-conv.h
+/usr/bin/install -c -m 644 ../../gcc/tree-inline.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-inline.h
+/usr/bin/install -c -m 644 ../../gcc/tree-into-ssa.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-into-ssa.h
+/usr/bin/install -c -m 644 ../../gcc/tree-iterator.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-iterator.h
+/usr/bin/install -c -m 644 ../../gcc/tree-logical-location.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-logical-location.h
+/usr/bin/install -c -m 644 ../../gcc/tree-nested.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-nested.h
+/usr/bin/install -c -m 644 ../../gcc/tree-object-size.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-object-size.h
+/usr/bin/install -c -m 644 ../../gcc/tree-outof-ssa.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-outof-ssa.h
+/usr/bin/install -c -m 644 ../../gcc/tree-parloops.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-parloops.h
+/usr/bin/install -c -m 644 ../../gcc/tree-pass.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-pass.h
+/usr/bin/install -c -m 644 ../../gcc/tree-phinodes.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-phinodes.h
+/usr/bin/install -c -m 644 ../../gcc/tree-pretty-print.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-pretty-print.h
+/usr/bin/install -c -m 644 ../../gcc/tree-scalar-evolution.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-scalar-evolution.h
+/usr/bin/install -c -m 644 ../../gcc/tree-sra.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-sra.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-address.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-address.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-alias-compare.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-alias-compare.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-alias.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-alias.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-ccp.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-ccp.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-coalesce.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-coalesce.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-dce.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-dce.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-dom.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-dom.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-dse.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-dse.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-live.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-live.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-loop.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-loop.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-loop-ivopts.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-loop-ivopts.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-loop-manip.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-loop-manip.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-loop-niter.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-loop-niter.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-math-opts.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-math-opts.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssanames.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssanames.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-operands.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-operands.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-propagate.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-propagate.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-reassoc.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-reassoc.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-sccvn.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-sccvn.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-scopedtables.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-scopedtables.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-strlen.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-strlen.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-ter.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-ter.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-threadedge.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-threadedge.h
+/usr/bin/install -c -m 644 ../../gcc/tree-ssa-threadupdate.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-ssa-threadupdate.h
+/usr/bin/install -c -m 644 ../../gcc/tree-stdarg.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-stdarg.h
+/usr/bin/install -c -m 644 ../../gcc/tree-streamer.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-streamer.h
+/usr/bin/install -c -m 644 ../../gcc/treestruct.def /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/treestruct.def
+/usr/bin/install -c -m 644 ../../gcc/tree-switch-conversion.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-switch-conversion.h
+/usr/bin/install -c -m 644 ../../gcc/tree-vector-builder.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-vector-builder.h
+/usr/bin/install -c -m 644 ../../gcc/tree-vectorizer.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-vectorizer.h
+/usr/bin/install -c -m 644 ../../gcc/tree-vrp.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tree-vrp.h
+/usr/bin/install -c -m 644 ../../gcc/tristate.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tristate.h
+/usr/bin/install -c -m 644 ../../gcc/tsan.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tsan.h
+/usr/bin/install -c -m 644 ../../gcc/tsystem.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/tsystem.h
+/usr/bin/install -c -m 644 ../../gcc/typeclass.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/typeclass.h
+/usr/bin/install -c -m 644 ../../gcc/typed-splay-tree.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/typed-splay-tree.h
+/usr/bin/install -c -m 644 ../../gcc/ubsan.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/ubsan.h
+/usr/bin/install -c -m 644 ../../gcc/valtrack.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/valtrack.h
+/usr/bin/install -c -m 644 ../../gcc/value-pointer-equiv.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/value-pointer-equiv.h
+/usr/bin/install -c -m 644 ../../gcc/value-prof.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/value-prof.h
+/usr/bin/install -c -m 644 ../../gcc/value-query.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/value-query.h
+/usr/bin/install -c -m 644 ../../gcc/value-range.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/value-range.h
+/usr/bin/install -c -m 644 ../../gcc/value-range-pretty-print.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/value-range-pretty-print.h
+/usr/bin/install -c -m 644 ../../gcc/value-range-storage.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/value-range-storage.h
+/usr/bin/install -c -m 644 ../../gcc/value-relation.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/value-relation.h
+/usr/bin/install -c -m 644 ../../gcc/varasm.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/varasm.h
+/usr/bin/install -c -m 644 ../../gcc/vec.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/vec.h
+/usr/bin/install -c -m 644 ../../gcc/vec-perm-indices.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/vec-perm-indices.h
+/usr/bin/install -c -m 644 ../../gcc/vector-builder.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/vector-builder.h
+/usr/bin/install -c -m 644 version.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/version.h
+/usr/bin/install -c -m 644 ../../gcc/vmsdbg.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/vmsdbg.h
+/usr/bin/install -c -m 644 ../../gcc/vr-values.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/vr-values.h
+/usr/bin/install -c -m 644 ../../gcc/vtable-verify.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/vtable-verify.h
+/usr/bin/install -c -m 644 ../../gcc/wide-int-bitmask.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/wide-int-bitmask.h
+/usr/bin/install -c -m 644 ../../gcc/wide-int.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/wide-int.h
+/usr/bin/install -c -m 644 ../../gcc/wide-int-print.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/wide-int-print.h
+/usr/bin/install -c -m 644 ../../gcc/xcoff.h /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/xcoff.h
+/usr/bin/install -c -m 644 b-header-vars /home/ssy/arm-gcc-build/tools/lib/gcc/arm-linux-gnueabihf/13.2.0/plugin/include/b-header-vars
+make[2]: Leaving directory '/home/ssy/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1/gcc'
+make[1]: Leaving directory '/home/ssy/arm-gcc-build/source/gcc-13.2.0/gcc_build-pass1'
