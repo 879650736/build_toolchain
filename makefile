@@ -20,9 +20,10 @@ BINUTILS_URL := https://ftp.gnu.org/gnu/binutils/binutils-$(BINUTILS_VERSION).ta
 LINUX_URL := https://ftp.sjtu.edu.cn/sites/ftp.kernel.org/pub/linux/kernel/v6.x/linux-$(LINUX_VERSION).tar.xz
 GLIBC_URL := https://ftp.gnu.org/pub/gnu/glibc/glibc-$(GLIBC_VERSION).tar.gz
 USER_DIR := /usr
-LOG_DIR := /home/ssy/build_toolchain/logs
+LOG_DIR := $(HOME)/build_toolchain/logs
 JOBS ?= 4
 
+.PHONY: all clean delete
 
 export PATH
 export PATH := $(TOOLS_DIR)/bin:$(PATH)
