@@ -4,7 +4,7 @@ checking target system type... arm-unknown-linux-gnueabihf
 checking for a BSD-compatible install... /usr/bin/install -c
 checking whether ln works... yes
 checking whether ln -s works... yes
-checking for a sed that does not truncate output... /bin/sed
+checking for a sed that does not truncate output... /usr/bin/sed
 checking for gawk... gawk
 checking for libatomic support... yes
 checking for libitm support... yes
@@ -46,7 +46,7 @@ checking for m4... m4
 checking for flex... flex
 checking for flex... flex
 checking for makeinfo... no
-/home/ssy/arm-gcc-build/source/gcc-13.2.0/missing: 81: /home/ssy/arm-gcc-build/source/gcc-13.2.0/missing: makeinfo: not found
+/home/ssy/arm-gcc-build/source/gcc-13.2.0/missing: 81: makeinfo: not found
 checking for expect... no
 checking for runtest... no
 checking for ar... ar
@@ -67,9 +67,7 @@ checking for readelf... readelf
 checking for arm-linux-gnueabihf-cc... no
 checking for arm-linux-gnueabihf-gcc... arm-linux-gnueabihf-gcc
 checking for arm-linux-gnueabihf-c++... no
-checking for arm-linux-gnueabihf-g++... no
-checking for arm-linux-gnueabihf-cxx... no
-checking for arm-linux-gnueabihf-gxx... no
+checking for arm-linux-gnueabihf-g++... arm-linux-gnueabihf-g++
 checking for arm-linux-gnueabihf-gcc... arm-linux-gnueabihf-gcc
 checking for arm-linux-gnueabihf-gfortran... no
 checking for arm-linux-gnueabihf-gccgo... no

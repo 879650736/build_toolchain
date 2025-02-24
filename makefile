@@ -28,7 +28,7 @@ export PATH
 export PATH := $(TOOLS_DIR)/bin:$(PATH)
 
 # 定义目标
-all: init_env code init linux binutils pass1-gcc glibc libgcc all-glibc libstdc++ install_env
+all: init_env code init linux binutils pass1-gcc glibc libgcc all-glibc libstdc++ install_env compile_test run_test
 
 test: init_env download copy init linux binutils pass1-gcc glibc libgcc all-glibc libstdc++
 init_env:
@@ -129,7 +129,7 @@ pass1-gcc: init
 	echo "安装 C/C++ 编译器完成，接下来请执行: make glibc"
 
 glibc: init
-	echo "配置和安装 glibc 头文件和启动文件..."
+	echo "配置和安装 glibc 头文件和启动文件..." 2>&1 | tee $(LOG_DIR)/glibc-target.log
 	cd $(GLIBC_DIR); \
 	if [ -d $(GLIBC_BUILD_DIR) ]; then \
 		rm -rf $(GLIBC_BUILD_DIR); \
@@ -166,8 +166,8 @@ glibc: init
 	exit 1; \
 	}; 
 	cd $(GLIBC_BUILD_DIR); \
-	install csu/crt1.o csu/crti.o csu/crtn.o $(TOOLS_DIR)/$(TARGET)/lib; \
-	${TARGET}-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o $(TOOLS_DIR)/$(TARGET)/lib/libc.so;\
+	install csu/crt1.o csu/crti.o csu/crtn.o $(TOOLS_DIR)/$(TARGET)/lib 2>&1 | tee $(LOG_DIR)/glibc-install-crt.log; \
+	${TARGET}-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o $(TOOLS_DIR)/$(TARGET)/lib/libc.so 2>&1 | tee $(LOG_DIR)/glibc-create-libc.log;\
 	touch $(TOOLS_DIR)/$(TARGET)/include/gnu/stubs.h; \
 	echo "安装标准 C 库头文件和启动文件成功，接下来请执行: make libgcc"
 
@@ -222,20 +222,20 @@ compile_test:
 	arm-linux-gnueabihf-gccgo -static -o test_code/arm_test_static test_code/arm_test.go 
 	@echo "Compilation completed."
 file:
-	@echo "display file type"
-	file test_code/arm_test          
-	file test_code/arm_test_static
+	@echo "display file type" 2>&1 | tee $(LOG_DIR)/file-target.log
+	file test_code/arm_test 2>&1 | tee -a $(LOG_DIR)/file-target.log
+	file test_code/arm_test_static 2>&1 | tee -a $(LOG_DIR)/file-target.log
 ldd:
-	@echo "display ldd"   
-	ldd test_code/arm_test > test_code/first_ldd.log       
-#ldd test_code/arm_test_static  > static_ldd.log
+	@echo "display ldd" 2>&1 | tee $(LOG_DIR)/ldd-target.log
+	ldd test_code/arm_test > test_code/first_ldd.log 2>&1 | tee -a $(LOG_DIR)/ldd-target.log
+#ldd test_code/arm_test_static > static_ldd.log 2>&1 | tee -a $(LOG_DIR)/ldd-target.log
 run_test:
-	@echo "Running compiled binary with qemu-arm..." 
-	@echo "begin first test"
-	qemu-arm -L $(TOOLS_DIR)/$(TARGET) test_code/arm_test > test_code/first.log 
-	@echo "begin static test"
-	qemu-arm -L $(TOOLS_DIR)/$(TARGET) test_code/arm_test_static > test_code/static.log 
-	@echo "Test execution completed."
+	@echo "Running compiled binary with qemu-arm..." 2>&1 | tee $(LOG_DIR)/run_test-target.log
+	@echo "begin first test" 2>&1 | tee -a $(LOG_DIR)/run_test-target.log
+	qemu-arm -L $(TOOLS_DIR)/$(TARGET) test_code/arm_test > test_code/first.log 2>&1 | tee -a $(LOG_DIR)/run_test-target.log
+	@echo "begin static test" 2>&1 | tee -a $(LOG_DIR)/run_test-target.log
+	qemu-arm -L $(TOOLS_DIR)/$(TARGET) test_code/arm_test_static > test_code/static.log 2>&1 | tee -a $(LOG_DIR)/run_test-target.log
+	@echo "Test execution completed." 2>&1 | tee -a $(LOG_DIR)/run_test-target.log
 
 clean:
 	echo "删除无用文件..."

@@ -6,7 +6,7 @@ make  install-recursive
 make[4]: Entering directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/bfd'
 Making install in doc
 make[5]: Entering directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/bfd/doc'
- /bin/mkdir -p '/home/ssy/arm-gcc-build/tools/share/info'
+ /usr/bin/mkdir -p '/home/ssy/arm-gcc-build/tools/share/info'
  /usr/bin/install -c -m 644 ../../../bfd/doc/bfd.info '/home/ssy/arm-gcc-build/tools/share/info'
  install-info --info-dir='/home/ssy/arm-gcc-build/tools/share/info' '/home/ssy/arm-gcc-build/tools/share/info/bfd.info'
 make[5]: Leaving directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/bfd/doc'
@@ -160,10 +160,10 @@ Making install in doc
 make[5]: Entering directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/binutils/doc'
 make[6]: Entering directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/binutils/doc'
 make[6]: Nothing to be done for 'install-exec-am'.
- /bin/mkdir -p '/home/ssy/arm-gcc-build/tools/share/info'
+ /usr/bin/mkdir -p '/home/ssy/arm-gcc-build/tools/share/info'
  /usr/bin/install -c -m 644 ../../../binutils/doc/binutils.info '/home/ssy/arm-gcc-build/tools/share/info'
  install-info --info-dir='/home/ssy/arm-gcc-build/tools/share/info' '/home/ssy/arm-gcc-build/tools/share/info/binutils.info'
- /bin/mkdir -p '/home/ssy/arm-gcc-build/tools/share/man/man1'
+ /usr/bin/mkdir -p '/home/ssy/arm-gcc-build/tools/share/man/man1'
  /usr/bin/install -c -m 644 '../../../binutils/doc/addr2line.1' '/home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-addr2line.1'
  /usr/bin/install -c -m 644 '../../../binutils/doc/ar.1' '/home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-ar.1'
  /usr/bin/install -c -m 644 '../../../binutils/doc/dlltool.1' '/home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-dlltool.1'
@@ -250,7 +250,7 @@ fi
 make[5]: Leaving directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/binutils/po'
 make[5]: Entering directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/binutils'
 make[6]: Entering directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/binutils'
- /bin/mkdir -p '/home/ssy/arm-gcc-build/tools/bin'
+ /usr/bin/mkdir -p '/home/ssy/arm-gcc-build/tools/bin'
   /bin/bash ./libtool   --mode=install /usr/bin/install -c size '/home/ssy/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-size'
 libtool: install: /usr/bin/install -c size /home/ssy/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-size
   /bin/bash ./libtool   --mode=install /usr/bin/install -c objdump '/home/ssy/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-objdump'
@@ -302,10 +302,10 @@ Making install in doc
 make[4]: Entering directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/gas/doc'
 make[5]: Entering directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/gas/doc'
 make[5]: Nothing to be done for 'install-exec-am'.
- /bin/mkdir -p '/home/ssy/arm-gcc-build/tools/share/info'
+ /usr/bin/mkdir -p '/home/ssy/arm-gcc-build/tools/share/info'
  /usr/bin/install -c -m 644 ../../../gas/doc/as.info '/home/ssy/arm-gcc-build/tools/share/info'
  install-info --info-dir='/home/ssy/arm-gcc-build/tools/share/info' '/home/ssy/arm-gcc-build/tools/share/info/as.info'
- /bin/mkdir -p '/home/ssy/arm-gcc-build/tools/share/man/man1'
+ /usr/bin/mkdir -p '/home/ssy/arm-gcc-build/tools/share/man/man1'
  /usr/bin/install -c -m 644 '../../../gas/doc/as.1' '/home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-as.1'
 make[5]: Leaving directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/gas/doc'
 make[4]: Leaving directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/gas/doc'
@@ -441,13 +441,13 @@ fi
 make[5]: Leaving directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/gprof/po'
 make[5]: Entering directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/gprof'
 make[6]: Entering directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/gprof'
- /bin/mkdir -p '/home/ssy/arm-gcc-build/tools/bin'
+ /usr/bin/mkdir -p '/home/ssy/arm-gcc-build/tools/bin'
   /bin/bash ./libtool   --mode=install /usr/bin/install -c gprof '/home/ssy/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-gprof'
 libtool: install: /usr/bin/install -c gprof /home/ssy/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-gprof
- /bin/mkdir -p '/home/ssy/arm-gcc-build/tools/share/info'
+ /usr/bin/mkdir -p '/home/ssy/arm-gcc-build/tools/share/info'
  /usr/bin/install -c -m 644 ../../gprof/gprof.info '/home/ssy/arm-gcc-build/tools/share/info'
  install-info --info-dir='/home/ssy/arm-gcc-build/tools/share/info' '/home/ssy/arm-gcc-build/tools/share/info/gprof.info'
- /bin/mkdir -p '/home/ssy/arm-gcc-build/tools/share/man/man1'
+ /usr/bin/mkdir -p '/home/ssy/arm-gcc-build/tools/share/man/man1'
  /usr/bin/install -c -m 644 '../../gprof/gprof.1' '/home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-gprof.1'
 make[6]: Leaving directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/gprof'
 make[5]: Leaving directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/gprof'
@@ -522,7 +522,7 @@ fi
 make[5]: Leaving directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/ld/po'
 make[5]: Entering directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/ld'
 make[6]: Entering directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/ld'
- /bin/mkdir -p '/home/ssy/arm-gcc-build/tools/bin'
+ /usr/bin/mkdir -p '/home/ssy/arm-gcc-build/tools/bin'
   /bin/bash ./libtool   --mode=install /usr/bin/install -c ld-new '/home/ssy/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-ld.bfd'
 libtool: install: /usr/bin/install -c ld-new /home/ssy/arm-gcc-build/tools/bin/./arm-linux-gnueabihf-ld.bfd
 /bin/bash ../../ld/../mkinstalldirs /home/ssy/arm-gcc-build/tools/arm-linux-gnueabihf/bin
@@ -543,7 +543,7 @@ if test "xyes" = "xyes"; then \
     ||  /bin/bash ./libtool --mode=install /usr/bin/install -c ld-new /home/ssy/arm-gcc-build/tools/arm-linux-gnueabihf/bin/ld; \
   fi; \
 fi
- /bin/mkdir -p '/home/ssy/arm-gcc-build/tools/lib/bfd-plugins'
+ /usr/bin/mkdir -p '/home/ssy/arm-gcc-build/tools/lib/bfd-plugins'
  /bin/bash ./libtool   --mode=install /usr/bin/install -c   libdep.la '/home/ssy/arm-gcc-build/tools/lib/bfd-plugins'
 libtool: install: /usr/bin/install -c .libs/libdep.so /home/ssy/arm-gcc-build/tools/lib/bfd-plugins/libdep.so
 libtool: install: /usr/bin/install -c .libs/libdep.lai /home/ssy/arm-gcc-build/tools/lib/bfd-plugins/libdep.la
@@ -555,10 +555,10 @@ for f in ldscripts/* ; do \
 done
 rm -f /home/ssy/arm-gcc-build/tools/lib/bfd-plugins/libdep.la
 rm -f /home/ssy/arm-gcc-build/tools/lib/bfd-plugins/libdep.dll.a
- /bin/mkdir -p '/home/ssy/arm-gcc-build/tools/share/info'
+ /usr/bin/mkdir -p '/home/ssy/arm-gcc-build/tools/share/info'
  /usr/bin/install -c -m 644 ../../ld/ld.info '/home/ssy/arm-gcc-build/tools/share/info'
  install-info --info-dir='/home/ssy/arm-gcc-build/tools/share/info' '/home/ssy/arm-gcc-build/tools/share/info/ld.info'
- /bin/mkdir -p '/home/ssy/arm-gcc-build/tools/share/man/man1'
+ /usr/bin/mkdir -p '/home/ssy/arm-gcc-build/tools/share/man/man1'
  /usr/bin/install -c -m 644 '../../ld/ld.1' '/home/ssy/arm-gcc-build/tools/share/man/man1/arm-linux-gnueabihf-ld.1'
 make[6]: Leaving directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/ld'
 make[5]: Leaving directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutils_build/ld'
@@ -571,7 +571,7 @@ make[4]: Leaving directory '/home/ssy/arm-gcc-build/source/binutils-2.37/binutil
 if test -n ""; then \
 	/bin/bash ../../libiberty/../mkinstalldirs /home/ssy/arm-gcc-build/tools/lib/`gcc -g -O2     -print-multi-os-directory`; \
 	/usr/bin/install -c -m 644 ./libiberty.a /home/ssy/arm-gcc-build/tools/lib/`gcc -g -O2     -print-multi-os-directory`/./libiberty.an; \
-	( cd /home/ssy/arm-gcc-build/tools/lib/`gcc -g -O2     -print-multi-os-directory` ; chmod 644 ./libiberty.an ;ranlib  ./libiberty.an ); \
+	( cd /home/ssy/arm-gcc-build/tools/lib/`gcc -g -O2     -print-multi-os-directory` ; chmod 644 ./libiberty.an ;ranlib --plugin /usr/libexec/gcc/x86_64-linux-gnu/13/liblto_plugin.so ./libiberty.an ); \
 	mv -f /home/ssy/arm-gcc-build/tools/lib/`gcc -g -O2     -print-multi-os-directory`/./libiberty.an /home/ssy/arm-gcc-build/tools/lib/`gcc -g -O2     -print-multi-os-directory`/./libiberty.a; \
 	case "" in \
 	  /*)    thd=;; \
