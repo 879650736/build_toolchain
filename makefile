@@ -102,9 +102,9 @@ binutils: init
 		--disable-werror \
 		--with-arch=armv7-a \
 		--with-float=soft \
-		-v 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/binutils-configure-$(DATE).log || { echo "配置 binutils 失败！"; exit 1; }; \
-	make -j$(JOBS) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/binutils-make-$(DATE).log || { echo "构建 binutils 失败！"; exit 1; }; \
-	make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/binutils-make-install-$(DATE).log || { echo "安装 binutils 失败！"; exit 1; }; \
+		-v 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/binutils-configure-$(DATE).log || { echo "配置 binutils 失败！"; exit 1; }; \
+	make -j$(JOBS) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/binutils-make-$(DATE).log || { echo "构建 binutils 失败！"; exit 1; }; \
+	make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/binutils-make-install-$(DATE).log || { echo "安装 binutils 失败！"; exit 1; }; \
 	echo "binutils 安装完成，接下来请执行: make pass1-gcc"
 
 
@@ -124,13 +124,13 @@ pass1-gcc: init
 				--enable-languages=c,c++,go \
 				--with-arch=armv7-a \
 				--with-float=soft \
-				--enable-threads=posix 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/pass1-configure-$(DATE).log || { echo "配置 pass1-gcc 失败！"; exit 1; }; \
-	make -j$(JOBS) all-gcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/pass1-make-all-gcc-$(DATE).log || { echo "构建 pass1-gcc 失败！"; exit 1; }; \
-	make install-gcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/pass1-make-install-gcc-$(DATE).log || { echo "安装 pass1-gcc 失败！"; exit 1; }; \
+				--enable-threads=posix 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-configure-$(DATE).log || { echo "配置 pass1-gcc 失败！"; exit 1; }; \
+	make -j$(JOBS) all-gcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-make-all-gcc-$(DATE).log || { echo "构建 pass1-gcc 失败！"; exit 1; }; \
+	make install-gcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-make-install-gcc-$(DATE).log || { echo "安装 pass1-gcc 失败！"; exit 1; }; \
 	echo "安装 C/C++ 编译器完成，接下来请执行: make glibc"
 
 glibc: init
-	echo "配置和安装 glibc 头文件和启动文件..." 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/glibc-target-$(DATE).log
+	echo "配置和安装 glibc 头文件和启动文件..." 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/glibc-target-$(DATE).log
 	cd $(GLIBC_DIR); \
 	if [ -d $(GLIBC_BUILD_DIR) ]; then \
 		rm -rf $(GLIBC_BUILD_DIR); \
@@ -150,47 +150,47 @@ glibc: init
 		--disable-werror \
 		libc_cv_forced_unwind=yes \
 		--with-pkgversion="Self across toolchain with glibc and glibc-2.39" \
-		-v 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/glibc-configure-$(DATE).log || { \
+		-v 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/glibc-configure-$(DATE).log || { \
 			echo "配置 glibc 失败！" >&2; \
 			cat $(LOG_DIR)/glibc-configure-$(DATE).log >&2; \
 			exit 1; \
 		}; \
 	cd $(GLIBC_BUILD_DIR); \
-	make install-bootstrap-headers=yes install-headers 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/glibc-install-headers-$(DATE).log || { \
+	make install-bootstrap-headers=yes install-headers 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/glibc-install-headers-$(DATE).log || { \
 	echo "安装 glibc headers 失败！" >&2; \
 		cat $(LOG_DIR)/glibc-install-headers-$(DATE).log >&2; \
 	exit 1; \
 	}; \
-	make -j$(JOBS) csu/subdir_lib 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/glibc-make-csu-$(DATE).log || { \
+	make -j$(JOBS) csu/subdir_lib 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/glibc-make-csu-$(DATE).log || { \
 	echo "编译 glibc 启动文件失败！" >&2; \
 		cat $(LOG_DIR)/glibc-make-csu-$(DATE).log >&2; \
 	exit 1; \
 	}; 
 	cd $(GLIBC_BUILD_DIR); \
-	install csu/crt1.o csu/crti.o csu/crtn.o $(TOOLS_DIR)/$(TARGET)/lib 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/glibc-install-crt-$(DATE).log; \
-	${TARGET}-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o $(TOOLS_DIR)/$(TARGET)/lib/libc.so 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/glibc-create-libc-$(DATE).log;\
+	install csu/crt1.o csu/crti.o csu/crtn.o $(TOOLS_DIR)/$(TARGET)/lib 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/glibc-install-crt-$(DATE).log; \
+	${TARGET}-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o $(TOOLS_DIR)/$(TARGET)/lib/libc.so 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/glibc-create-libc-$(DATE).log;\
 	touch $(TOOLS_DIR)/$(TARGET)/include/gnu/stubs.h; \
 	echo "安装标准 C 库头文件和启动文件成功，接下来请执行: make libgcc"
 
 libgcc: init
 	echo "安装编译器支持库..."
 	@cd $(GCC_BUILD_DIR); \
-	make -j$(JOBS) all-target-libgcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/all-target-libgcc-$(DATE).log || { echo "编译 libgcc 失败！"; exit 1; }; \
-	make install-target-libgcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/install-target-libgcc-$(DATE).log || { echo "安装 libgcc 失败！"; exit 1; }; \
+	make -j$(JOBS) all-target-libgcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/all-target-libgcc-$(DATE).log || { echo "编译 libgcc 失败！"; exit 1; }; \
+	make install-target-libgcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/install-target-libgcc-$(DATE).log || { echo "安装 libgcc 失败！"; exit 1; }; \
 	echo "安装编译器支持库完成，接下来请执行: make all-glibc"
 
 all-glibc: init
 	echo "安装标准 C 库..."
 	@cd $(GLIBC_BUILD_DIR); \
-	make -j$(JOBS) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/all-glibc-make-$(DATE).log || { echo "编译 all-glibc 失败！"; exit 1; }; \
-	make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/all-glibc-install-$(DATE).log || { echo "安装 all-glibc 失败！"; exit 1; }; \
+	make -j$(JOBS) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/all-glibc-make-$(DATE).log || { echo "编译 all-glibc 失败！"; exit 1; }; \
+	make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/all-glibc-install-$(DATE).log || { echo "安装 all-glibc 失败！"; exit 1; }; \
 	echo "安装标准 C 库完成，接下来请执行: make libstdc++"
 
 libstdc++: init
 	echo "完成最后的构建..."
 	@cd $(GCC_BUILD_DIR); \
-	make -j$(JOBS) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/libstdc++-make-$(DATE).log || { echo "完成最后的构建失败！"; exit 1; }; \
-	make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/libstdc++-install-$(DATE).log || { echo "安装 libstdc++ GCC 失败！"; exit 1; }; \
+	make -j$(JOBS) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/libstdc++-make-$(DATE).log || { echo "完成最后的构建失败！"; exit 1; }; \
+	make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/libstdc++-install-$(DATE).log || { echo "安装 libstdc++ GCC 失败！"; exit 1; }; \
 echo "所有构建完成!"
 
 install_env: 
@@ -214,27 +214,27 @@ testsuite: init
 		mkdir -p $(LOG_DIR); \
 		echo "Created log directory."; \
 	fi; \
-	make check-gcc RUNTESTFLAGS="--target_board=unix-arm " 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/testsuite-$(DATE).log; \
+	make check-gcc RUNTESTFLAGS="--target_board=unix-arm " 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/testsuite-$(DATE).log; \
 	echo "GCC Testsuite finished. Check $(LOG_DIR)/testsuite-$(DATE).log for results."
 
 compile_test:
-	@echo "Compiling test code with arm-linux-gnueabihf-gcc..." | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/compile_test-$(DATE).log
+	@echo "Compiling test code with arm-linux-gnueabihf-gcc..." | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
 	arm-linux-gnueabihf-gccgo -o test_code/arm_test test_code/arm_test.go | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
 	arm-linux-gnueabihf-gccgo -static -o test_code/arm_test_static test_code/arm_test.go | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
 	@echo "Compilation completed."
 
 file:
-	@echo "display file type" | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/file-target-$(DATE).log
+	@echo "display file type" | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/file-target-$(DATE).log
 	file test_code/arm_test | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/file-target-$(DATE).log
 	file test_code/arm_test_static | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/file-target-$(DATE).log
 
 ldd:
-	@echo "display ldd" | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/ldd-target-$(DATE).log
+	@echo "display ldd" | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/ldd-target-$(DATE).log
 	ldd test_code/arm_test | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/ldd-target-$(DATE).log
 #ldd test_code/arm_test_static > static_ldd.log 2>&1 | tee -a $(LOG_DIR)/ldd-target.log
 
 run_test:
-	@echo "Running compiled binary with qemu-arm..." | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/run_test-target-$(DATE).log
+	@echo "Running compiled binary with qemu-arm..." | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
 	@echo "begin first test" | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
 	qemu-arm -L $(TOOLS_DIR)/$(TARGET) test_code/arm_test | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
 	@echo "=========================================" | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
