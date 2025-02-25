@@ -1,8 +1,0 @@
--nostdlib
--nostartfiles
--shared
--x
-c
-/dev/null
--o
-/home/ssy/arm-gcc-build/tools/arm-linux-gnueabihf/lib/libc.so
