@@ -6,3 +6,6 @@
 
 # 忽略所有子文件夹中的 .tar.* 文件
 **/*.tar.*
+
+# build_ct-ng/
+# /build_ct-ng
