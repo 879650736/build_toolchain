@@ -194,7 +194,7 @@ libstdc++: init
 	@cd $(GCC_BUILD_DIR); \
 	make -j$(JOBS) 2>&1 | tee $(LOG_DIR)/libstdc++-make.log || { echo "完成最后的构建失败！"; exit 1; }; \
 	make install 2>&1 | tee $(LOG_DIR)/libstdc++-install.log || { echo "安装 libstdc++ GCC 失败！"; exit 1; }; \
-echo "所有构建完成!"
+	echo "所有构建完成!"
 
 install_env: init
 	echo "安装完成，配置环境变量..."
@@ -205,11 +205,18 @@ install_env: init
 	echo "环境变量配置完成!"
 
 testsuite: init
-	echo "Running GCC Testsuite..."
-	@cd $(GCC_BUILD_DIR); \
-	unset LD_LIBRARY_PATH;\
-	make check-gcc RUNTESTFLAGS="--target_board=unix-arm" 2>&1 | tee $(LOG_DIR)/testsuite.log; \
-	echo "GCC Testsuite finished. Check testsuite.log for results."
+	@echo "Running GCC Testsuite with ARM target..."
+	@cd $(GCC_BUILD_DIR) && \
+	unset LD_LIBRARY_PATH CROSS_COMPILE; \
+	export PATH="$(TOOLS_DIR)/bin:$$PATH"; \
+	make check-gcc \
+		RUNTESTFLAGS="--target_board=arm-sim" \
+		DEJAGNU="$(GCC_DIR)/contrib/test_arm_prototype.exp" \
+		2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee $(LOG_DIR)/testsuite-$(DATE).log || { \
+			echo "测试套件运行失败！查看日志: $(LOG_DIR)/testsuite-$(DATE).log"; \
+			exit 1; \
+		}
+	@echo "GCC Testsuite 完成，结果保存在: $(LOG_DIR)/testsuite-$(DATE).log"
 
 clean:
 	echo "删除无用文件..."
