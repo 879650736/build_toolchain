@@ -191,7 +191,7 @@ libstdc++: init
 	@cd $(GCC_BUILD_DIR); \
 	make -j$(JOBS) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/libstdc++-make-$(DATE).log || { echo "完成最后的构建失败！"; exit 1; }; \
 	make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/libstdc++-install-$(DATE).log || { echo "安装 libstdc++ GCC 失败！"; exit 1; }; \
-echo "所有构建完成!"
+	echo "所有构建完成!"
 
 install_env: 
 	echo "安装完成，配置环境变量..."
