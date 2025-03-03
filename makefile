@@ -86,7 +86,8 @@ linux: init
 	mkdir -p $(TOOLS_DIR)/$(TARGET) 
 	echo "TOOLS_DIR=$(TOOLS_DIR), TARGET=$(TARGET), LINUX_DIR=$(LINUX_DIR)"
 	cd $(LINUX_DIR) && \
-	make ARCH=arm INSTALL_HDR_PATH=$(TOOLS_DIR)/$(TARGET) headers_install || \
+	make ARCH=arm INSTALL_HDR_PATH=$(TOOLS_DIR)/$(TARGET) headers_install \
+	2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/headers_install-$(DATE).log || \
 	(echo "安装 Linux 内核头文件失败！" && exit 1)
 	echo "Linux 内核头文件安装完成，接下来请执行: make binutils"
 
