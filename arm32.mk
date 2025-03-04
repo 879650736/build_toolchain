@@ -30,9 +30,9 @@ export PATH
 export PATH := $(TOOLS_DIR)/bin:$(PATH)
 
 # 定义目标
+test: init_env download copy init linux binutils pass1-gcc
 all: init_env code init linux binutils pass1-gcc glibc libgcc all-glibc libstdc++ install_env compile_test run_test
 
-test: init_env download copy init linux binutils pass1-gcc glibc libgcc all-glibc libstdc++
 init_env:
 	mkdir -p $(LOG_DIR)
 	echo "检查 ${TOOLCHAIN_HOME} 是否存在..."
@@ -61,22 +61,28 @@ code:
 
 
 init: 
-	echo "解压源码..."
+# 检查并解压 binutils
 	@if [ ! -d $(BINUTILS_DIR) ]; then \
-		echo "解压 binutils..."; \
-		tar -zxvf $(SOURCE_DIR)/binutils-$(BINUTILS_VERSION).tar.gz -C $(SOURCE_DIR) || { echo "解压 binutils 失败！"; exit 1; }; \
+    echo "解压 binutils..."; \
+    7z x -y $(SOURCE_DIR)/binutils-$(BINUTILS_VERSION).tar.gz -so | 7z x -y -si -ttar -o$(SOURCE_DIR) || { echo "解压 binutils 失败！"; rm -rf $(BINUTILS_DIR); exit 1; }; \
 	fi
+
+# 检查并解压 gcc
 	@if [ ! -d $(GCC_DIR) ]; then \
-		echo "解压 gcc..."; \
-		tar -zxvf $(SOURCE_DIR)/gcc-$(GCC_VERSION).tar.gz -C $(SOURCE_DIR) || { echo "解压 gcc 失败！"; exit 1; }; \
+    echo "解压 gcc..."; \
+    7z x -y $(SOURCE_DIR)/gcc-$(GCC_VERSION).tar.gz -so | 7z x -y -si -ttar -o$(SOURCE_DIR) || { echo "解压 gcc 失败！"; rm -rf $(GCC_DIR); exit 1; }; \
 	fi
+
+# 检查并解压 glibc
 	@if [ ! -d $(GLIBC_DIR) ]; then \
-		echo "解压 glibc..."; \
-		tar -zxvf $(SOURCE_DIR)/glibc-$(GLIBC_VERSION).tar.gz -C $(SOURCE_DIR) || { echo "解压 glibc 失败！"; exit 1; }; \
+    echo "解压 glibc..."; \
+    7z x -y $(SOURCE_DIR)/glibc-$(GLIBC_VERSION).tar.gz -so | 7z x -y -si -ttar -o$(SOURCE_DIR) || { echo "解压 glibc 失败！"; rm -rf $(GLIBC_DIR); exit 1; }; \
 	fi
+
+# 检查并解压 linux 内核
 	@if [ ! -d $(LINUX_DIR) ]; then \
-		echo "解压 linux..."; \
-		tar -xvJf $(SOURCE_DIR)/linux-$(LINUX_VERSION).tar.xz -C $(SOURCE_DIR) || { echo "解压 linux 失败！"; exit 1; }; \
+    echo "解压 linux..."; \
+    7z x -y $(SOURCE_DIR)/linux-$(LINUX_VERSION).tar.xz -so | 7z x -y -si -ttar -o$(SOURCE_DIR) || { echo "解压 linux 失败！"; rm -rf $(LINUX_DIR); exit 1; }; \
 	fi
 	mkdir -p $(TOOLS_DIR); 
 	@echo "解压操作完成，并且完成文件夹的初始化，接下来请执行: make linux"
@@ -274,5 +280,5 @@ download:
 
 copy:
 	@mkdir -p $(SOURCE_DIR)
-	cp /home/ssy/build_toolchain/*.tar.gz $(SOURCE_DIR)
-	cp /home/ssy/build_toolchain/*.tar.xz $(SOURCE_DIR)
+	cp $(HOME)/build_toolchain/*.tar.gz $(SOURCE_DIR)
+	cp $(HOME)/build_toolchain/*.tar.xz $(SOURCE_DIR)

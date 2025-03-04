@@ -1,2 +1,2 @@
-include arm64.mk
+include arm32.mk
 
