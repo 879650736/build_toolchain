@@ -18,6 +18,7 @@ GLIBC_BUILD_DIR := $(GLIBC_DIR)/glibc_build
 GCC_URL := https://ftp.gnu.org/gnu/gcc/gcc-$(GCC_VERSION)/gcc-$(GCC_VERSION).tar.gz
 BINUTILS_URL := https://ftp.gnu.org/gnu/binutils/binutils-$(BINUTILS_VERSION).tar.gz
 LINUX_URL := https://ftp.sjtu.edu.cn/sites/ftp.kernel.org/pub/linux/kernel/v6.x/linux-$(LINUX_VERSION).tar.xz
+LINUX_SIGN_URL := https://ftp.sjtu.edu.cn/sites/ftp.kernel.org/pub/linux/kernel/v6.x/linux-$(LINUX_VERSION).tar.sign
 GLIBC_URL := https://ftp.gnu.org/pub/gnu/glibc/glibc-$(GLIBC_VERSION).tar.gz
 USER_DIR := /usr
 LOG_DIR := $(HOME)/build_toolchain/logs
@@ -29,10 +30,10 @@ DATE := $(shell date +%Y%m%d)
 export PATH
 export PATH := $(TOOLS_DIR)/bin:$(PATH)
 
+test: init_env download copy check init
 # 定义目标
 all: init_env code init linux binutils pass1-gcc glibc libgcc all-glibc libstdc++ install_env compile_test run_test
 
-test: init_env download copy init linux binutils pass1-gcc glibc libgcc all-glibc libstdc++
 init_env:
 	mkdir -p $(LOG_DIR)
 	echo "检查 ${TOOLCHAIN_HOME} 是否存在..."
@@ -45,20 +46,35 @@ code:
 	echo "下载源码..."
 	@mkdir -p $(SOURCE_DIR)
 	@cd $(SOURCE_DIR); 
-	@if [ ! -f $(SOURCE_DIR)/binutils-$(BINUTILS_VERSION).tar.gz ]; then \
-		wget $(BINUTILS_URL) -P $(SOURCE_DIR) || { echo "下载 binutils 失败！"; exit 1; }; \
+	@if [ ! -f $(SOURCE_DIR)/binutils-$(BINUTILS_VERSION).tar.gz ] || [ ! -f $(SOURCE_DIR)/binutils-$(BINUTILS_VERSION).tar.gz.sig ]; then \
+		wget -nc  $(BINUTILS_URL) -P $(SOURCE_DIR) || { echo "下载 binutils 失败！"; exit 1; }; \
+		wget -nc  $(BINUTILS_URL).sig -P $(SOURCE_DIR) || { echo "下载 binutils 签名文件失败！"; exit 1; }; \
 	fi
-	@if [ ! -f $(SOURCE_DIR)/gcc-$(GCC_VERSION).tar.gz ]; then \
-		wget $(GCC_URL) -P $(SOURCE_DIR) || { echo "下载 gcc 失败！"; exit 1; }; \
+	@if [ ! -f $(SOURCE_DIR)/gcc-$(GCC_VERSION).tar.gz ] || [ ! -f $(SOURCE_DIR)/gcc-$(GCC_VERSION).tar.gz.sig ]; then \
+		wget -nc  $(GCC_URL) -P $(SOURCE_DIR) || { echo "下载 gcc 失败！"; exit 1; }; \
+		wget -nc  $(GCC_URL).sig -P $(SOURCE_DIR) || { echo "下载 gcc 签名文件失败！"; exit 1; }; \
 	fi
-	@if [ ! -f $(SOURCE_DIR)/linux-$(LINUX_VERSION).tar.xz ]; then \
-		wget $(LINUX_URL) -P $(SOURCE_DIR) || { echo "下载 linux 内核源码失败！"; exit 1; }; \
+	@if [ ! -f $(SOURCE_DIR)/linux-$(LINUX_VERSION).tar.xz ] || [ ! -f $(SOURCE_DIR)/linux-$(LINUX_VERSION).tar.xz.sign ]; then \
+		wget -nc  $(LINUX_URL) -P $(SOURCE_DIR) || { echo "下载 linux 内核源码失败！"; exit 1; }; \
+		wget -nc  $(LINUX_SIGN_URL) -P $(SOURCE_DIR) || { echo "下载 linux 签名文件失败！"; exit 1; }; \
 	fi
-	@if [ ! -f $(SOURCE_DIR)/glibc-$(GLIBC_VERSION).tar.gz ]; then \
-		wget $(GLIBC_URL) -P $(SOURCE_DIR) || { echo "下载 glibc 失败！"; exit 1; }; \
+	@if [ ! -f $(SOURCE_DIR)/glibc-$(GLIBC_VERSION).tar.gz ] || [ ! -f $(SOURCE_DIR)/glibc-$(GLIBC_VERSION).tar.gz.sig ]; then \
+		wget -nc  $(GLIBC_URL) -P $(SOURCE_DIR) || { echo "下载 glibc 失败！"; exit 1; }; \
+		wget -nc  $(GLIBC_URL).sig -P $(SOURCE_DIR) || { echo "下载 glibc 签名文件失败！"; exit 1; }; \
 	fi
 	@echo "源码下载完成，接下来请执行: make init"
 
+check:
+	@echo "检查源码签名..."
+# download the Gnu keyring and import it
+	curl http://ftp.gnu.org/gnu/gnu-keyring.gpg -O
+	gpg --import gnu-keyring.gpg
+	@cd $(SOURCE_DIR); \
+	gpg --verify binutils-$(BINUTILS_VERSION).tar.gz.sig || { echo "binutils 签名验证失败！"; exit 1; }; \
+	gpg --verify gcc-$(GCC_VERSION).tar.gz.sig || { echo "gcc 签名验证失败！"; exit 1; }; \
+	gpg --verify linux-$(LINUX_VERSION).tar.xz.sign || { echo "linux 签名验证失败！"; exit 1; }; \
+	gpg --verify glibc-$(GLIBC_VERSION).tar.gz.sig || { echo "glibc 签名验证失败！"; exit 1; }; 
+	@echo "源码签名验证通过，接下来请执行: make init"
 
 init: 
 	echo "解压源码..."
@@ -255,20 +271,28 @@ delete:
 
 download:
 	echo "下载源码..."
-	@if [ ! -f ./binutils-$(BINUTILS_VERSION).tar.gz ]; then \
-		wget $(BINUTILS_URL) || { echo "下载 binutils 失败！"; exit 1; }; \
+	@if [ ! -f ./binutils-$(BINUTILS_VERSION).tar.gz ] || [ ! -f ./binutils-$(BINUTILS_VERSION).tar.gz.sig ]; then \
+		wget -nc  $(BINUTILS_URL) || { echo "下载 binutils 失败！"; exit 1; }; \
+		wget -nc  $(BINUTILS_URL).sig || { echo "下载 binutils 签名文件失败！"; exit 1; }; \
 	fi
-	@if [ ! -f ./gcc-$(GCC_VERSION).tar.gz ]; then \
-		wget $(GCC_URL) || { echo "下载 gcc 失败！"; exit 1; }; \
+	@if [ ! -f ./gcc-$(GCC_VERSION).tar.gz ] || [ ! -f ./gcc-$(GCC_VERSION).tar.gz.sig ]; then \
+		wget -nc  $(GCC_URL) || { echo "下载 gcc 失败！"; exit 1; }; \
+		wget -nc  $(GCC_URL).sig|| { echo "下载 gcc 签名文件失败！"; exit 1; }; \
 	fi
-	@if [ ! -f ./linux-$(LINUX_VERSION).tar.xz ]; then \
-		wget $(LINUX_URL) || { echo "下载 linux 内核源码失败！"; exit 1; }; \
+	@if [ ! -f ./linux-$(LINUX_VERSION).tar.xz ] || [ ! -f ./linux-$(LINUX_VERSION).tar.sign ]; then \
+		wget -nc  $(LINUX_URL) || { echo "下载 linux 内核源码失败！"; exit 1; }; \
+		wget -nc  $(LINUX_SIGN_URL) || { echo "下载 linux 签名文件失败！"; exit 1; }; \
 	fi
-	@if [ ! -f ./glibc-$(GLIBC_VERSION).tar.gz ]; then \
-		wget $(GLIBC_URL) || { echo "下载 glibc 失败！"; exit 1; }; \
+	@if [ ! -f ./glibc-$(GLIBC_VERSION).tar.gz ] || [ ! -f ./glibc-$(GLIBC_VERSION).tar.gz.sig ]; then \
+		wget -nc  $(GLIBC_URL) || { echo "下载 glibc 失败！"; exit 1; }; \
+		wget -nc  $(GLIBC_URL).sig || { echo "下载 glibc 签名文件失败！"; exit 1; }; \
 	fi
 
 copy:
 	@mkdir -p $(SOURCE_DIR)
 	cp /home/ssy/build_toolchain/*.tar.gz $(SOURCE_DIR)
 	cp /home/ssy/build_toolchain/*.tar.xz $(SOURCE_DIR)
+	cp /home/ssy/build_toolchain/*.tar.sign $(SOURCE_DIR)
+	cp /home/ssy/build_toolchain/*.tar.gz.sig $(SOURCE_DIR)
+
+
