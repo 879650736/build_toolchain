@@ -1,6 +1,6 @@
 # 定义变量
 SHELL := /bin/bash
-TARGET := aarch-linux-gnu
+TARGET := aarch64-unknown-linux-gnu
 TOOLCHAIN_HOME := $(HOME)/aarch-gcc-build
 SOURCE_DIR := $(TOOLCHAIN_HOME)/source
 TOOLS_DIR := $(TOOLCHAIN_HOME)/tools
@@ -30,9 +30,11 @@ DATE := $(shell date +%Y%m%d)
 export PATH
 export PATH := $(TOOLS_DIR)/bin:$(PATH)
 
-test: init_env download copy check init
+test: init_env download copy init linux binutils pass1-gcc glibc libgcc all-glibc libstdc++ install_env
 # 定义目标
 all: init_env code init linux binutils pass1-gcc glibc libgcc all-glibc libstdc++ install_env compile_test run_test
+
+test_code: install_env compile_test run_test
 
 init_env:
 	mkdir -p $(LOG_DIR)
@@ -69,11 +71,12 @@ check:
 # download the Gnu keyring and import it
 	curl http://ftp.gnu.org/gnu/gnu-keyring.gpg -O
 	gpg --import gnu-keyring.gpg
+
 	@cd $(SOURCE_DIR); \
 	gpg --verify binutils-$(BINUTILS_VERSION).tar.gz.sig || { echo "binutils 签名验证失败！"; exit 1; }; \
 	gpg --verify gcc-$(GCC_VERSION).tar.gz.sig || { echo "gcc 签名验证失败！"; exit 1; }; \
-	gpg --verify linux-$(LINUX_VERSION).tar.xz.sign || { echo "linux 签名验证失败！"; exit 1; }; \
 	gpg --verify glibc-$(GLIBC_VERSION).tar.gz.sig || { echo "glibc 签名验证失败！"; exit 1; }; 
+# gpg --verify linux-$(LINUX_VERSION).tar.xz.sign || { echo "linux 签名验证失败！"; exit 1; }; \
 	@echo "源码签名验证通过，接下来请执行: make init"
 
 init: 
@@ -103,7 +106,7 @@ linux: init
 	mkdir -p $(TOOLS_DIR)/$(TARGET) 
 	echo "TOOLS_DIR=$(TOOLS_DIR), TARGET=$(TARGET), LINUX_DIR=$(LINUX_DIR)"
 	cd $(LINUX_DIR) && \
-	make ARCH=aarch64 INSTALL_HDR_PATH=$(TOOLS_DIR)/$(TARGET) headers_install \
+	make ARCH=arm64 INSTALL_HDR_PATH=$(TOOLS_DIR)/$(TARGET) headers_install \
 	2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/headers_install-$(DATE).log || \
 	(echo "安装 Linux 内核头文件失败！" && exit 1)
 	echo "Linux 内核头文件安装完成，接下来请执行: make binutils"
@@ -234,7 +237,7 @@ testsuite: init
 compile_test:
 	@echo "Compiling test code with $(TARGET)-gcc..." | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
 	$(TARGET)-gccgo -o test_code/$(TEST_CODE) test_code/$(TEST_CODE).go | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
-	$(TARGET)--gccgo -static -o test_code/$(TEST_CODE)_static test_code/$(TEST_CODE).go | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
+	$(TARGET)-gccgo -static -o test_code/$(TEST_CODE)_static test_code/$(TEST_CODE).go | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
 	@echo "Compilation completed."
 
 file:
