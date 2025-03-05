@@ -1,17 +1,19 @@
 # 定义变量
 SHELL := /bin/bash
-TARGET := arm-linux-gnueabihf
-TOOLCHAIN_HOME := $(HOME)/arm-gcc-build
+TARGET := arm-unknown-linux-gnueabi
+TOOLCHAIN_HOME := $(HOME)/arm-unknown-gcc-build
 SOURCE_DIR := $(TOOLCHAIN_HOME)/source
 TOOLS_DIR := $(TOOLCHAIN_HOME)/tools
 GCC_VERSION ?= 13.2.0
 BINUTILS_VERSION ?= 2.37
 LINUX_VERSION ?= 6.1.10
 GLIBC_VERSION ?= 2.39
+LIBUNWIND_VERSION ?= 1.8.1
 BINUTILS_DIR := $(SOURCE_DIR)/binutils-$(BINUTILS_VERSION)
 GCC_DIR := $(SOURCE_DIR)/gcc-$(GCC_VERSION)
 GLIBC_DIR := $(SOURCE_DIR)/glibc-$(GLIBC_VERSION)
 LINUX_DIR := $(SOURCE_DIR)/linux-$(LINUX_VERSION)
+LIBUNWIND_DIR := $(SOURCE_DIR)/libunwind-$(LIBUNWIND_VERSION)
 BINUTILS_BUILD_DIR := $(BINUTILS_DIR)/binutils_build
 GCC_BUILD_DIR := $(GCC_DIR)/gcc_build-pass1
 GLIBC_BUILD_DIR := $(GLIBC_DIR)/glibc_build
@@ -19,10 +21,13 @@ GCC_URL := https://ftp.gnu.org/gnu/gcc/gcc-$(GCC_VERSION)/gcc-$(GCC_VERSION).tar
 BINUTILS_URL := https://ftp.gnu.org/gnu/binutils/binutils-$(BINUTILS_VERSION).tar.gz
 LINUX_URL := https://ftp.sjtu.edu.cn/sites/ftp.kernel.org/pub/linux/kernel/v6.x/linux-$(LINUX_VERSION).tar.xz
 GLIBC_URL := https://ftp.gnu.org/pub/gnu/glibc/glibc-$(GLIBC_VERSION).tar.gz
+LIBUNWIND_URL := https://github.com/libunwind/libunwind/releases/download/v$(LIBUNWIND_VERSION)/libunwind-$(LIBUNWIND_VERSION).tar.gz
 USER_DIR := /usr
+SYSROOT_DIR := $(TOOLS_DIR)/$(TARGET)/sysroot
 LOG_DIR := $(HOME)/build_toolchain/logs
 TEST_CODE := arm_test
-JOBS ?= 4
+JOBS ?= 
+
 DATE := $(shell date +%Y%m%d)
 
 
@@ -37,7 +42,7 @@ init_env:
 	mkdir -p $(LOG_DIR)
 	echo "检查 ${TOOLCHAIN_HOME} 是否存在..."
 	@if [ ! -d "${TOOLCHAIN_HOME}" ]; then \
-		mkdir -p $(TOOLCHAIN_HOME) $(SOURCE_DIR) $(TOOLS_DIR); \
+		mkdir -p $(TOOLCHAIN_HOME) $(SOURCE_DIR) $(TOOLS_DIR) $(SYSROOT_DIR); \
 	fi
 	@echo "环境初始化完成，接下来请执行: make init"
 
@@ -111,7 +116,7 @@ binutils: init
 		--with-arch=armv7-a \
 		--with-float=soft \
 		-v 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/binutils-configure-$(DATE).log || { echo "配置 binutils 失败！"; exit 1; }; \
-	make -j$(JOBS) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/binutils-make-$(DATE).log || { echo "构建 binutils 失败！"; exit 1; }; \
+	make $(JOBS) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/binutils-make-$(DATE).log || { echo "构建 binutils 失败！"; exit 1; }; \
 	make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/binutils-make-install-$(DATE).log || { echo "安装 binutils 失败！"; exit 1; }; \
 	echo "binutils 安装完成，接下来请执行: make pass1-gcc"
 
@@ -133,7 +138,7 @@ pass1-gcc: init
 				--with-arch=armv7-a \
 				--with-float=soft \
 				--enable-threads=posix 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-configure-$(DATE).log || { echo "配置 pass1-gcc 失败！"; exit 1; }; \
-	make -j$(JOBS) all-gcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-make-all-gcc-$(DATE).log || { echo "构建 pass1-gcc 失败！"; exit 1; }; \
+	make $(JOBS) all-gcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-make-all-gcc-$(DATE).log || { echo "构建 pass1-gcc 失败！"; exit 1; }; \
 	make install-gcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-make-install-gcc-$(DATE).log || { echo "安装 pass1-gcc 失败！"; exit 1; }; \
 	echo "安装 C/C++ 编译器完成，接下来请执行: make glibc"
 
@@ -147,14 +152,16 @@ glibc: init
 	unset LD_LIBRARY_PATH; \
 	../configure --host=$(TARGET) \
 		--target=$(TARGET) \
-		--prefix=$(TOOLS_DIR)/$(TARGET) \
+		--prefix=$(TOOLS_DIR)/$(TARGET)/$(SYSROOT_DIR)/usr \
 		--with-headers=$(TOOLS_DIR)/$(TARGET)/include \
 		--with-arch=armv7-a \
-		--with-fpu=vfpv3-d16 \
-		--with-float=hard \
+		--with-float=soft \
 		--disable-multilib \
 		--disable-profile \
 		--enable-threads=posix \
+		--enable-force-unwind \
+		--with-libgcc-s=yes \
+		--enable-static-pie=no \
 		--disable-werror \
 		libc_cv_forced_unwind=yes \
 		--with-pkgversion="Self across toolchain with glibc and glibc-2.39" \
@@ -164,19 +171,28 @@ glibc: init
 			exit 1; \
 		}; \
 	cd $(GLIBC_BUILD_DIR); \
+	make $(JOBS) csu/subdir_lib 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/glibc-make-csu-$(DATE).log || { \
+	echo "编译 glibc 启动文件失败！" >&2; \
+		cat $(LOG_DIR)/glibc-make-csu-$(DATE).log >&2; \
+	exit 1; \
+	}; \
 	make install-bootstrap-headers=yes install-headers 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/glibc-install-headers-$(DATE).log || { \
 	echo "安装 glibc headers 失败！" >&2; \
 		cat $(LOG_DIR)/glibc-install-headers-$(DATE).log >&2; \
 	exit 1; \
-	}; \
-	make -j$(JOBS) csu/subdir_lib 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/glibc-make-csu-$(DATE).log || { \
-	echo "编译 glibc 启动文件失败！" >&2; \
-		cat $(LOG_DIR)/glibc-make-csu-$(DATE).log >&2; \
-	exit 1; \
 	}; 
+	
 	cd $(GLIBC_BUILD_DIR); \
 	install csu/crt1.o csu/crti.o csu/crtn.o $(TOOLS_DIR)/$(TARGET)/lib 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/glibc-install-crt-$(DATE).log; \
-	${TARGET}-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o $(TOOLS_DIR)/$(TARGET)/lib/libc.so 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/glibc-create-libc-$(DATE).log;\
+	${TARGET}-gcc -nostdlib -nostartfiles -shared \
+	-x c /dev/null -o $(TOOLS_DIR)/$(TARGET)/lib/libc.so 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/glibc-create-libc-$(DATE).log;\
+	touch $(TOOLS_DIR)/$(TARGET)/include/gnu/stubs.h; \
+	echo "安装标准 C 库头文件和启动文件成功，接下来请执行: make libgcc"
+aa:
+	cd $(GLIBC_BUILD_DIR); \
+	install csu/crt1.o csu/crti.o csu/crtn.o $(TOOLS_DIR)/$(TARGET)/lib 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/glibc-install-crt-$(DATE).log; \
+	${TARGET}-gcc -nostdlib -nostartfiles -shared \
+	-x c /dev/null -o $(TOOLS_DIR)/$(TARGET)/lib/libc.so 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/glibc-create-libc-$(DATE).log;\
 	touch $(TOOLS_DIR)/$(TARGET)/include/gnu/stubs.h; \
 	echo "安装标准 C 库头文件和启动文件成功，接下来请执行: make libgcc"
 
@@ -197,20 +213,17 @@ all-glibc: init
 libstdc++: init
 	echo "完成最后的构建..."
 	@cd $(GCC_BUILD_DIR); \
-	make -j$(JOBS) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/libstdc++-make-$(DATE).log || { echo "完成最后的构建失败！"; exit 1; }; \
+	make $(JOBS) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/libstdc++-make-$(DATE).log || { echo "完成最后的构建失败！"; exit 1; }; \
 	make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/libstdc++-install-$(DATE).log || { echo "安装 libstdc++ GCC 失败！"; exit 1; }; \
 	echo "所有构建完成!"
 
 install_env: 
 	echo "安装完成，配置环境变量..."
-	@if ! grep -q "${TOOLS_DIR}/bin" ~/.zshrc; then \
-		echo "export PATH=${TOOLS_DIR}/bin:\$$PATH" >> ~/.zshrc; \
+	@if ! grep -q "${TOOLS_DIR}/bin" ~/.bashrc; then \
+		echo "export PATH=${TOOLS_DIR}/bin:\$$PATH" >> ~/.bashrc; \
 	fi
-	@if ! grep -q "${TOOLS_DIR}/${TARGET}/bin" ~/.zshrc; then \
-		echo "export PATH=${TOOLS_DIR}/${TARGET}/bin:\$$PATH" >> ~/.zshrc; \
-	fi
-	. ~/.zshrc;
-	echo "环境变量配置完成! 请手动执行: source ~/.zshrc"
+	. ~/.bashrc;
+	echo "环境变量配置完成! 请手动执行: source ~/.bashrc"
 
 testsuite: init
 	echo "Running GCC Testsuite..."
@@ -227,8 +240,8 @@ testsuite: init
 
 compile_test:
 	@echo "Compiling test code with arm-linux-gnueabihf-gcc..." | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
-	arm-linux-gnueabihf-gccgo -o test_code/$(TEST_CODE) test_code/$(TEST_CODE).go | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
-	arm-linux-gnueabihf-gccgo -static -o test_code/$(TEST_CODE)_static test_code/$(TEST_CODE).go | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
+	arm-linux-gnueabihf-gccgo -o test_code/$(TEST_CODE) test_code/$(TEST_CODE).go  -lunwind -lgcc -lgcc_eh   -I${SYSROOT_DIR}/usr/include -L${SYSROOT_DIR}/usr/lib| ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
+	arm-linux-gnueabihf-gccgo -static -o test_code/$(TEST_CODE)_static test_code/$(TEST_CODE).go  -lunwind -lgcc -lgcc_eh   -I${SYSROOT_DIR}/usr/include -L${SYSROOT_DIR}/usr/lib | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
 	@echo "Compilation completed."
 
 file:
@@ -250,6 +263,28 @@ run_test:
 	qemu-arm -L $(TOOLS_DIR)/$(TARGET) test_code/$(TEST_CODE)_static | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
 	@echo "Test execution completed." | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
 
+libunwind:
+	@if [ ! -f $(SOURCE_DIR)/libunwind-$(LIBUNWIND_VERSION).tar.gz ]; then \
+		wget $(LIBUNWIND_URL) -P $(SOURCE_DIR) \
+		 || { echo "下载 libunwind 失败！"; exit 1; }; \
+	fi
+	@if [ ! -d $(LIBUNWIND_DIR) ]; then \
+    echo "解压 libunwind..."; \
+    7z x -y $(SOURCE_DIR)/libunwind-$(LIBUNWIND_VERSION).tar.gz -so | 7z x -y -si -ttar -o$(SOURCE_DIR) || { echo "解压 libunwind 失败！"; rm -rf $(LIBUNWIND_DIR); exit 1; }; \
+	fi
+	cd $(SOURCE_DIR)/libunwind-$(LIBUNWIND_VERSION); \
+	export SYSROOT="/home/879650736/arm-unknown-gcc-build/tools/arm-linux-gnueabihf";\
+	export CC="arm-linux-gnueabihf-gcc"; \
+   	export CXX="arm-linux-gnueabihf-g++"; \
+	export CFLAGS="-I$(SYSROOT_DIR)/include -D_GNU_SOURCE";\
+	export LDFLAGS="-L$(SYSROOT_DIR)/lib -lgcc  -lpthread -static";\
+	./configure   --host=$(TARGET)  \
+	--prefix=$(SYSROOT_DIR)   --enable-static --disable-tests ;   \
+	make && make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/libunwind-install-$(DATE).log || { echo "安装 libunwind 失败！"; exit 1; }; \
+
+libunwind_clean:
+	cd $(SOURCE_DIR)/libunwind-$(LIBUNWIND_VERSION); \
+	make clean
 clean:
 	echo "删除无用文件..."
 	@cd $(SOURCE_DIR); \
