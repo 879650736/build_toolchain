@@ -35,7 +35,7 @@ export PATH
 export PATH := $(TOOLS_DIR)/bin:$(PATH)
 
 # 定义目标
-test: init_env download copy init linux binutils pass1-gcc
+test: init_env download copy init linux binutils pass1-gcc  glibc libgcc all-glibc libstdc++ install_env
 all: init_env code init linux binutils pass1-gcc glibc libgcc all-glibc libstdc++ install_env compile_test run_test
 
 init_env:
