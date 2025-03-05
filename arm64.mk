@@ -20,7 +20,7 @@ BINUTILS_URL := https://ftp.gnu.org/gnu/binutils/binutils-$(BINUTILS_VERSION).ta
 LINUX_URL := https://ftp.sjtu.edu.cn/sites/ftp.kernel.org/pub/linux/kernel/v6.x/linux-$(LINUX_VERSION).tar.xz
 LINUX_SIGN_URL := https://ftp.sjtu.edu.cn/sites/ftp.kernel.org/pub/linux/kernel/v6.x/linux-$(LINUX_VERSION).tar.sign
 GLIBC_URL := https://ftp.gnu.org/pub/gnu/glibc/glibc-$(GLIBC_VERSION).tar.gz
-USER_DIR := /usr
+SYSROOT_DIR := $(TOOLS_DIR)/$(TARGET)/sysroot
 LOG_DIR := $(HOME)/build_toolchain/logs
 TEST_CODE := aarch64_test
 JOBS ?= 4
@@ -136,7 +136,7 @@ pass1-gcc: init
 	cd $(GCC_DIR); \
 	./contrib/download_prerequisites 
 	mkdir -p $(GCC_BUILD_DIR) && cd $(GCC_BUILD_DIR); \
-	../configure --target=$(TARGET) --prefix=$(TOOLS_DIR) \
+	../configure --target=$(TARGET) --prefix=$(SYSROOT_DIR)/usr  \
 				--disable-multilib \
 				--disable-libsanitizer \
 				--disable-lto --disable-libmudflap \

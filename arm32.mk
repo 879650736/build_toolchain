@@ -19,7 +19,7 @@ GCC_URL := https://ftp.gnu.org/gnu/gcc/gcc-$(GCC_VERSION)/gcc-$(GCC_VERSION).tar
 BINUTILS_URL := https://ftp.gnu.org/gnu/binutils/binutils-$(BINUTILS_VERSION).tar.gz
 LINUX_URL := https://ftp.sjtu.edu.cn/sites/ftp.kernel.org/pub/linux/kernel/v6.x/linux-$(LINUX_VERSION).tar.xz
 GLIBC_URL := https://ftp.gnu.org/pub/gnu/glibc/glibc-$(GLIBC_VERSION).tar.gz
-USER_DIR := /usr
+SYSROOT_DIR := $(TOOLS_DIR)/$(TARGET)/sysroot
 LOG_DIR := $(HOME)/build_toolchain/logs
 TEST_CODE := arm_test
 JOBS ?= 4
@@ -99,7 +99,7 @@ binutils: init
 		rm -rf $(BINUTILS_BUILD_DIR); \
 	fi; \
 	mkdir -p $(BINUTILS_BUILD_DIR) && cd $(BINUTILS_BUILD_DIR); \
-	../configure --target=$(TARGET) --prefix=$(TOOLS_DIR) \
+	../configure --target=$(TARGET) --prefix=$(SYSROOT_DIR)/usr \
 		--disable-multilib \
 		--disable-werror \
 		--with-arch=armv7-a \
