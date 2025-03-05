@@ -152,7 +152,7 @@ glibc: init
 	unset LD_LIBRARY_PATH; \
 	../configure --host=$(TARGET) \
 		--target=$(TARGET) \
-		--prefix=$(TOOLS_DIR)/$(TARGET)/$(SYSROOT_DIR)/usr \
+		--prefix=/$(SYSROOT_DIR)/usr \
 		--with-headers=$(TOOLS_DIR)/$(TARGET)/include \
 		--with-arch=armv7-a \
 		--with-float=soft \
