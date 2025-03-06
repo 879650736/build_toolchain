@@ -35,7 +35,7 @@ export PATH
 export PATH := $(TOOLS_DIR)/bin:$(PATH)
 
 # 定义目标
-test: init_env download copy init linux binutils pass1-gcc  glibc libgcc all-glibc libstdc++ install_env
+test: init_env download copy init linux binutils 
 all: init_env code init linux binutils pass1-gcc glibc libgcc all-glibc libstdc++ install_env compile_test run_test
 
 init_env:
@@ -152,7 +152,7 @@ glibc: init
 	unset LD_LIBRARY_PATH; \
 	../configure --host=$(TARGET) \
 		--target=$(TARGET) \
-		--prefix=/$(SYSROOT_DIR)/usr \
+		--prefix=$(SYSROOT_DIR)/usr \
 		--with-headers=$(TOOLS_DIR)/$(TARGET)/include \
 		--with-arch=armv7-a \
 		--with-float=soft \
@@ -161,7 +161,8 @@ glibc: init
 		--enable-threads=posix \
 		--enable-force-unwind \
 		--with-libgcc-s=yes \
-		--enable-static-pie=no \
+		--enable-static \
+		--enable-static-pie \
 		--disable-werror \
 		libc_cv_forced_unwind=yes \
 		--with-pkgversion="Self across toolchain with glibc and glibc-2.39" \
