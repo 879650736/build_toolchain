@@ -161,8 +161,7 @@ glibc: init
 		--enable-threads=posix \
 		--enable-force-unwind \
 		--with-libgcc-s=yes \
-		--enable-static \
-		--enable-static-pie \
+		--enable-static-pie=no \
 		--disable-werror \
 		libc_cv_forced_unwind=yes \
 		--with-pkgversion="Self across toolchain with glibc and glibc-2.39" \
