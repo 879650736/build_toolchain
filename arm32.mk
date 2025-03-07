@@ -35,12 +35,17 @@ export PATH
 export PATH := $(TOOLS_DIR)/bin:$(PATH)
 
 # 定义目标
-test: init_env download copy init linux binutils 
+test: init_env download copy init linux binutils
 all: init_env code init linux binutils pass1-gcc glibc libgcc all-glibc libstdc++ install_env compile_test run_test
 
 init_env:
 	mkdir -p $(LOG_DIR)
-	echo "检查 ${TOOLCHAIN_HOME} 是否存在..."
+	@if ! grep -q "${TOOLS_DIR}/bin" ~/.bashrc; then \
+		echo "export MSYS=winsymlinks:nativestrict >> ~/.bashrc; \
+	fi
+	. ~/.bashrc;
+	@echo "环境变量配置完成! 请手动执行: source ~/.bashrc"
+	@echo "检查 ${TOOLCHAIN_HOME} 是否存在..."
 	@if [ ! -d "${TOOLCHAIN_HOME}" ]; then \
 		mkdir -p $(TOOLCHAIN_HOME) $(SOURCE_DIR) $(TOOLS_DIR) $(SYSROOT_DIR); \
 	fi
@@ -127,7 +132,7 @@ pass1-gcc: init
 		rm -rf $(GCC_BUILD_DIR); \
 	fi; 
 	cd $(GCC_DIR); \
-	./contrib/download_prerequisites 
+	./contrib/download_prerequisites; 
 	mkdir -p $(GCC_BUILD_DIR) && cd $(GCC_BUILD_DIR); \
 	../configure --target=$(TARGET) --prefix=$(TOOLS_DIR) \
 				--disable-multilib \
@@ -136,6 +141,7 @@ pass1-gcc: init
 				--disable-libquadmath --disable-libssp --disable-nls \
 				--enable-languages=c,c++,go \
 				--with-arch=armv7-a \
+				--enable-static \
 				--with-float=soft \
 				--enable-threads=posix 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-configure-$(DATE).log || { echo "配置 pass1-gcc 失败！"; exit 1; }; \
 	make $(JOBS) all-gcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-make-all-gcc-$(DATE).log || { echo "构建 pass1-gcc 失败！"; exit 1; }; \
