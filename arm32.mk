@@ -120,11 +120,14 @@ binutils: init
 		--disable-werror \
 		--with-arch=armv7-a \
 		--with-float=soft \
+		--with-sysroot \
+		--disable-nls \
 		-v 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/binutils-configure-$(DATE).log || { echo "配置 binutils 失败！"; exit 1; }; \
 	make $(JOBS) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/binutils-make-$(DATE).log || { echo "构建 binutils 失败！"; exit 1; }; \
 	make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/binutils-make-install-$(DATE).log || { echo "安装 binutils 失败！"; exit 1; }; \
 	echo "binutils 安装完成，接下来请执行: make pass1-gcc"
 
+gdb:	
 
 pass1-gcc: init
 	echo "配置和安装 pass1-gcc..."
