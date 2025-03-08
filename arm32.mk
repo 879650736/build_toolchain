@@ -22,7 +22,6 @@ BINUTILS_URL := https://ftp.gnu.org/gnu/binutils/binutils-$(BINUTILS_VERSION).ta
 LINUX_URL := https://ftp.sjtu.edu.cn/sites/ftp.kernel.org/pub/linux/kernel/v6.x/linux-$(LINUX_VERSION).tar.xz
 GLIBC_URL := https://ftp.gnu.org/pub/gnu/glibc/glibc-$(GLIBC_VERSION).tar.gz
 LIBUNWIND_URL := https://github.com/libunwind/libunwind/releases/download/v$(LIBUNWIND_VERSION)/libunwind-$(LIBUNWIND_VERSION).tar.gz
-USER_DIR := /usr
 SYSROOT_DIR := $(TOOLS_DIR)/$(TARGET)
 LOG_DIR := $(HOME)/build_toolchain/logs
 TEST_CODE := arm_test
@@ -40,10 +39,7 @@ all: init_env code init linux binutils pass1-gcc glibc libgcc all-glibc libstdc+
 
 init_env:
 	mkdir -p $(LOG_DIR)
-	echo "检查 ${TOOLCHAIN_HOME} 是否存在..."
-	@if [ ! -d "${TOOLCHAIN_HOME}" ]; then \
-		mkdir -p $(TOOLCHAIN_HOME) $(SOURCE_DIR) $(TOOLS_DIR) $(SYSROOT_DIR); \
-	fi
+	mkdir -p $(TOOLCHAIN_HOME) $(SOURCE_DIR) $(TOOLS_DIR) $(SYSROOT_DIR)
 	@echo "环境初始化完成，接下来请执行: make init"
 
 code:
@@ -98,7 +94,7 @@ linux: init
 	mkdir -p $(TOOLS_DIR)/$(TARGET) 
 	echo "TOOLS_DIR=$(TOOLS_DIR), TARGET=$(TARGET), LINUX_DIR=$(LINUX_DIR)"
 	cd $(LINUX_DIR) && \
-	make ARCH=arm INSTALL_HDR_PATH=$(SYSROOT_DIR)/$(TARGET) headers_install \
+	make ARCH=arm INSTALL_HDR_PATH=$(SYSROOT_DIR)/usr headers_install \
 	2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/headers_install-$(DATE).log || \
 	(echo "安装 Linux 内核头文件失败！" && exit 1)
 	echo "Linux 内核头文件安装完成，接下来请执行: make binutils"
@@ -110,7 +106,7 @@ binutils: init
 		rm -rf $(BINUTILS_BUILD_DIR); \
 	fi; \
 	mkdir -p $(BINUTILS_BUILD_DIR) && cd $(BINUTILS_BUILD_DIR); \
-	../configure --target=$(TARGET) --prefix=$(SYSROOT_DIR) \
+	../configure --target=$(TARGET) --prefix=$(TOOLS_DIR) \
 		--disable-multilib \
 		--disable-werror \
 		--with-arch=armv7-a \
@@ -140,6 +136,7 @@ pass1-gcc: init
 				--with-arch=armv7-a \
 				--with-float=soft \
 				--with-sysroot=$(SYSROOT_DIR) \
+				--with-native-system-header-dir=/usr/include \
 				--enable-threads=posix 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-configure-$(DATE).log || { echo "配置 pass1-gcc 失败！"; exit 1; }; \
 	make $(JOBS) all-gcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-make-all-gcc-$(DATE).log || { echo "构建 pass1-gcc 失败！"; exit 1; }; \
 	make install-gcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-make-install-gcc-$(DATE).log || { echo "安装 pass1-gcc 失败！"; exit 1; }; \
@@ -156,7 +153,8 @@ glibc: init
 	../configure --host=$(TARGET) \
 		--target=$(TARGET) \
 		--prefix=$(SYSROOT_DIR)/usr \
-		--with-headers=$(SYSROOT_DIR)/$(TARGET)/include \
+		--host=$(TARGET) \
+		--with-headers=$(SYSROOT_DIR)/usr/include \
 		--with-sysroot=$(SYSROOT_DIR) \
 		--with-arch=armv7-a \
 		--with-float=soft \
