@@ -23,7 +23,7 @@ LINUX_URL := https://ftp.sjtu.edu.cn/sites/ftp.kernel.org/pub/linux/kernel/v6.x/
 GLIBC_URL := https://ftp.gnu.org/pub/gnu/glibc/glibc-$(GLIBC_VERSION).tar.gz
 LIBUNWIND_URL := https://github.com/libunwind/libunwind/releases/download/v$(LIBUNWIND_VERSION)/libunwind-$(LIBUNWIND_VERSION).tar.gz
 USER_DIR := /usr
-SYSROOT_DIR := $(TOOLS_DIR)/$(TARGET)/sysroot
+SYSROOT_DIR := $(TOOLS_DIR)/$(TARGET)
 LOG_DIR := $(HOME)/build_toolchain/logs
 TEST_CODE := arm_test
 JOBS ?= 
@@ -35,7 +35,7 @@ export PATH
 export PATH := $(TOOLS_DIR)/bin:$(PATH)
 
 # 定义目标
-test: init_env download copy init linux binutils 
+test: init_env download copy init linux binutils pass1-gcc
 all: init_env code init linux binutils pass1-gcc glibc libgcc all-glibc libstdc++ install_env compile_test run_test
 
 init_env:
@@ -98,7 +98,7 @@ linux: init
 	mkdir -p $(TOOLS_DIR)/$(TARGET) 
 	echo "TOOLS_DIR=$(TOOLS_DIR), TARGET=$(TARGET), LINUX_DIR=$(LINUX_DIR)"
 	cd $(LINUX_DIR) && \
-	make ARCH=arm INSTALL_HDR_PATH=$(TOOLS_DIR)/$(TARGET) headers_install \
+	make ARCH=arm INSTALL_HDR_PATH=$(SYSROOT_DIR)/$(TARGET) headers_install \
 	2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/headers_install-$(DATE).log || \
 	(echo "安装 Linux 内核头文件失败！" && exit 1)
 	echo "Linux 内核头文件安装完成，接下来请执行: make binutils"
@@ -110,10 +110,12 @@ binutils: init
 		rm -rf $(BINUTILS_BUILD_DIR); \
 	fi; \
 	mkdir -p $(BINUTILS_BUILD_DIR) && cd $(BINUTILS_BUILD_DIR); \
-	../configure --target=$(TARGET) --prefix=$(TOOLS_DIR) \
+	../configure --target=$(TARGET) --prefix=$(SYSROOT_DIR) \
 		--disable-multilib \
 		--disable-werror \
 		--with-arch=armv7-a \
+		--with-sysroot=$(SYSROOT_DIR) \
+		--disable-nls \
 		--with-float=soft \
 		-v 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/binutils-configure-$(DATE).log || { echo "配置 binutils 失败！"; exit 1; }; \
 	make $(JOBS) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/binutils-make-$(DATE).log || { echo "构建 binutils 失败！"; exit 1; }; \
@@ -137,6 +139,7 @@ pass1-gcc: init
 				--enable-languages=c,c++,go \
 				--with-arch=armv7-a \
 				--with-float=soft \
+				--with-sysroot=$(SYSROOT_DIR) \
 				--enable-threads=posix 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-configure-$(DATE).log || { echo "配置 pass1-gcc 失败！"; exit 1; }; \
 	make $(JOBS) all-gcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-make-all-gcc-$(DATE).log || { echo "构建 pass1-gcc 失败！"; exit 1; }; \
 	make install-gcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-make-install-gcc-$(DATE).log || { echo "安装 pass1-gcc 失败！"; exit 1; }; \
@@ -153,7 +156,8 @@ glibc: init
 	../configure --host=$(TARGET) \
 		--target=$(TARGET) \
 		--prefix=$(SYSROOT_DIR)/usr \
-		--with-headers=$(TOOLS_DIR)/$(TARGET)/include \
+		--with-headers=$(SYSROOT_DIR)/$(TARGET)/include \
+		--with-sysroot=$(SYSROOT_DIR) \
 		--with-arch=armv7-a \
 		--with-float=soft \
 		--disable-multilib \
@@ -181,7 +185,6 @@ glibc: init
 		cat $(LOG_DIR)/glibc-install-headers-$(DATE).log >&2; \
 	exit 1; \
 	}; 
-	
 	cd $(GLIBC_BUILD_DIR); \
 	install csu/crt1.o csu/crti.o csu/crtn.o $(TOOLS_DIR)/$(TARGET)/lib 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/glibc-install-crt-$(DATE).log; \
 	${TARGET}-gcc -nostdlib -nostartfiles -shared \
