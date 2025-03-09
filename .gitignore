@@ -8,5 +8,5 @@
 **/*.tar.*
 
 /libunwind*
-
+/*.zip
 libunwind*
