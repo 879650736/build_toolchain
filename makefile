@@ -1,2 +1,2 @@
-include arm64.mk
+include aarch64.mk
 

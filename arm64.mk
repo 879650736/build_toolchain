@@ -167,6 +167,7 @@ pass1-gcc: init
 				--disable-lto --disable-libmudflap \
 				--disable-libquadmath --disable-libssp --disable-nls \
 				--enable-languages=c,c++,go \
+				--with-native-system-header-dir=/$(TARGET)/include \
 				--with-arch=armv8-a \
 				--enable-threads=posix 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-configure-$(DATE).log || { echo "配置 pass1-gcc 失败！"; exit 1; }; \
 	make $(JOBS) all-gcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-make-all-gcc-$(DATE).log || { echo "构建 pass1-gcc 失败！"; exit 1; }; \
@@ -185,7 +186,6 @@ glibc: init
 		--target=$(TARGET) \
 		--prefix=$(SYSROOT_DIR)/$(TARGET) \
 		--with-headers=$(SYSROOT_DIR)/$(TARGET)/include \
-		--host=$(TARGET) \
 		--with-arch=armv8-a \
 		--disable-multilib \
 		--disable-profile \
@@ -202,16 +202,17 @@ glibc: init
 			exit 1; \
 		}; \
 	cd $(GLIBC_BUILD_DIR); \
-		make $(JOBS) csu/subdir_lib 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/glibc-make-csu-$(DATE).log || { \
-	echo "编译 glibc 启动文件失败！" >&2; \
-		cat $(LOG_DIR)/glibc-make-csu-$(DATE).log >&2; \
-	exit 1; \
-	}; \
 	make install-bootstrap-headers=yes install-headers 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/glibc-install-headers-$(DATE).log || { \
 	echo "安装 glibc headers 失败！" >&2; \
-		cat $(LOG_DIR)/glibc-install-headers-$(DATE).log >&2; \
+	cat $(LOG_DIR)/glibc-install-headers-$(DATE).log >&2; \
 	exit 1; \
-	}; 
+	}; \
+	make $(JOBS) csu/subdir_lib 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/glibc-make-csu-$(DATE).log || { \
+	echo "编译 glibc 启动文件失败！" >&2; \
+	cat $(LOG_DIR)/glibc-make-csu-$(DATE).log >&2; \
+	exit 1; \
+	};
+	
 	cd $(GLIBC_BUILD_DIR); \
 	install csu/crt1.o csu/crti.o csu/crtn.o $(TOOLS_DIR)/$(TARGET)/lib 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/glibc-install-crt-$(DATE).log; \
 	${TARGET}-gcc -nostdlib -nostartfiles -shared \
@@ -241,14 +242,14 @@ aa:
 libgcc: init
 	echo "安装编译器支持库..."
 	@cd $(GCC_BUILD_DIR); \
-	make -j$(JOBS) all-target-libgcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/all-target-libgcc-$(DATE).log || { echo "编译 libgcc 失败！"; exit 1; }; \
+	make $(JOBS) all-target-libgcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/all-target-libgcc-$(DATE).log || { echo "编译 libgcc 失败！"; exit 1; }; \
 	make install-target-libgcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/install-target-libgcc-$(DATE).log || { echo "安装 libgcc 失败！"; exit 1; }; \
 	echo "安装编译器支持库完成，接下来请执行: make all-glibc"
 
 all-glibc: init
 	echo "安装标准 C 库..."
 	@cd $(GLIBC_BUILD_DIR); \
-	make -j$(JOBS) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/all-glibc-make-$(DATE).log || { echo "编译 all-glibc 失败！"; exit 1; }; \
+	make $(JOBS) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/all-glibc-make-$(DATE).log || { echo "编译 all-glibc 失败！"; exit 1; }; \
 	make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/all-glibc-install-$(DATE).log || { echo "安装 all-glibc 失败！"; exit 1; }; \
 	echo "安装标准 C 库完成，接下来请执行: make libstdc++"
 
