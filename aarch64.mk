@@ -42,8 +42,7 @@ export PATH
 export PATH := $(TOOLS_DIR)/bin:$(PATH)
 
 test1: run_test
-test: init_env download copy init_tar binutils pass1-gcc linux
-# 定义目标
+test: init_env download copy init binutils 
 all: init_env code init linux binutils pass1-gcc glibc libgcc all-glibc libstdc++ install_env compile_test run_test
 
 test_code: install_env compile_test run_test
@@ -170,6 +169,8 @@ init:
 	@if [ ! -d $(GCC_DIR) ]; then \
     echo "解压 gcc..."; \
     7z x -y $(SOURCE_DIR)/gcc-$(GCC_VERSION).tar.gz -so | 7z x -y -si -ttar -o$(SOURCE_DIR) || { echo "解压 gcc 失败！"; rm -rf $(GCC_DIR); exit 1; }; \
+	cd $(GCC_DIR); \
+	contrib/download_prerequisites; \
 	fi
 
 # 检查并解压 glibc-ports
@@ -194,6 +195,9 @@ init:
 	mkdir -p $(TOOLS_DIR); 
 	@echo "解压操作完成，并且完成文件夹的初始化，接下来请执行: make linux"
 
+aaa:
+	cd $(GCC_DIR); \
+	contrib/download_prerequisites;
 
 binutils: init
 	echo "配置和安装 binutils..."
@@ -392,7 +396,6 @@ gcc_full: init
 	echo "安装完整gcc完成，接下来请执行: make install_env"
 
 
-
 install_env: 
 	echo "安装完成，配置环境变量..."
 	@if ! grep -q "${TOOLS_DIR}/bin" ~/.bashrc; then \
@@ -480,7 +483,23 @@ delete:
 	rm -rf $(TOOLCHAIN_HOME)
 	echo "删除全部构建完成，接下来请执行: make all"
 
+
 download:
+	echo "下载源码..."
+	@if [ ! -f ./binutils-$(BINUTILS_VERSION).tar.gz ]; then \
+		wget $(BINUTILS_URL) || { echo "下载 binutils 失败！"; exit 1; }; \
+	fi
+	@if [ ! -f ./gcc-$(GCC_VERSION).tar.gz ]; then \
+		wget $(GCC_URL) || { echo "下载 gcc 失败！"; exit 1; }; \
+	fi
+	@if [ ! -f ./linux-$(LINUX_VERSION).tar.xz ]; then \
+		wget $(LINUX_URL) || { echo "下载 linux 内核源码失败！"; exit 1; }; \
+	fi
+	@if [ ! -f ./glibc-$(GLIBC_VERSION).tar.gz ]; then \
+		wget $(GLIBC_URL) || { echo "下载 glibc 失败！"; exit 1; }; \
+	fi
+
+download1:
 	echo "下载源码..."
 	@if [ ! -f ./binutils-$(BINUTILS_VERSION).tar.gz ] || [ ! -f ./binutils-$(BINUTILS_VERSION).tar.gz.sig ]; then \
 		wget -nc  $(BINUTILS_URL) || { echo "下载 binutils 失败！"; exit 1; }; \
@@ -501,9 +520,14 @@ download:
 
 copy:
 	@mkdir -p $(SOURCE_DIR)
-	cp /home/ssy/build_toolchain/*.tar.gz $(SOURCE_DIR)
-	cp /home/ssy/build_toolchain/*.tar.xz $(SOURCE_DIR)
-	cp /home/ssy/build_toolchain/*.tar.sign $(SOURCE_DIR)
-	cp /home/ssy/build_toolchain/*.tar.gz.sig $(SOURCE_DIR)
+	cp $(HOME)/build_toolchain/*.tar.gz $(SOURCE_DIR)
+	cp $(HOME)/build_toolchain/*.tar.xz $(SOURCE_DIR)
 
+
+copy1:
+	@mkdir -p $(SOURCE_DIR)
+	cp $(HOME)/build_toolchain/*.tar.gz $(SOURCE_DIR)
+	cp $(HOME)/build_toolchain/*.tar.xz $(SOURCE_DIR)
+	cp $(HOME)/build_toolchain/*.tar.sign $(SOURCE_DIR)
+	cp $(HOME)/build_toolchain/*.tar.gz.sig $(SOURCE_DIR)
 
