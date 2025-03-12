@@ -9,16 +9,19 @@ GCC_VERSION ?= 13.2.0
 BINUTILS_VERSION ?= 2.37
 LINUX_VERSION ?= 6.1.10
 GLIBC_VERSION ?= 2.35
+LIBUNWIND_VERSION ?= 1.8.1
 BINUTILS_DIR := $(SOURCE_DIR)/binutils-$(BINUTILS_VERSION)
 GCC_DIR := $(SOURCE_DIR)/gcc-$(GCC_VERSION)
 GLIBC_DIR := $(SOURCE_DIR)/glibc-$(GLIBC_VERSION)
 GLIBC_PORTS_DIR := $(SOURCE_DIR)/glibc-ports-$(GLIBC_VERSION)
 LINUX_DIR := $(SOURCE_DIR)/linux-$(LINUX_VERSION)
+LIBUNWIND_DIR := $(SOURCE_DIR)/libunwind-$(LIBUNWIND_VERSION)
 BINUTILS_BUILD_DIR := $(OBJ_DIR)/binutils_build
 GCC1_BUILD_DIR := $(OBJ_DIR)/gcc_build-pass1
 GCC2_BUILD_DIR := $(OBJ_DIR)/gcc_build-pass2
 GCC3_BUILD_DIR := $(OBJ_DIR)/gcc_build-pass3
 LINUX_BUILD_DIR := $(OBJ_DIR)/linux-$(LINUX_VERSION)
+LIBUNWIND_BUILD_DIR := $(OBJ_DIR)/libunwind-$(LIBUNWIND_VERSION)
 GLIBC_BUILD_DIR := $(OBJ_DIR)/glibc_build
 GLIBC_HEADER_BUILD_DIR := $(OBJ_DIR)/glibc_header_build
 GLIBC_PORTS_BUILD_DIR := $(OBJ_DIR)/glibc_ports_build
@@ -30,7 +33,8 @@ GLIBC_URL := https://ftp.gnu.org/pub/gnu/glibc/glibc-$(GLIBC_VERSION).tar.gz
 GLIBC_PORTS_URL := https://ftp.gnu.org/pub/gnu/glibc/glibc-ports-$(GLIBC_VERSION).tar.gz
 LIBUNWIND_URL := https://github.com/libunwind/libunwind/releases/download/v$(LIBUNWIND_VERSION)/libunwind-$(LIBUNWIND_VERSION).tar.gz
 SYSROOT_DIR := $(TOOLCHAIN_HOME)/sysroot
-LOG_DIR := $(HOME)/ewxb-gcc-cross-compiler-builder/logs
+LOG_DIR := $(HOME)/build_toolchain/logs
+TEST_DIR := $(TOOLCHAIN_HOME)/test
 TEST_CODE := aarch64_test
 #glibc版本小于2.16时，需要改为--enable-add-ons=nptl,ports
 ADDONS := --enable-add-ons
@@ -42,8 +46,8 @@ export PATH
 export PATH := $(TOOLS_DIR)/bin:$(PATH)
 
 test1: run_test
-test: init_env download copy init binutils 
-all: init_env code init linux binutils pass1-gcc glibc libgcc all-glibc libstdc++ install_env compile_test run_test
+test: init_env download copy init binutils pass1-gcc linux glibc pass2-gcc glibc_full gcc_full
+all: init_env code init binutils pass1-gcc linux glibc pass2-gcc glibc_full gcc_full install_env compile_test run_test
 
 test_code: install_env compile_test run_test
 
@@ -355,7 +359,8 @@ glibc_full: init
 				--disable-profile \
 				--without-gd \
 				--without-cvs \
-				--disable-werror
+				--disable-werror \
+				--with-libgcc-s=yes \
 				$(ADDONS) \
 				--enable-kernel=$(LINUX_VERSION) \
 				libc_cv_forced_unwind=yes 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/full_glibc-configure-$(DATE).log || { echo "配置完整glibc失败！"; exit 1; }; \
@@ -389,12 +394,38 @@ gcc_full: init
 				--with-isl=no \
 				--with-cloog=no \
 				--with-libelf=no \
+				--enable-libunwind-exceptions \
+				--with-libunwind=yes \
+				--enable-shared \
 				--with-arch=armv8-a  2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/full_gcc-configure-$(DATE).log || { echo "配置完整gcc失败！"; exit 1; }; \
 	cd $(GCC3_BUILD_DIR); \
-	PATH="$(TOOLS_DIR)/bin:$$PATH" make $(JOBS) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/all-glibc-make-$(DATE).log || { echo "编译 all-glibc 失败！"; exit 1; }; \
-	PATH="$(TOOLS_DIR)/bin:$$PATH" make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/all-glibc-install-$(DATE).log || { echo "安装 all-glibc 失败！"; exit 1; }; \
+	PATH="$(TOOLS_DIR)/bin:$$PATH" make $(JOBS) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/all-gcc-make-$(DATE).log || { echo "编译 all-glibc 失败！"; exit 1; }; \
+	PATH="$(TOOLS_DIR)/bin:$$PATH" make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/all-gcc-install-$(DATE).log || { echo "安装 all-glibc 失败！"; exit 1; }; \
 	echo "安装完整gcc完成，接下来请执行: make install_env"
 
+ddd:
+	mkdir -p $(TEST_DIR) && cd $(TEST_DIR); \
+	cd $(TEST_DIR); \
+	$(GCC_DIR)/configure --target=$(TARGET) --prefix=$(TOOLS_DIR) \
+				--with-sysroot=$(SYSROOT_DIR) \
+				--disable-multilib \
+				--disable-libgomp \
+				--disable-libmudflap \
+				--disable-libsanitizer \
+				--disable-lto \
+				--disable-libquadmath \
+				--disable-libquadmath-support \
+				--disable-libssp --disable-nls \
+				--enable-languages=c,c++,go \
+				--enable-threads=posix \
+				--with-ppl=no \
+				--with-isl=no \
+				--with-cloog=no \
+				--with-libelf=no \
+				--enable-libunwind-exceptions \
+				--with-libunwind=yes \
+				--enable-shared \
+				--with-arch=armv8-a
 
 install_env: 
 	echo "安装完成，配置环境变量..."
@@ -423,6 +454,8 @@ compile_test:
 	$(TARGET)-gccgo -static -o test_code/$(TEST_CODE)go_static test_code/$(TEST_CODE).go | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
 	$(TARGET)-gcc  -o test_code/$(TEST_CODE)c test_code/$(TEST_CODE).c | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
 	$(TARGET)-g++ -o test_code/$(TEST_CODE)cpp test_code/$(TEST_CODE).cpp | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
+	aarch64-unknown-linux-gnu-gccgo -o test_code/aarch64_testgo test_code/aarch64_test.go -Wl,-rpath-link=/home/879650736/aarch-gcc-build_a/tools/aarch64-unknown-linux-gnu/lib64 -L/home/879650736/aarch-gcc-build_a/tools/aarch64-unknown-linux-gnu/lib64 -lunwind -lgcc_s -lpthread
+	aarch64-unknown-linux-gnu-gccgo -o -static test_code/aarch64_testgo test_code/aarch64_test.go -Wl,-rpath-link=/home/879650736/aarch-gcc-build_a/tools/aarch64-unknown-linux-gnu/lib64 -L/home/879650736/aarch-gcc-build_a/tools/aarch64-unknown-linux-gnu/lib64 -lunwind -lgcc_s -lpthreadaarch64-unknown-linux-gnu-gccgo -o test_code/aarch64_testgo test_code/aarch64_test.go -static -L/home/879650736/aarch-gcc-build_a/tools/aarch64-unknown-linux-gnu/lib64 /home/879650736/aarch-gcc-build_a/tools/aarch64-unknown-linux-gnu/lib64/libunwind.a -lgcc -lpthread
 	@echo "Compilation completed."
 
 file:
@@ -438,7 +471,6 @@ ldd:
 	ldd test_code/$(TEST_CODE)cpp | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/ldd-target-$(DATE).log
 	ldd test_code/$(TEST_CODE)go | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/ldd-target-$(DATE).log
 #ldd test_code/$(TEST_CODE)_static > static_ldd.log 2>&1 | tee -a $(LOG_DIR)/ldd-target.log
-
 run_test:
 	@echo "Running compiled binary with qemu-aarch64..." | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
 	@echo "begin first test" | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
@@ -449,27 +481,41 @@ run_test:
 	@echo "Test execution completed." | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
 
 libunwind:
+	if [ -d $(LIBUNWIND_BUILD_DIR) ]; then \
+		rm -rf $(LIBUNWIND_BUILD_DIR); \
+	fi; 
+	mkdir -p $(LIBUNWIND_BUILD_DIR);
 	@if [ ! -f $(SOURCE_DIR)/libunwind-$(LIBUNWIND_VERSION).tar.gz ]; then \
 		wget $(LIBUNWIND_URL) -P $(SOURCE_DIR) \
-		 || { echo "下载 libunwind 失败！"; exit 1; }; \
+		|| { echo "下载 libunwind 失败！"; exit 1; }; \
 	fi
 	@if [ ! -d $(LIBUNWIND_DIR) ]; then \
+    	echo "解压 libunwind..."; \
+    	7z x -y $(SOURCE_DIR)/libunwind-$(LIBUNWIND_VERSION).tar.gz -so | 7z x -y -si -ttar -o$(SOURCE_DIR) || { echo "解压 libunwind 失败！"; rm -rf $(LIBUNWIND_DIR); exit 1; }; \
+		patch $(LIBUNWIND_DIR)/src/aarch64/Gos-linux.c < Gos-linux.patch;\
+	fi
+	
+	cd $(LIBUNWIND_BUILD_DIR);\
+	SYSROOT="$(SYSROOT_DIR)";\
+	CC="$(TARGET)-gcc" \
+   	CXX="$(TARGET)-g++" \
+	CFLAGS="-fPIC -I$(SYSROOT_DIR)/usr/include -D_GNU_SOURCE" \
+	LDFLAGS="-L$(TOOLS_DIR)/$(TARGET)/lib64" \
+	$(LIBUNWIND_DIR)/configure   --host=$(TARGET)  --enable-static --enable-shared \
+	--prefix=$(TOOLS_DIR)/$(TARGET)  --libdir=$(TOOLS_DIR)/$(TARGET)/lib64 --disable-tests --with-sysroot=$(SYSROOT_DIR);\
+	make && make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/libunwind-install-$(DATE).log || { echo "安装 libunwind 失败！"; exit 1; }; \
+
+#--libdir=$(SYSROOT_DIR)/usr/lib64
+libunwind_clean:
+	cd $(LIBUNWIND_BUILD_DIR); \
+	make clean; \
+
+bb:
+	rm -rf  $(LIBUNWIND_DIR); \
+	if [ ! -d $(LIBUNWIND_DIR) ]; then \
     echo "解压 libunwind..."; \
     7z x -y $(SOURCE_DIR)/libunwind-$(LIBUNWIND_VERSION).tar.gz -so | 7z x -y -si -ttar -o$(SOURCE_DIR) || { echo "解压 libunwind 失败！"; rm -rf $(LIBUNWIND_DIR); exit 1; }; \
 	fi
-	cd $(SOURCE_DIR)/libunwind-$(LIBUNWIND_VERSION); \
-	export SYSROOT="/home/879650736/arm-unknown-gcc-build/tools/arm-linux-gnueabihf";\
-	export CC="arm-linux-gnueabihf-gcc"; \
-   	export CXX="arm-linux-gnueabihf-g++"; \
-	export CFLAGS="-I$(SYSROOT_DIR)/include -D_GNU_SOURCE";\
-	export LDFLAGS="-L$(SYSROOT_DIR)/lib -lgcc  -lpthread -static";\
-	./configure   --host=$(TARGET)  \
-	--prefix=$(SYSROOT_DIR)   --enable-static --disable-tests ;   \
-	make && make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/libunwind-install-$(DATE).log || { echo "安装 libunwind 失败！"; exit 1; }; \
-
-libunwind_clean:
-	cd $(SOURCE_DIR)/libunwind-$(LIBUNWIND_VERSION); \
-	make clean
 
 clean:
 	echo "删除无用文件..."
