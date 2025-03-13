@@ -2,7 +2,7 @@
 
 ## 项目概述
 
-本工具链用于构建ARM架构的交叉编译环境，支持arm-linux-gnueabihf目标平台。包含以下核心组件：
+本工具链用于构建ARM架构的交叉编译环境，支持arm-linux-gnueabihf、aarch64-unknown-linux-gnu目标平台。包含以下核心组件：
 
 - GCC 13.2.0
 - Binutils 2.37
@@ -12,20 +12,36 @@
 ## 环境要求
 
 - Linux 操作系统（在ubuntu 18.04、24.04上测试通过）
+- msys2开发环境（在windows10测试通过）
 - 基础开发工具：make, wget, tar, gcc
 - 磁盘空间：至少 10GB 可用空间
 - 内存：推荐 8GB+
 
 ## 建议安装依赖
 
+Debian系
+
 ```bash
 sudo apt update && sudo apt upgrade -y
-	sudo apt-get install -y gcc g++ \
+sudo apt-get install -y gcc g++ \
 	build-essential gperf bison flex texinfo  \
 	help2man make libncurses5-dev  \
 	python3-dev autoconf automake libtool \
 	libtool-bin gawk wget bzip2 xz-utils\
 	unzip dejagnu libcrypt-dev
+```
+
+msys环境
+
+```bash
+pacman -Syu
+pacman -S make gcc flex texinfo unzip  \
+	help2man patch libtool bison autoconf automake \
+	base-devel mingw-w64-x86_64-toolchain \
+	mingw-w64-x86_64-ncurses ncurses-devel\
+	tar gzip xz p7zip coreutils moreutils\
+	rsync autoconf diffutils gawk \
+	git gperf mingw-w64-x86_64-libunwind
 ```
 
 ## 安装步骤
@@ -54,52 +70,7 @@ make init
 make all
 ```
 
-## 分步构建说明
-
-
-| 阶段             | 命令             | 日志文件                          | 说明                            |
-| ---------------- | ---------------- | --------------------------------- | ------------------------------- |
-| Linux头文件安装  | `make linux`     | headers_install-{date}.log        | 安装内核头文件                  |
-| Binutils构建     | `make binutils`  | binutils-configure-{date}.log     | 构建基础工具链                  |
-|                  |                  | binutils-make-{date}.log          |                                 |
-|                  |                  | binutils-make-install-{date}.log  |                                 |
-| 初始GCC构建      | `make pass1-gcc` | pass1-configure-{date}.log        | 构建第一阶段编译器              |
-|                  |                  | pass1-make-all-gcc-{date}.log     |                                 |
-|                  |                  | pass1-make-install-gcc-{date}.log |                                 |
-| Glibc构建        | `make glibc`     | glibc-target-{date}.log           | 配置和安装glibc头文件和启动文件 |
-|                  |                  | glibc-configure-{date}.log        |                                 |
-|                  |                  | glibc-install-headers-{date}.log  |                                 |
-|                  |                  | glibc-make-csu-{date}.log         |                                 |
-|                  |                  | glibc-install-crt-{date}.log      |                                 |
-|                  |                  | glibc-create-libc-{date}.log      |                                 |
-| 编译器支持库构建 | `make libgcc`    | all-target-libgcc-{date}.log      | 安装编译器支持库                |
-|                  |                  | install-target-libgcc-{date}.log  |                                 |
-| 标准C库构建      | `make all-glibc` | all-glibc-make-{date}.log         | 安装标准C库                     |
-|                  |                  | all-glibc-install-{date}.log      |                                 |
-| 最后gcc的构建    | `make libstdc++` | libstdc++-make-{date}.log         | 完成最后的构建                  |
-|                  |                  | libstdc++-install-{date}.log      |                                 |
-
-注意：
-
-- {date} 表示构建日期，格式为 YYYYMMDD
-- 所有日志文件位于 logs/ 目录下
-- 可通过查看对应日志文件排查构建问题
-
-## 测试工具链
-
-```bash
-make test          # 执行完整测试流程
-```
-
-## 维护命令
-
-```bash
-make clean     # 清理中间文件
-make delete    # 完全删除构建目录
-make copy      # 复制源码到构建目录
-```
-
-## 推荐构建顺序
+```##
 
 GMP -> MPFR -> (PPL) -> (ISL) -> (C LOOG) -> (libelf) -> (binutils) -> core pass 1 compiler -> kernel headers -> c library headers and start files -> core pass 2 comiler -> complete c library -> final compiler
 
@@ -129,9 +100,10 @@ GMP -> MPFR -> (PPL) -> (ISL) -> (C LOOG) -> (libelf) -> (binutils) -> core pass
 ## 注意事项
 
 1. 构建过程可能耗时1-3小时，建议使用`-j`参数指定并行任务数：
-   ```bash
+```bash
    make all JOBS=8
-   ```
+```
+
 2. 日志文件保存在`logs/`目录，可用于排查构建问题
 3. 确保网络连接正常以下载源码包
 
@@ -139,5 +111,4 @@ GMP -> MPFR -> (PPL) -> (ISL) -> (C LOOG) -> (libelf) -> (binutils) -> core pass
 
 1. msys解压tar.gz时可能无法解析符号链接，需要使用git 或者使用7zip解压
 2. 需要将windows设为大小写敏感，注册表路径：HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\kernel，将1改为0
-3. mwing64中不存在pthread.h,指定为glibc中的
-
+3. export PATH MSYS=winsymlinks:nativestrict写入~/.bashrc

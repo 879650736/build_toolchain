@@ -190,7 +190,6 @@ init:
     7z x -y $(SOURCE_DIR)/glibc-$(GLIBC_VERSION).tar.gz -so | 7z x -y -si -ttar -o$(SOURCE_DIR) || { echo "解压 glibc 失败！"; rm -rf $(GLIBC_DIR); exit 1; }; \
 	fi
 
-
 # 检查并解压 linux 内核
 	@if [ ! -d $(LINUX_DIR) ]; then \
     echo "解压 linux..."; \
@@ -199,9 +198,6 @@ init:
 	mkdir -p $(TOOLS_DIR); 
 	@echo "解压操作完成，并且完成文件夹的初始化，接下来请执行: make linux"
 
-aaa:
-	cd $(GCC_DIR); \
-	contrib/download_prerequisites;
 
 binutils: init
 	echo "配置和安装 binutils..."
@@ -403,30 +399,6 @@ gcc_full: init
 	PATH="$(TOOLS_DIR)/bin:$$PATH" make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/all-gcc-install-$(DATE).log || { echo "安装 all-glibc 失败！"; exit 1; }; \
 	echo "安装完整gcc完成，接下来请执行: make install_env"
 
-ddd:
-	mkdir -p $(TEST_DIR) && cd $(TEST_DIR); \
-	cd $(TEST_DIR); \
-	$(GCC_DIR)/configure --target=$(TARGET) --prefix=$(TOOLS_DIR) \
-				--with-sysroot=$(SYSROOT_DIR) \
-				--disable-multilib \
-				--disable-libgomp \
-				--disable-libmudflap \
-				--disable-libsanitizer \
-				--disable-lto \
-				--disable-libquadmath \
-				--disable-libquadmath-support \
-				--disable-libssp --disable-nls \
-				--enable-languages=c,c++,go \
-				--enable-threads=posix \
-				--with-ppl=no \
-				--with-isl=no \
-				--with-cloog=no \
-				--with-libelf=no \
-				--enable-libunwind-exceptions \
-				--with-libunwind=yes \
-				--enable-shared \
-				--with-arch=armv8-a
-
 install_env: 
 	echo "安装完成，配置环境变量..."
 	@if ! grep -q "${TOOLS_DIR}/bin" ~/.bashrc; then \
@@ -435,27 +407,21 @@ install_env:
 	. ~/.bashrc;
 	echo "环境变量配置完成! 请手动执行: source ~/.bashrc"
 
-testsuite: init
-	echo "Running GCC Testsuite..."
-	@cd $(GCC_BUILD_DIR); \
-	unset LD_LIBRARY_PATH; \
-	if [ -d $(LOG_DIR) ]; then \
-		echo "Log directory exists."; \
-	else \
-		mkdir -p $(LOG_DIR); \
-		echo "Created log directory."; \
-	fi; \
-	make check-gcc RUNTESTFLAGS="--target_board=unix-aarch64 " 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/testsuite-$(DATE).log; \
-	echo "GCC Testsuite finished. Check $(LOG_DIR)/testsuite-$(DATE).log for results."
-
 compile_test:
 	@echo "Compiling test code with $(TARGET)-gcc..." | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
-	$(TARGET)-gccgo -o test_code/$(TEST_CODE)go test_code/$(TEST_CODE).go | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
-	$(TARGET)-gccgo -static -o test_code/$(TEST_CODE)go_static test_code/$(TEST_CODE).go | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
 	$(TARGET)-gcc  -o test_code/$(TEST_CODE)c test_code/$(TEST_CODE).c | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
-	$(TARGET)-g++ -o test_code/$(TEST_CODE)cpp test_code/$(TEST_CODE).cpp | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
-	aarch64-unknown-linux-gnu-gccgo -o test_code/aarch64_testgo test_code/aarch64_test.go -Wl,-rpath-link=/home/879650736/aarch-gcc-build_a/tools/aarch64-unknown-linux-gnu/lib64 -L/home/879650736/aarch-gcc-build_a/tools/aarch64-unknown-linux-gnu/lib64 -lunwind -lgcc_s -lpthread
-	aarch64-unknown-linux-gnu-gccgo -o -static test_code/aarch64_testgo test_code/aarch64_test.go -Wl,-rpath-link=/home/879650736/aarch-gcc-build_a/tools/aarch64-unknown-linux-gnu/lib64 -L/home/879650736/aarch-gcc-build_a/tools/aarch64-unknown-linux-gnu/lib64 -lunwind -lgcc_s -lpthreadaarch64-unknown-linux-gnu-gccgo -o test_code/aarch64_testgo test_code/aarch64_test.go -static -L/home/879650736/aarch-gcc-build_a/tools/aarch64-unknown-linux-gnu/lib64 /home/879650736/aarch-gcc-build_a/tools/aarch64-unknown-linux-gnu/lib64/libunwind.a -lgcc -lpthread
+
+	$(TARGET)-g++ -o test_code/$(TEST_CODE)cpp test_code/$(TEST_CODE).cpp \
+	-Wl,-rpath-link=$(TOOLS_DIR)/$(TARGET)/lib64 \
+	-L$(TOOLS_DIR)/$(TARGET)/lib64 -lunwind -lgcc_s -lpthread  | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
+
+	$(TARGET)-gccgo -o test_code/$(TEST_CODE)go test_code/$(TEST_CODE).go \
+	-Wl,-rpath-link=$(TOOLS_DIR)/$(TARGET)/lib64 \
+	-L$(TOOLS_DIR)/$(TARGET)/lib64 -lunwind -lgcc_s -lpthread  | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
+
+	$(TARGET)go -o test_code/$(TEST_CODE)go test_code/$(TEST_CODE).go \
+	-static -L$(TOOLS_DIR)/$(TARGET)/lib64 \
+	$(TOOLS_DIR)/$(TARGET)/lib64/libunwind.a -lgcc -lpthread   | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
 	@echo "Compilation completed."
 
 file:
@@ -509,13 +475,6 @@ libunwind:
 libunwind_clean:
 	cd $(LIBUNWIND_BUILD_DIR); \
 	make clean; \
-
-bb:
-	rm -rf  $(LIBUNWIND_DIR); \
-	if [ ! -d $(LIBUNWIND_DIR) ]; then \
-    echo "解压 libunwind..."; \
-    7z x -y $(SOURCE_DIR)/libunwind-$(LIBUNWIND_VERSION).tar.gz -so | 7z x -y -si -ttar -o$(SOURCE_DIR) || { echo "解压 libunwind 失败！"; rm -rf $(LIBUNWIND_DIR); exit 1; }; \
-	fi
 
 clean:
 	echo "删除无用文件..."
