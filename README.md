@@ -110,5 +110,5 @@ GMP -> MPFR -> (PPL) -> (ISL) -> (C LOOG) -> (libelf) -> (binutils) -> core pass
 ### msys2 branch注意事项
 
 1. msys解压tar.gz时可能无法解析符号链接，需要使用git 或者使用7zip解压
-2. 需要将windows设为大小写敏感，注册表路径：HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\kernel，将1改为0
+2. 需要将windows设为大小写敏感，注册表路径：HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\kernel\obcaseinsensitive，将1改为0
 3. export PATH MSYS=winsymlinks:nativestrict写入~/.bashrc
