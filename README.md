@@ -70,7 +70,7 @@ make init
 make all
 ```
 
-```##
+### 构建流程
 
 GMP -> MPFR -> (PPL) -> (ISL) -> (C LOOG) -> (libelf) -> (binutils) -> core pass 1 compiler -> kernel headers -> c library headers and start files -> core pass 2 comiler -> complete c library -> final compiler
 
@@ -83,7 +83,7 @@ GMP -> MPFR -> (PPL) -> (ISL) -> (C LOOG) -> (libelf) -> (binutils) -> core pass
 7. c library headers 和 start files依赖core pass 1 compiler和kernel headers
 8. core pass 1 compiler依赖binutils
 
-## 构建信息
+### 构建信息
 
 1. 一部分主机操作系统需要额外的库：libraries、gettext、libiconv
 2. binutils 可能需要elf2flt，zlib依赖elf2flt
@@ -97,7 +97,7 @@ GMP -> MPFR -> (PPL) -> (ISL) -> (C LOOG) -> (libelf) -> (binutils) -> core pass
 10. GRAPHITE additional libraries: PPL、ISL 、CLooG/PPL
 11. LTO additional libraries： libelf
 
-## 注意事项
+### 注意事项
 
 1. 构建过程可能耗时1-3小时，建议使用`-j`参数指定并行任务数：
 ```bash
