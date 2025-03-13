@@ -98,18 +98,6 @@ code1:
 		wget -nc  $(GLIBC_URL).sig -P $(SOURCE_DIR) || { echo "下载 glibc 签名文件失败！"; exit 1; }; \
 	fi
 	@echo "源码下载完成，接下来请执行: make init"
-check:
-	@echo "检查源码签名..."
-# download the Gnu keyring and import it
-	curl http://ftp.gnu.org/gnu/gnu-keyring.gpg -O
-	gpg --import gnu-keyring.gpg
-
-	@cd $(SOURCE_DIR); \
-	gpg --verify binutils-$(BINUTILS_VERSION).tar.gz.sig || { echo "binutils 签名验证失败！"; exit 1; }; \
-	gpg --verify gcc-$(GCC_VERSION).tar.gz.sig || { echo "gcc 签名验证失败！"; exit 1; }; \
-	gpg --verify glibc-$(GLIBC_VERSION).tar.gz.sig || { echo "glibc 签名验证失败！"; exit 1; }; 
-# gpg --verify linux-$(LINUX_VERSION).tar.xz.sign || { echo "linux 签名验证失败！"; exit 1; }; \
-	@echo "源码签名验证通过，接下来请执行: make init"
 
 init_tar: 
 	echo "解压源码..."
@@ -126,34 +114,6 @@ init_tar:
 	@if [ ! -d $(GLIBC_DIR) ]; then \
 		echo "解压 glibc..."; \
 		tar -zxvf $(SOURCE_DIR)/glibc-$(GLIBC_VERSION).tar.gz -C $(SOURCE_DIR) || { echo "解压 glibc 失败！"; exit 1; }; \
-	fi
-	@if [ ! -d $(LINUX_DIR) ]; then \
-		echo "解压 linux..."; \
-		tar -xvJf $(SOURCE_DIR)/linux-$(LINUX_VERSION).tar.xz -C $(SOURCE_DIR) || { echo "解压 linux 失败！"; exit 1; }; \
-	fi
-	mkdir -p $(TOOLS_DIR); 
-	@echo "解压操作完成，并且完成文件夹的初始化，接下来请执行: make linux"
-
-init_tar1: 
-	echo "解压源码..."
-	@if [ ! -d $(BINUTILS_DIR) ]; then \
-		echo "解压 binutils..."; \
-		tar -zxvf $(SOURCE_DIR)/binutils-$(BINUTILS_VERSION).tar.gz -C $(SOURCE_DIR) || { echo "解压 binutils 失败！"; exit 1; }; \
-	fi
-	@if [ ! -d $(GCC_DIR) ]; then \
-		echo "解压 gcc..."; \
-		tar -zxvf $(SOURCE_DIR)/gcc-$(GCC_VERSION).tar.gz -C $(SOURCE_DIR) || { echo "解压 gcc 失败！"; exit 1; }; \
-		cd $(GCC_DIR); \
-		contrib/download_prerequisites; \
-	fi
-	@if [ ! -d $(GLIBC_DIR) ]; then \
-		echo "解压 glibc..."; \
-		tar -zxvf $(SOURCE_DIR)/glibc-$(GLIBC_VERSION).tar.gz -C $(SOURCE_DIR) || { echo "解压 glibc 失败！"; exit 1; }; \
-	fi
-	@if [ ! -d $(GLIBC_PORTS_DIR) ]; then \
-		echo "解压 glibc-ports..."; \
-		tar -zxvf $(SOURCE_DIR)/glibc-port-$(GLIBC_VERSION).tar.gz -C $(SOURCE_DIR) || { echo "解压 glibc-port 失败！"; exit 1; }; \
-		ln -s glibc-port-$(GLIBC_VERSION) ports; \
 	fi
 	@if [ ! -d $(LINUX_DIR) ]; then \
 		echo "解压 linux..."; \
@@ -190,7 +150,6 @@ init:
     7z x -y $(SOURCE_DIR)/glibc-$(GLIBC_VERSION).tar.gz -so | 7z x -y -si -ttar -o$(SOURCE_DIR) || { echo "解压 glibc 失败！"; rm -rf $(GLIBC_DIR); exit 1; }; \
 	fi
 
-
 # 检查并解压 linux 内核
 	@if [ ! -d $(LINUX_DIR) ]; then \
     echo "解压 linux..."; \
@@ -199,9 +158,6 @@ init:
 	mkdir -p $(TOOLS_DIR); 
 	@echo "解压操作完成，并且完成文件夹的初始化，接下来请执行: make linux"
 
-aaa:
-	cd $(GCC_DIR); \
-	contrib/download_prerequisites;
 
 binutils: init
 	echo "配置和安装 binutils..."
@@ -403,30 +359,6 @@ gcc_full: init
 	PATH="$(TOOLS_DIR)/bin:$$PATH" make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/all-gcc-install-$(DATE).log || { echo "安装 all-glibc 失败！"; exit 1; }; \
 	echo "安装完整gcc完成，接下来请执行: make install_env"
 
-ddd:
-	mkdir -p $(TEST_DIR) && cd $(TEST_DIR); \
-	cd $(TEST_DIR); \
-	$(GCC_DIR)/configure --target=$(TARGET) --prefix=$(TOOLS_DIR) \
-				--with-sysroot=$(SYSROOT_DIR) \
-				--disable-multilib \
-				--disable-libgomp \
-				--disable-libmudflap \
-				--disable-libsanitizer \
-				--disable-lto \
-				--disable-libquadmath \
-				--disable-libquadmath-support \
-				--disable-libssp --disable-nls \
-				--enable-languages=c,c++,go \
-				--enable-threads=posix \
-				--with-ppl=no \
-				--with-isl=no \
-				--with-cloog=no \
-				--with-libelf=no \
-				--enable-libunwind-exceptions \
-				--with-libunwind=yes \
-				--enable-shared \
-				--with-arch=armv8-a
-
 install_env: 
 	echo "安装完成，配置环境变量..."
 	@if ! grep -q "${TOOLS_DIR}/bin" ~/.bashrc; then \
@@ -435,27 +367,21 @@ install_env:
 	. ~/.bashrc;
 	echo "环境变量配置完成! 请手动执行: source ~/.bashrc"
 
-testsuite: init
-	echo "Running GCC Testsuite..."
-	@cd $(GCC_BUILD_DIR); \
-	unset LD_LIBRARY_PATH; \
-	if [ -d $(LOG_DIR) ]; then \
-		echo "Log directory exists."; \
-	else \
-		mkdir -p $(LOG_DIR); \
-		echo "Created log directory."; \
-	fi; \
-	make check-gcc RUNTESTFLAGS="--target_board=unix-aarch64 " 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/testsuite-$(DATE).log; \
-	echo "GCC Testsuite finished. Check $(LOG_DIR)/testsuite-$(DATE).log for results."
-
 compile_test:
 	@echo "Compiling test code with $(TARGET)-gcc..." | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
-	$(TARGET)-gccgo -o test_code/$(TEST_CODE)go test_code/$(TEST_CODE).go | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
-	$(TARGET)-gccgo -static -o test_code/$(TEST_CODE)go_static test_code/$(TEST_CODE).go | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
 	$(TARGET)-gcc  -o test_code/$(TEST_CODE)c test_code/$(TEST_CODE).c | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
-	$(TARGET)-g++ -o test_code/$(TEST_CODE)cpp test_code/$(TEST_CODE).cpp | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
-	aarch64-unknown-linux-gnu-gccgo -o test_code/aarch64_testgo test_code/aarch64_test.go -Wl,-rpath-link=/home/879650736/aarch-gcc-build_a/tools/aarch64-unknown-linux-gnu/lib64 -L/home/879650736/aarch-gcc-build_a/tools/aarch64-unknown-linux-gnu/lib64 -lunwind -lgcc_s -lpthread
-	aarch64-unknown-linux-gnu-gccgo -o -static test_code/aarch64_testgo test_code/aarch64_test.go -Wl,-rpath-link=/home/879650736/aarch-gcc-build_a/tools/aarch64-unknown-linux-gnu/lib64 -L/home/879650736/aarch-gcc-build_a/tools/aarch64-unknown-linux-gnu/lib64 -lunwind -lgcc_s -lpthreadaarch64-unknown-linux-gnu-gccgo -o test_code/aarch64_testgo test_code/aarch64_test.go -static -L/home/879650736/aarch-gcc-build_a/tools/aarch64-unknown-linux-gnu/lib64 /home/879650736/aarch-gcc-build_a/tools/aarch64-unknown-linux-gnu/lib64/libunwind.a -lgcc -lpthread
+
+	$(TARGET)-g++ -o test_code/$(TEST_CODE)cpp test_code/$(TEST_CODE).cpp \
+	-Wl,-rpath-link=$(TOOLS_DIR)/$(TARGET)/lib64 \
+	-L$(TOOLS_DIR)/$(TARGET)/lib64 -lunwind -lgcc_s -lpthread  | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
+
+	$(TARGET)-gccgo -o test_code/$(TEST_CODE)go test_code/$(TEST_CODE).go \
+	-Wl,-rpath-link=$(TOOLS_DIR)/$(TARGET)/lib64 \
+	-L$(TOOLS_DIR)/$(TARGET)/lib64 -lunwind -lgcc_s -lpthread  | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
+
+	$(TARGET)go -o test_code/$(TEST_CODE)go test_code/$(TEST_CODE).go \
+	-static -L$(TOOLS_DIR)/$(TARGET)/lib64 \
+	$(TOOLS_DIR)/$(TARGET)/lib64/libunwind.a -lgcc -lpthread   | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
 	@echo "Compilation completed."
 
 file:
@@ -510,13 +436,6 @@ libunwind_clean:
 	cd $(LIBUNWIND_BUILD_DIR); \
 	make clean; \
 
-bb:
-	rm -rf  $(LIBUNWIND_DIR); \
-	if [ ! -d $(LIBUNWIND_DIR) ]; then \
-    echo "解压 libunwind..."; \
-    7z x -y $(SOURCE_DIR)/libunwind-$(LIBUNWIND_VERSION).tar.gz -so | 7z x -y -si -ttar -o$(SOURCE_DIR) || { echo "解压 libunwind 失败！"; rm -rf $(LIBUNWIND_DIR); exit 1; }; \
-	fi
-
 clean:
 	echo "删除无用文件..."
 	@cd $(SOURCE_DIR); \
@@ -545,24 +464,6 @@ download:
 		wget $(GLIBC_URL) || { echo "下载 glibc 失败！"; exit 1; }; \
 	fi
 
-download1:
-	echo "下载源码..."
-	@if [ ! -f ./binutils-$(BINUTILS_VERSION).tar.gz ] || [ ! -f ./binutils-$(BINUTILS_VERSION).tar.gz.sig ]; then \
-		wget -nc  $(BINUTILS_URL) || { echo "下载 binutils 失败！"; exit 1; }; \
-		wget -nc  $(BINUTILS_URL).sig || { echo "下载 binutils 签名文件失败！"; exit 1; }; \
-	fi
-	@if [ ! -f ./gcc-$(GCC_VERSION).tar.gz ] || [ ! -f ./gcc-$(GCC_VERSION).tar.gz.sig ]; then \
-		wget -nc  $(GCC_URL) || { echo "下载 gcc 失败！"; exit 1; }; \
-		wget -nc  $(GCC_URL).sig|| { echo "下载 gcc 签名文件失败！"; exit 1; }; \
-	fi
-	@if [ ! -f ./linux-$(LINUX_VERSION).tar.xz ] || [ ! -f ./linux-$(LINUX_VERSION).tar.sign ]; then \
-		wget -nc  $(LINUX_URL) || { echo "下载 linux 内核源码失败！"; exit 1; }; \
-		wget -nc  $(LINUX_SIGN_URL) || { echo "下载 linux 签名文件失败！"; exit 1; }; \
-	fi
-	@if [ ! -f ./glibc-$(GLIBC_VERSION).tar.gz ] || [ ! -f ./glibc-$(GLIBC_VERSION).tar.gz.sig ]; then \
-		wget -nc  $(GLIBC_URL) || { echo "下载 glibc 失败！"; exit 1; }; \
-		wget -nc  $(GLIBC_URL).sig || { echo "下载 glibc 签名文件失败！"; exit 1; }; \
-	fi
 
 copy:
 	@mkdir -p $(SOURCE_DIR)
