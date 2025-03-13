@@ -98,18 +98,6 @@ code1:
 		wget -nc  $(GLIBC_URL).sig -P $(SOURCE_DIR) || { echo "下载 glibc 签名文件失败！"; exit 1; }; \
 	fi
 	@echo "源码下载完成，接下来请执行: make init"
-check:
-	@echo "检查源码签名..."
-# download the Gnu keyring and import it
-	curl http://ftp.gnu.org/gnu/gnu-keyring.gpg -O
-	gpg --import gnu-keyring.gpg
-
-	@cd $(SOURCE_DIR); \
-	gpg --verify binutils-$(BINUTILS_VERSION).tar.gz.sig || { echo "binutils 签名验证失败！"; exit 1; }; \
-	gpg --verify gcc-$(GCC_VERSION).tar.gz.sig || { echo "gcc 签名验证失败！"; exit 1; }; \
-	gpg --verify glibc-$(GLIBC_VERSION).tar.gz.sig || { echo "glibc 签名验证失败！"; exit 1; }; 
-# gpg --verify linux-$(LINUX_VERSION).tar.xz.sign || { echo "linux 签名验证失败！"; exit 1; }; \
-	@echo "源码签名验证通过，接下来请执行: make init"
 
 init_tar: 
 	echo "解压源码..."
@@ -126,34 +114,6 @@ init_tar:
 	@if [ ! -d $(GLIBC_DIR) ]; then \
 		echo "解压 glibc..."; \
 		tar -zxvf $(SOURCE_DIR)/glibc-$(GLIBC_VERSION).tar.gz -C $(SOURCE_DIR) || { echo "解压 glibc 失败！"; exit 1; }; \
-	fi
-	@if [ ! -d $(LINUX_DIR) ]; then \
-		echo "解压 linux..."; \
-		tar -xvJf $(SOURCE_DIR)/linux-$(LINUX_VERSION).tar.xz -C $(SOURCE_DIR) || { echo "解压 linux 失败！"; exit 1; }; \
-	fi
-	mkdir -p $(TOOLS_DIR); 
-	@echo "解压操作完成，并且完成文件夹的初始化，接下来请执行: make linux"
-
-init_tar1: 
-	echo "解压源码..."
-	@if [ ! -d $(BINUTILS_DIR) ]; then \
-		echo "解压 binutils..."; \
-		tar -zxvf $(SOURCE_DIR)/binutils-$(BINUTILS_VERSION).tar.gz -C $(SOURCE_DIR) || { echo "解压 binutils 失败！"; exit 1; }; \
-	fi
-	@if [ ! -d $(GCC_DIR) ]; then \
-		echo "解压 gcc..."; \
-		tar -zxvf $(SOURCE_DIR)/gcc-$(GCC_VERSION).tar.gz -C $(SOURCE_DIR) || { echo "解压 gcc 失败！"; exit 1; }; \
-		cd $(GCC_DIR); \
-		contrib/download_prerequisites; \
-	fi
-	@if [ ! -d $(GLIBC_DIR) ]; then \
-		echo "解压 glibc..."; \
-		tar -zxvf $(SOURCE_DIR)/glibc-$(GLIBC_VERSION).tar.gz -C $(SOURCE_DIR) || { echo "解压 glibc 失败！"; exit 1; }; \
-	fi
-	@if [ ! -d $(GLIBC_PORTS_DIR) ]; then \
-		echo "解压 glibc-ports..."; \
-		tar -zxvf $(SOURCE_DIR)/glibc-port-$(GLIBC_VERSION).tar.gz -C $(SOURCE_DIR) || { echo "解压 glibc-port 失败！"; exit 1; }; \
-		ln -s glibc-port-$(GLIBC_VERSION) ports; \
 	fi
 	@if [ ! -d $(LINUX_DIR) ]; then \
 		echo "解压 linux..."; \
@@ -504,24 +464,6 @@ download:
 		wget $(GLIBC_URL) || { echo "下载 glibc 失败！"; exit 1; }; \
 	fi
 
-download1:
-	echo "下载源码..."
-	@if [ ! -f ./binutils-$(BINUTILS_VERSION).tar.gz ] || [ ! -f ./binutils-$(BINUTILS_VERSION).tar.gz.sig ]; then \
-		wget -nc  $(BINUTILS_URL) || { echo "下载 binutils 失败！"; exit 1; }; \
-		wget -nc  $(BINUTILS_URL).sig || { echo "下载 binutils 签名文件失败！"; exit 1; }; \
-	fi
-	@if [ ! -f ./gcc-$(GCC_VERSION).tar.gz ] || [ ! -f ./gcc-$(GCC_VERSION).tar.gz.sig ]; then \
-		wget -nc  $(GCC_URL) || { echo "下载 gcc 失败！"; exit 1; }; \
-		wget -nc  $(GCC_URL).sig|| { echo "下载 gcc 签名文件失败！"; exit 1; }; \
-	fi
-	@if [ ! -f ./linux-$(LINUX_VERSION).tar.xz ] || [ ! -f ./linux-$(LINUX_VERSION).tar.sign ]; then \
-		wget -nc  $(LINUX_URL) || { echo "下载 linux 内核源码失败！"; exit 1; }; \
-		wget -nc  $(LINUX_SIGN_URL) || { echo "下载 linux 签名文件失败！"; exit 1; }; \
-	fi
-	@if [ ! -f ./glibc-$(GLIBC_VERSION).tar.gz ] || [ ! -f ./glibc-$(GLIBC_VERSION).tar.gz.sig ]; then \
-		wget -nc  $(GLIBC_URL) || { echo "下载 glibc 失败！"; exit 1; }; \
-		wget -nc  $(GLIBC_URL).sig || { echo "下载 glibc 签名文件失败！"; exit 1; }; \
-	fi
 
 copy:
 	@mkdir -p $(SOURCE_DIR)
