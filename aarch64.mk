@@ -49,6 +49,8 @@ check:
 	@echo "请修改注册表将windows设为大小写敏感"
 	@echo "注册表路径：HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\
 	\Session Manager\kernel\obcaseinsensitive，将1改为0"
+	@echo "请执行："
+	@echo "export PATH MSYS=winsymlinks:nativestrict >> ~/.bashrc"
 	@echo "请安装依赖："
 	@echo "pacman -Syu"
 	@echo "pacman -S make gcc flex texinfo unzip  \
