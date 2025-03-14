@@ -45,7 +45,22 @@ DATE := $(shell date +%Y%m%d)
 export PATH
 export PATH := $(TOOLS_DIR)/bin:$(PATH)
 
-test1: run_test
+check: 
+	@echo "请修改注册表将windows设为大小写敏感"
+	@echo "注册表路径：HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\
+	\Session Manager\kernel\obcaseinsensitive，将1改为0"
+	@echo "请安装依赖："
+	@echo "pacman -Syu"
+	@echo "pacman -S make gcc flex texinfo unzip  \
+	help2man patch libtool bison autoconf automake \
+	base-devel mingw-w64-x86_64-toolchain \
+	mingw-w64-x86_64-ncurses ncurses-devel\
+	tar gzip xz p7zip coreutils moreutils\
+	rsync autoconf diffutils gawk \
+	git gperf mingw-w64-x86_64-libunwind"
+	@echo "检查完执行 make all"
+	@echo -e "\e[31m如果是执行其他的target跳到这，请检查代码\e[0m"
+
 test: init_env download copy init binutils pass1-gcc linux glibc pass2-gcc glibc_full gcc_full
 all: init_env code init binutils pass1-gcc linux glibc pass2-gcc glibc_full gcc_full install_env compile_test run_test
 

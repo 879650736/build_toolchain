@@ -44,30 +44,6 @@ pacman -S make gcc flex texinfo unzip  \
 	git gperf mingw-w64-x86_64-libunwind
 ```
 
-## 安装步骤
-
-### 1. 初始化构建环境
-
-```bash
-make init_env
-```
-
-### 2. 下载源代码
-
-```bash
-make code
-```
-
-### 3. 解压源码包
-
-```bash
-make init
-```
-
-### 4. 完整构建流程
-
-```bash
-make all
 ```
 
 ```##
@@ -99,13 +75,8 @@ GMP -> MPFR -> (PPL) -> (ISL) -> (C LOOG) -> (libelf) -> (binutils) -> core pass
 
 ## 注意事项
 
-1. 构建过程可能耗时1-3小时，建议使用`-j`参数指定并行任务数：
-```bash
-   make all JOBS=8
-```
-
-2. 日志文件保存在`logs/`目录，可用于排查构建问题
-3. 确保网络连接正常以下载源码包
+1. 日志文件保存在`./logs/`目录，可用于排查构建问题
+2. 确保网络连接正常以下载源码包
 
 ### msys2 branch注意事项
 
