@@ -1,2 +1,2 @@
-include aarch64.mk
+include mips.mk
 

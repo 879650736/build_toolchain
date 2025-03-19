@@ -3,10 +3,12 @@
 /*.pdf
 /logs
 
-
 # 忽略所有子文件夹中的 .tar.* 文件
 **/*.tar.*
 
 /libunwind*
 /*.zip
 libunwind*
+/ewxb
+/x_environment.sh
+/*.gpg

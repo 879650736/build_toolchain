@@ -1,14 +1,14 @@
 # 定义变量
 SHELL := /bin/bash
-TARGET := aarch64-unknown-linux-gnu
-TOOLCHAIN_HOME := $(HOME)/aarch-gcc-build_a
+TARGET := mipsel-unknown-linux-gnu
+TOOLCHAIN_HOME := $(HOME)/mips-gcc-build_a
 SOURCE_DIR := $(TOOLCHAIN_HOME)/source
 TOOLS_DIR := $(TOOLCHAIN_HOME)/tools
 OBJ_DIR := $(TOOLCHAIN_HOME)/obj
 GCC_VERSION ?= 13.2.0
 BINUTILS_VERSION ?= 2.37
 LINUX_VERSION ?= 6.1.10
-GLIBC_VERSION ?= 2.35
+GLIBC_VERSION ?= 2.37
 LIBUNWIND_VERSION ?= 1.8.1
 BINUTILS_DIR := $(SOURCE_DIR)/binutils-$(BINUTILS_VERSION)
 GCC_DIR := $(SOURCE_DIR)/gcc-$(GCC_VERSION)
@@ -35,8 +35,8 @@ LIBUNWIND_URL := https://github.com/libunwind/libunwind/releases/download/v$(LIB
 SYSROOT_DIR := $(TOOLCHAIN_HOME)/sysroot
 LOG_DIR := $(HOME)/build_toolchain/logs
 TEST_DIR := $(TOOLCHAIN_HOME)/test
-TEST_CODE := aarch64_test
-LINUX_ARCH := arm64
+TEST_CODE := mips_test
+LINUX_ARCH := mips
 #glibc版本小于2.16时，需要改为--enable-add-ons=nptl,ports
 ADDONS := --enable-add-ons
 JOBS ?= 
@@ -64,7 +64,8 @@ check:
 	@echo "检查完执行 make all"
 	@echo -e "\e[31m如果是执行其他的target跳到这，请检查代码\e[0m"
 
-test: init_env download copy init binutils pass1-gcc linux glibc pass2-gcc glibc_full gcc_full
+test: init_env download copy init binutils 
+test1: init_env download copy init_tar binutils 
 all: init_env code init binutils pass1-gcc linux glibc pass2-gcc glibc_full gcc_full install_env compile_test run_test
 
 test_code: install_env compile_test run_test
@@ -187,7 +188,6 @@ binutils: init
 		--with-sysroot=$(SYSROOT_DIR) \
 		--disable-multilib \
 		--disable-werror \
-		--with-arch=armv8-a \
 		-v 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/binutils-configure-$(DATE).log || { echo "配置 binutils 失败！"; exit 1; }; \
 	make $(JOBS) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/binutils-make-$(DATE).log || { echo "构建 binutils 失败！"; exit 1; }; \
 	make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/binutils-make-install-$(DATE).log || { echo "安装 binutils 失败！"; exit 1; }; \
@@ -215,7 +215,7 @@ pass1-gcc: init
 				--disable-libquadmath-support \
 				--enable-languages=c \
 				--without-headers \
-				--with-arch=armv8-a  2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-configure-$(DATE).log || { echo "配置 pass1-gcc 失败！"; exit 1; }; \
+				  2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-configure-$(DATE).log || { echo "配置 pass1-gcc 失败！"; exit 1; }; \
 	PATH="$(TOOLS_DIR)/bin:$$PATH" make $(JOBS) all-gcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-make-all-gcc-$(DATE).log || { echo "构建 pass1-gcc 失败！"; exit 1; }; \
 	PATH="$(TOOLS_DIR)/bin:$$PATH" make install-gcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-make-install-gcc-$(DATE).log || { echo "安装 pass1-gcc 失败！"; exit 1; }; \
 	echo "安装 C/C++ 编译器完成，接下来请执行: make linux"
@@ -258,7 +258,6 @@ glibc: init
 		--with-binutils=$(TOOLS_DIR)/$(TARGET)/bin \
 		$(ADDONS)\
 		--enable-kernel=$(LINUX_VERSION) \
-		--with-arch=armv8-a \
 		--disable-multilib \
 		--disable-profile \
 		--disable-werror \
@@ -266,6 +265,7 @@ glibc: init
 		libc_cv_ctors_header=yes \
 		libc_cv_forced_unwind=yes \
 		libc_cv_gcc_builtin_expect=yes \
+		libc_cv_mips_tls=yes \
 		libc_cv_c_cleanup=yes \
 		-v 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/glibc-configure-$(DATE).log || { echo "配置 glibc 失败！"; exit 1; }; \
 	make install-bootstrap-headers=yes install-headers install_root=$(SYSROOT_DIR) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/glibc-install-headers-$(DATE).log || { echo "安装 glibc headers 失败！" ; exit 1;}; \
@@ -307,7 +307,7 @@ pass2-gcc: init
 				--with-cloog=no \
 				--with-libelf=no \
 				--disable-libatomic \
-				--with-arch=armv8-a  2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass2-configure-$(DATE).log || { echo "配置 pass1-gcc 失败！"; exit 1; }; \
+				  2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass2-configure-$(DATE).log || { echo "配置 pass1-gcc 失败！"; exit 1; }; \
 	cd $(GCC2_BUILD_DIR); \
 	PATH="$(TOOLS_DIR)/bin:$$PATH" make $(JOBS)  2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass2-make-all-gcc-$(DATE).log || { echo "构建 pass1-gcc 失败！"; exit 1; }; \
 	PATH="$(TOOLS_DIR)/bin:$$PATH" make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass2-make-install-gcc-$(DATE).log || { echo "安装 pass1-gcc 失败！"; exit 1; }; \
@@ -371,7 +371,7 @@ gcc_full: init
 				--enable-libunwind-exceptions \
 				--with-libunwind=yes \
 				--enable-shared \
-				--with-arch=armv8-a  2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/full_gcc-configure-$(DATE).log || { echo "配置完整gcc失败！"; exit 1; }; \
+				2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/full_gcc-configure-$(DATE).log || { echo "配置完整gcc失败！"; exit 1; }; \
 	cd $(GCC3_BUILD_DIR); \
 	PATH="$(TOOLS_DIR)/bin:$$PATH" make $(JOBS) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/all-gcc-make-$(DATE).log || { echo "编译 all-glibc 失败！"; exit 1; }; \
 	PATH="$(TOOLS_DIR)/bin:$$PATH" make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/all-gcc-install-$(DATE).log || { echo "安装 all-glibc 失败！"; exit 1; }; \
@@ -384,6 +384,17 @@ install_env:
 	fi
 	. ~/.bashrc;
 	echo "环境变量配置完成! 请手动执行: source ~/.bashrc"
+
+compile_test1:
+	@echo "Compiling test code with $(TARGET)-gcc..." | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
+	$(TARGET)-gcc  -o test_code/$(TEST_CODE)c test_code/$(TEST_CODE).c | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
+
+	$(TARGET)-g++ -o test_code/$(TEST_CODE)cpp test_code/$(TEST_CODE).cpp  | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
+
+	$(TARGET)-gccgo -o test_code/$(TEST_CODE)go test_code/$(TEST_CODE).go | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
+
+	$(TARGET)go -o test_code/$(TEST_CODE)go test_code/$(TEST_CODE).go | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
+	@echo "Compilation completed."
 
 compile_test:
 	@echo "Compiling test code with $(TARGET)-gcc..." | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
@@ -416,12 +427,12 @@ ldd:
 	ldd test_code/$(TEST_CODE)go | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/ldd-target-$(DATE).log
 #ldd test_code/$(TEST_CODE)_static > static_ldd.log 2>&1 | tee -a $(LOG_DIR)/ldd-target.log
 run_test:
-	@echo "Running compiled binary with qemu-aarch64..." | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
+	@echo "Running compiled binary with qemu-mips..." | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
 	@echo "begin first test" | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
-	qemu-aarch64 -L $(TOOLS_DIR)/$(TARGET) test_code/$(TEST_CODE) | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
+	qemu-mips -L $(TOOLS_DIR)/$(TARGET) test_code/$(TEST_CODE) | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
 	@echo "=========================================" | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
 	@echo "begin static test" | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
-	qemu-aarch64 -L $(TOOLS_DIR)/$(TARGET) test_code/$(TEST_CODE)_static | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
+	qemu-mips -L $(TOOLS_DIR)/$(TARGET) test_code/$(TEST_CODE)_static | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
 	@echo "Test execution completed." | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
 
 libunwind:
@@ -436,7 +447,6 @@ libunwind:
 	@if [ ! -d $(LIBUNWIND_DIR) ]; then \
     	echo "解压 libunwind..."; \
     	7z x -y $(SOURCE_DIR)/libunwind-$(LIBUNWIND_VERSION).tar.gz -so | 7z x -y -si -ttar -o$(SOURCE_DIR) || { echo "解压 libunwind 失败！"; rm -rf $(LIBUNWIND_DIR); exit 1; }; \
-		patch $(LIBUNWIND_DIR)/src/aarch64/Gos-linux.c < Gos-linux.patch;\
 	fi
 	
 	cd $(LIBUNWIND_BUILD_DIR);\
@@ -496,3 +506,5 @@ copy1:
 	cp $(HOME)/build_toolchain/*.tar.sign $(SOURCE_DIR)
 	cp $(HOME)/build_toolchain/*.tar.gz.sig $(SOURCE_DIR)
 
+rm_log:
+	find $(LOG_DIR) -name "*.log" -mtime +2 -exec rm -rf {} \;
