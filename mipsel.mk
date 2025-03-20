@@ -1,6 +1,6 @@
 # 定义变量
 SHELL := /bin/bash
-TARGET := mips-unknown-linux-gnu
+TARGET := mipsel-unknown-linux-gnu
 TOOLCHAIN_HOME := $(HOME)/mips-gcc-build_a
 SOURCE_DIR := $(TOOLCHAIN_HOME)/source
 TOOLS_DIR := $(TOOLCHAIN_HOME)/tools
