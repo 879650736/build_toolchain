@@ -397,7 +397,7 @@ compile_test:
 	-Wl,-rpath-link=$(TOOLS_DIR)/$(TARGET)/lib64 \
 	-L$(TOOLS_DIR)/$(TARGET)/lib64 -lunwind -lgcc_s -lpthread  | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
 
-	$(TARGET)go -o test_code/$(TEST_CODE)go test_code/$(TEST_CODE).go \
+	$(TARGET)-gccgo -o test_code/$(TEST_CODE)go_static test_code/$(TEST_CODE).go \
 	-static -L$(TOOLS_DIR)/$(TARGET)/lib64 \
 	$(TOOLS_DIR)/$(TARGET)/lib64/libunwind.a -lgcc -lpthread   | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/compile_test-$(DATE).log
 	@echo "Compilation completed."
