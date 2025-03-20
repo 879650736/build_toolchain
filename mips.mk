@@ -432,7 +432,7 @@ run_test:
 	qemu-mips -L $(TOOLS_DIR)/$(TARGET) test_code/$(TEST_CODE)go | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
 	@echo "=========================================" | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
 	@echo "begin static test" | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
-	qemu-mips -L $(TOOLS_DIR)/$(TARGET) test_code/$(TEST_CODE)gp_static | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
+	qemu-mips -L $(TOOLS_DIR)/$(TARGET) test_code/$(TEST_CODE)go_static | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
 	@echo "Test execution completed." | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/run_test-target-$(DATE).log
 
 libunwind:
