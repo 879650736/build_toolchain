@@ -1,2 +1,2 @@
-include mips.mk
+include aarch64_uclibc.mk
 
