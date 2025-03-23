@@ -1,0 +1,11 @@
+--- /home/ssy/aarch-gcc-build_a/source/gcc-4.9.4/libgo/runtime/proc.c	2025-03-22 21:11:41.865281712 +0800
++++ ./proc.c	2025-03-22 21:12:33.560879770 +0800
+@@ -13,7 +13,7 @@
+ #ifdef HAVE_DL_ITERATE_PHDR
+ #include <link.h>
+ #endif
+-
++#include "ucontext.h"
+ #include "runtime.h"
+ #include "arch.h"
+ #include "defs.h"

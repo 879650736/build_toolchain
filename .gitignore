@@ -12,3 +12,4 @@ libunwind*
 /ewxb
 /x_environment.sh
 /*.gpg
+/uClibc*

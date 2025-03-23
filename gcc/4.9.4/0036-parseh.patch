@@ -1,0 +1,11 @@
+--- a/gcc/go/gofrontend/parse.h
++++ b/gcc/go/gofrontend/parse.h
+@@ -126,7 +126,7 @@
+   struct Enclosing_var_comparison
+   {
+     bool
+-    operator()(const Enclosing_var&, const Enclosing_var&);
++    operator()(const Enclosing_var&, const Enclosing_var&) const;
+   };
+ 
+   // A set of Enclosing_var entries.

@@ -1,0 +1,11 @@
+--- a/libgo/runtime/proc.c
++++ b/libgo/runtime/proc.c
+@@ -13,7 +13,7 @@
+ #ifdef HAVE_DL_ITERATE_PHDR
+ #include <link.h>
+ #endif
+-
++#include <ucontext.h>
+ #include "runtime.h"
+ #include "arch.h"
+ #include "defs.h"

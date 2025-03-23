@@ -7,7 +7,7 @@ SOURCE_DIR := $(TOOLCHAIN_HOME)/source
 TOOLS_DIR := $(TOOLCHAIN_HOME)/tools
 OBJ_DIR := $(TOOLCHAIN_HOME)/obj
 GCC_VERSION ?= 4.9.4
-BINUTILS_VERSION ?= 2.24
+BINUTILS_VERSION ?= 2.27
 LINUX_VERSION ?= 4.1.49
 UCLIBC_VERSION ?= 1.0.30
 LIBUNWIND_VERSION ?= 1.8.1
@@ -29,6 +29,7 @@ BINUTILS_URL := https://ftp.gnu.org/gnu/binutils/binutils-$(BINUTILS_VERSION).ta
 LINUX_URL := https://www.kernel.org/pub/linux/kernel/v4.x/linux-$(LINUX_VERSION).tar.gz
 UCLIBC_URL := https://downloads.uclibc-ng.org/releases/$(UCLIBC_VERSION)/uClibc-ng-$(UCLIBC_VERSION).tar.gz
 LIBUNWIND_URL := https://github.com/libunwind/libunwind/releases/download/v$(LIBUNWIND_VERSION)/libunwind-$(LIBUNWIND_VERSION).tar.gz
+BUILD_LIB_DIR := $(TOOLCHAIN_HOME)/build_lib
 SYSROOT_DIR := $(TOOLCHAIN_HOME)/sysroot
 LOG_DIR := $(HOME)/build_toolchain/logs
 TEST_DIR := $(TOOLCHAIN_HOME)/test
@@ -59,7 +60,7 @@ check:
 	@echo "检查完执行 make all"
 	@echo -e "\e[31m如果是执行其他的target跳到这，请检查代码\e[0m"
 
-test: init_env download copy init_tar patch binutils linux
+test: init_env download copy init_tar patch binutils
 #all: init_env code init binutils pass1-gcc linux uclibc pass2-gcc uclibc_full gcc_full install_env compile_test run_test
 aa: init_env download copy init_tar
 test_code: install_env compile_test run_test
@@ -67,7 +68,8 @@ test_code: install_env compile_test run_test
 init_env:
 	mkdir -p $(LOG_DIR)
 	mkdir -p $(TOOLCHAIN_HOME) $(SOURCE_DIR) $(TOOLS_DIR) \
-	$(SYSROOT_DIR) $(SYSROOT_DIR)/usr/include 
+	$(SYSROOT_DIR) $(SYSROOT_DIR)/usr/include  $(OBJ_DIR) \
+	$(BUILD_LIB_DIR) $(TEST_DIR)
 	@echo "环境初始化完成，接下来请执行: make init"
 
 code:
@@ -111,13 +113,13 @@ init_tar:
 	@echo "解压操作完成，并且完成文件夹的初始化，接下来请执行: make binutils"
 
 init: 
-# 检查并解压 binutils
+	# 检查并解压 binutils
 	@if [ ! -d $(BINUTILS_DIR) ]; then \
     echo "解压 binutils..."; \
     7z x -y $(SOURCE_DIR)/binutils-$(BINUTILS_VERSION).tar.gz -so | 7z x -y -si -ttar -o$(SOURCE_DIR) || { echo "解压 binutils 失败！"; rm -rf $(BINUTILS_DIR); exit 1; }; \
 	fi
 
-# 检查并解压 gcc
+	# 检查并解压 gcc
 	@if [ ! -d $(GCC_DIR) ]; then \
     echo "解压 gcc..."; \
     7z x -y $(SOURCE_DIR)/gcc-$(GCC_VERSION).tar.gz -so | 7z x -y -si -ttar -o$(SOURCE_DIR) || { echo "解压 gcc 失败！"; rm -rf $(GCC_DIR); exit 1; }; \
@@ -125,14 +127,13 @@ init:
 	contrib/download_prerequisites; \
 	fi
 
-
-# 检查并解压 uclibc
+	# 检查并解压 uclibc
 	@if [ ! -d $(UCLIBC_DIR) ]; then \
     echo "解压 uclibc..."; \
     7z x -y $(SOURCE_DIR)/uClibc-ng-$(UCLIBC_VERSION).tar.gz -so | 7z x -y -si -ttar -o$(SOURCE_DIR) || { echo "解压 uclibc 失败！"; rm -rf $(UCLIBC_DIR); exit 1; }; \
 	fi
 
-# 检查并解压 linux 内核
+	# 检查并解压 linux 内核
 	@if [ ! -d $(LINUX_DIR) ]; then \
     echo "解压 linux..."; \
     7z x -y $(SOURCE_DIR)/linux-$(LINUX_VERSION).tar.gz -so | 7z x -y -si -ttar -o$(SOURCE_DIR) || { echo "解压 linux 失败！"; rm -rf $(LINUX_DIR); exit 1; }; \
@@ -149,6 +150,14 @@ patch:
 			exit 1; \
 		fi; \
 	done
+	cd $(BINUTILS_DIR) && \
+	find "$(WORK_DIR)/binutils/$(BINUTILS_VERSION)/" -name "*.patch" -type f | sort -n | while read -r patch; do \
+		echo "应用补丁: $$(basename "$$patch")"; \
+		if ! /usr/bin/patch --no-backup-if-mismatch -g0 -F1 -p1 -f -i "$$patch"; then \
+			echo "错误：补丁应用失败 - $$patch"; \
+			exit 1; \
+		fi; \
+	done
 	@echo "所有补丁已成功应用！"
 
 
@@ -158,11 +167,20 @@ binutils: init
 		rm -rf $(BINUTILS_BUILD_DIR); \
 	fi; \
 	mkdir -p $(BINUTILS_BUILD_DIR) && cd $(BINUTILS_BUILD_DIR); \
+	export LDFLAGS="-L$(BUILD_LIB_DIR)" ;\
+	export LDFLAGS_FOR_BUILD="-L$(BUILD_LIB_DIR)" ;\
+	export LDFLAGS_FOR_TARGET= "-static";\
+	cd $(BINUTILS_BUILD_DIR); \
 	$(BINUTILS_DIR)/configure --target=$(TARGET) --prefix=$(TOOLS_DIR) \
 		--with-sysroot=$(SYSROOT_DIR) \
 		--disable-multilib \
+		--enable-ld=yes \
+		--enable-gold=no \
+		--disable-sim \
+		--disable-gdb \
+		--disable-nls \
+		--without-zstd \
 		--disable-werror \
-		--with-arch=armv8-a \
 		-v 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/binutils-configure-$(DATE).log || { echo "配置 binutils 失败！"; exit 1; }; \
 	make $(JOBS) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/binutils-make-$(DATE).log || { echo "构建 binutils 失败！"; exit 1; }; \
 	make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/binutils-make-install-$(DATE).log || { echo "安装 binutils 失败！"; exit 1; }; \
@@ -178,7 +196,7 @@ linux: init
 	cd $(LINUX_BUILD_DIR); \
 	make clean; \
 	make ARCH=$(LINUX_ARCH) INSTALL_HDR_PATH=$(SYSROOT_DIR)/usr \
-	CROSS_COMPILE=$(TARGET) headers_install \
+	CROSS_COMPILE=$(TARGET) CROSS_COMPILE=$(TARGET)- headers_install \
 	2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/headers_install-$(DATE).log || \
 	(echo "安装 Linux 内核头文件失败！" && exit 1)
 	echo "Linux 内核头文件安装完成，接下来请执行: make pass1-gcc"
@@ -189,33 +207,32 @@ pass1-gcc: init
 		rm -rf $(GCC1_BUILD_DIR); \
 	fi; 
 	mkdir -p $(GCC1_BUILD_DIR) && cd $(GCC1_BUILD_DIR); \
+	export LDFLAGS="-L$(BUILD_LIB_DIR)" ;\
+	export LDFLAGS_FOR_TARGET= "-static";\
+	cd $(GCC1_BUILD_DIR); \
 	$(GCC_DIR)/configure --target=$(TARGET) --prefix=$(TOOLS_DIR) \
 				--disable-multilib \
-				--disable-libsanitizer \
-				--disable-lto --disable-libmudflap \
-				--disable-libmpx \
+				--disable-libmudflap \
 				--disable-libstdcxx \
 				--with-newlib \
 				--disable-nls \
-				--disable-libgcc \
 				--disable-shared \
-				--disable-threads \
-				--disable-libssp \
 				--disable-libgomp \
 				--disable-libmudflap \
 				--disable-libquadmath \
-				--with-isl=no\
+				--disable-__cxa_atexit \
+				--disable-tm-clone-registry\
 				--with-cloog=no\
+				--with-isl=no\
+				--with-system-zlib\
 				--disable-lto\
 				--disable-plugin\
 				--disable-nls\
 				--disable-libquadmath-support \
 				--enable-threads=no\
-				--disable-shared \
 				--enable-languages=c \
-				--without-headers \
 				--disable-werror \
-				--with-arch=armv8-a  2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-configure-$(DATE).log || { echo "配置 pass1-gcc 失败！"; exit 1; }; \
+				2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-configure-$(DATE).log || { echo "配置 pass1-gcc 失败！"; exit 1; }; \
 	cd $(GCC1_BUILD_DIR); \
 	PATH="$(TOOLS_DIR)/bin:$$PATH" make configure-gcc configure-libcpp configure-build-libiberty 2>&1 | ts '[%Y-%m-%d %H:%M:%S]'  | tee -a $(LOG_DIR)/pass1-configure-gcc-$(DATE).log || { echo "构建 pass1-gcc 失败！"; exit 1; }; \
 	cd $(GCC1_BUILD_DIR); \
@@ -235,10 +252,10 @@ pass1-gcc: init
 	cd $(GCC1_BUILD_DIR); \
 	PATH="$(TOOLS_DIR)/bin:$$PATH" make install-gcc install-target-libgcc 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass1-make-install-gcc-$(DATE).log || { echo "安装 pass1-gcc 失败！"; exit 1; }; \
 	
-	cp -r $(TOOLS_DIR)/lib $(SYSROOT_DIR)/ ; \
+
 	echo "安装 C/C++ 编译器完成，接下来请执行: make uclibc"
 
-
+#cp -r $(TOOLS_DIR)/lib $(SYSROOT_DIR)/ 
 uclibc: init
 	echo "配置和安装 uclibc 头文件和启动文件..." 
 	if [ -d $(UCLIBC_HEADER_BUILD_DIR) ]; then \
@@ -253,32 +270,33 @@ uclibc: init
 	cp $(UCLIBC_HEADER_BUILD_DIR)/.config $(UCLIBC_HEADER_BUILD_DIR)/.config.copy;\
 	cd $(UCLIBC_HEADER_BUILD_DIR) ;\
 	make CROSS_COMPILE=$(TARGET)- PREFIX=$(SYSROOT_DIR) \
-	STRIPTOOL=true olddefconfig \
+	STRIPTOOL=true UCLIBC_EXTRA_CFLAGS=-pipe olddefconfig \
 	-v 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/uclibc-configure-$(DATE).log || { echo "配置 uclibc 失败！"; exit 1; }; \
 
 	cd $(UCLIBC_HEADER_BUILD_DIR); \
 	PATH="$(TOOLS_DIR)/bin:$$PATH" make CROSS_COMPILE=$(TARGET)- PREFIX=$(SYSROOT_DIR) \
-	STRIPTOOL=true  \
+	STRIPTOOL=true \
 	pregen 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/uclibc-install-headers-$(DATE).log || { echo "安装 uclibc headers 失败！" ; exit 1;}; \
-	
-	cd $(UCLIBC_HEADER_BUILD_DIR); \
-	PATH="$(TOOLS_DIR)/bin:$$PATH" make CROSS_COMPILE=$(TARGET)- PREFIX=$(SYSROOT_DIR) \
-	STRIPTOOL=true  all  | tee -a $(LOG_DIR)/uclibc-all-$(DATE).log || { echo "安装 uclibc all 失败！" ; exit 1;}; \
 
 	cd $(UCLIBC_HEADER_BUILD_DIR); \
 	PATH="$(TOOLS_DIR)/bin:$$PATH" make CROSS_COMPILE=$(TARGET)- PREFIX=$(SYSROOT_DIR) \
-	STRIPTOOL=true UCLIBC_EXTRA_CFLAGS=-pipe install install_utils\
+	STRIPTOOL=true UCLIBC_EXTRA_CFLAGS=-pipe all  2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/uclibc-all-$(DATE).log || { echo "安装 uclibc all 失败！" ; exit 1;}; \
+
+	cd $(UCLIBC_HEADER_BUILD_DIR); \
+	PATH="$(TOOLS_DIR)/bin:$$PATH" make CROSS_COMPILE=$(TARGET)- PREFIX=$(SYSROOT_DIR) \
+	STRIPTOOL=true UCLIBC_EXTRA_CFLAGS=-pipe install install_utils \
 	2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/uclibc-install-utils-$(DATE).log || { echo "安装 uclibc install_utils 失败！" ; exit 1;}; \
 	export LD_LIBRARY_PATH="$$LD_LIBRARY_PATH_old";
 	echo "安装标准 C 库头文件和启动文件成功，接下来请执行: make pass2-gcc"
-
-
 pass2-gcc: init
 	echo "配置和安装 pass2-gcc..."
 	if [ -d $(GCC2_BUILD_DIR) ]; then \
 		rm -rf $(GCC2_BUILD_DIR); \
 	fi; 
 	mkdir -p $(GCC2_BUILD_DIR) && cd $(GCC2_BUILD_DIR); \
+	export LDFLAGS="-L$(BUILD_LIB_DIR)" ;\
+	export LDFLAGS_FOR_TARGET= "-static";\
+	cd $(GCC2_BUILD_DIR); \
 	$(GCC_DIR)/configure --target=$(TARGET) --prefix=$(TOOLS_DIR) \
 				--with-sysroot=$(SYSROOT_DIR) \
 				--disable-multilib \
@@ -299,49 +317,53 @@ pass2-gcc: init
 				--disable-libmpx \
 				--without-zstd \
 				--disable-plugin\
-				--with-arch=armv8-a  2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass2-configure-$(DATE).log || { echo "配置 pass1-gcc 失败！"; exit 1; }; \
+				--disable-tm-clone-registry \
+				--enable-libunwind-exceptions \
+				--with-libunwind=yes \
+				--enable-shared \
+				--disable-werror \
+				2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass2-configure-$(DATE).log || { echo "配置 pass1-gcc 失败！"; exit 1; }; \
 	cd $(GCC2_BUILD_DIR); \
+	export CFLAGS="-fPIC -Os";\
 	PATH="$(TOOLS_DIR)/bin:$$PATH" make $(JOBS)  2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass2-make-all-gcc-$(DATE).log || { echo "构建 pass1-gcc 失败！"; exit 1; }; \
+	
+	echo "安装 C/C++ 编译器完成，接下来请执行: make uclibc_full"
+cc:
 	PATH="$(TOOLS_DIR)/bin:$$PATH" make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/pass2-make-install-gcc-$(DATE).log || { echo "安装 pass1-gcc 失败！"; exit 1; }; \
 	
 	cp -r $(TOOLS_DIR)/lib $(SYSROOT_DIR)/ ; \
 	cp -r $(TOOLS_DIR)/$(TARGET)/lib $(SYSROOT_DIR)/ ; \
 	cp -r $(TOOLS_DIR)/$(TARGET)/lib64 $(SYSROOT_DIR)/; \
-	echo "安装 C/C++ 编译器完成，接下来请执行: make uclibc_full"
-
 uclibc_full: init
 	echo "安装完整uclibc."
-	if [ -d $(UCLIBC_BUILD_DIR) ]; then \
-		rm -rf $(UCLIBC_BUILD_DIR); \
+	if [ -d $(UCLIBC_HEADER_BUILD_DIR) ]; then \
+		rm -rf $(UCLIBC_HEADER_BUILD_DIR); \
 	fi; 
-	mkdir -p $(UCLIBC_BUILD_DIR) && cd $(UCLIBC_BUILD_DIR); \
+	mkdir -p $(UCLIBC_HEADER_BUILD_DIR) && cd $(UCLIBC_HEADER_BUILD_DIR); \
 	LD_LIBRARY_PATH_old="$$LD_LIBRARY_PATH" ;\
 	unset LD_LIBRARY_PATH ;\
-	cd $(UCLIBC_BUILD_DIR); \
-	cp $(WORK_DIR)/.config $(UCLIBC_BUILD_DIR);\
-	cp $(UCLIBC_BUILD_DIR)/.config $(UCLIBC_BUILD_DIR)/.config.copy;\
-	BUILD_CC=gcc \
-	CC=$(TOOLS_DIR)/bin/$(TARGET)-gcc \
-	CXX=$(TOOLS_DIR)/bin/$(TARGET)-g++ \
-	AR=$(TOOLS_DIR)/bin/$(TARGET)-ar \
-	RANLIB=$(TOOLS_DIR)/bin/$(TARGET)-ranlib \
+	cd $(UCLIBC_HEADER_BUILD_DIR); \
+	cp -av $(UCLIBC_DIR)/* $(UCLIBC_HEADER_BUILD_DIR) ;\
+	cp $(WORK_DIR)/.config $(UCLIBC_HEADER_BUILD_DIR);\
+	cp $(UCLIBC_HEADER_BUILD_DIR)/.config $(UCLIBC_HEADER_BUILD_DIR)/.config.copy;\
+	cd $(UCLIBC_HEADER_BUILD_DIR) ;\
 	make CROSS_COMPILE=$(TARGET)- PREFIX=$(SYSROOT_DIR) \
 	STRIPTOOL=true olddefconfig \
 	-v 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/uclibc-configure-$(DATE).log || { echo "配置 uclibc 失败！"; exit 1; }; \
-	cd $(UCLIBC_BUILD_DIR); \
+
+	cd $(UCLIBC_HEADER_BUILD_DIR); \
 	PATH="$(TOOLS_DIR)/bin:$$PATH" make CROSS_COMPILE=$(TARGET)- PREFIX=$(SYSROOT_DIR) \
 	STRIPTOOL=true UCLIBC_EXTRA_CFLAGS=-pipe \
 	pregen 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/uclibc-install-headers-$(DATE).log || { echo "安装 uclibc headers 失败！" ; exit 1;}; \
-	
-	cd $(UCLIBC_BUILD_DIR); \
-	PATH="$(TOOLS_DIR)/bin:$$PATH" make CROSS_COMPILE=$(TARGET)- PREFIX=$(SYSROOT_DIR) \
-	STRIPTOOL=true UCLIBC_EXTRA_CFLAGS=-pipe all  | tee -a $(LOG_DIR)/uclibc-all-$(DATE).log || { echo "安装 uclibc all 失败！" ; exit 1;}; \
 
-	cd $(UCLIBC_BUILD_DIR); \
+	cd $(UCLIBC_HEADER_BUILD_DIR); \
 	PATH="$(TOOLS_DIR)/bin:$$PATH" make CROSS_COMPILE=$(TARGET)- PREFIX=$(SYSROOT_DIR) \
-	STRIPTOOL=true UCLIBC_EXTRA_CFLAGS=-pipe install install_utils\
+	STRIPTOOL=true UCLIBC_EXTRA_CFLAGS=-pipe all  2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/uclibc-all-$(DATE).log || { echo "安装 uclibc all 失败！" ; exit 1;}; \
+
+	cd $(UCLIBC_HEADER_BUILD_DIR); \
+	PATH="$(TOOLS_DIR)/bin:$$PATH" make CROSS_COMPILE=$(TARGET)- PREFIX=$(SYSROOT_DIR) \
+	STRIPTOOL=true UCLIBC_EXTRA_CFLAGS=-pipe install install_utils \
 	2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/uclibc-install-utils-$(DATE).log || { echo "安装 uclibc install_utils 失败！" ; exit 1;}; \
-
 	export LD_LIBRARY_PATH="$$LD_LIBRARY_PATH_old";
 	echo "安装完整uclibc完成,接下来请执行: make gcc_full"
 
@@ -351,6 +373,9 @@ gcc_full: init
 		rm -rf $(GCC3_BUILD_DIR); \
 	fi; 
 	mkdir -p $(GCC3_BUILD_DIR) && cd $(GCC3_BUILD_DIR); \
+	cd $(GCC3_BUILD_DIR); \
+	export LDFLAGS="-L$(BUILD_LIB_DIR)" ;\
+	export LDFLAGS_FOR_TARGET= "-static";\
 	cd $(GCC3_BUILD_DIR); \
 	$(GCC_DIR)/configure --target=$(TARGET) --prefix=$(TOOLS_DIR) \
 				--with-sysroot=$(SYSROOT_DIR) \
@@ -364,6 +389,11 @@ gcc_full: init
 				--disable-libssp --disable-nls \
 				--enable-languages=c,c++,go \
 				--enable-threads=posix \
+				--disable-__cxa_atexit \
+				--disable-tm-clone-registry \
+				--without-zstd \
+				--with-system-zlib \
+				--disable-plugin \
 				--with-ppl=no \
 				--with-isl=no \
 				--with-cloog=no \
@@ -371,8 +401,10 @@ gcc_full: init
 				--enable-libunwind-exceptions \
 				--with-libunwind=yes \
 				--enable-shared \
-				--with-arch=armv8-a  2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/full_gcc-configure-$(DATE).log || { echo "配置完整gcc失败！"; exit 1; }; \
+				--disable-werror \
+				2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/full_gcc-configure-$(DATE).log || { echo "配置完整gcc失败！"; exit 1; }; \
 	cd $(GCC3_BUILD_DIR); \
+	export CXXFLAGS="-std=c++03";\
 	PATH="$(TOOLS_DIR)/bin:$$PATH" make $(JOBS) 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/all-gcc-make-$(DATE).log || { echo "编译 all-uclibc 失败！"; exit 1; }; \
 	PATH="$(TOOLS_DIR)/bin:$$PATH" make install 2>&1 | ts '[%Y-%m-%d %H:%M:%S]' | tee -a $(LOG_DIR)/all-gcc-install-$(DATE).log || { echo "安装 all-uclibc 失败！"; exit 1; }; \
 	echo "安装完整gcc完成，接下来请执行: make install_env"
